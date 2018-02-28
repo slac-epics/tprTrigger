@@ -1,0 +1,128 @@
+record(bo, "$(DEVICE):TRG$(NN):LCLS1ENABLE")
+{
+    field(DESC, "LCLS1 Trigger $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) trgEnable_T$(N)LCLS1")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(bo, "$(DEVICE):TRG$(NN):LCLS2ENABLE")
+{
+    field(DESC, "LCLS2 Trigger $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) trgEnable_T$(N)LCLS2")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+
+record(mbbo, "$(DEVICE):TRG$(NN):SOURCE")
+{
+    field(DESC, "Trigger $(NN) Source")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) trgSource_T$(N)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(SXVL, "6")
+    field(SVVL, "7")
+    field(EIVL, "8")
+    field(NIVL, "9")
+    field(TEVL, "10")
+    field(ELVL, "11")
+    field(TVVL, "12") 
+    field(TTVL, "13")
+    field(FTVL, "14")
+    field(FFVL, "15")
+    field(ZRST, "Channel 0")
+    field(ONST, "Channel 1")
+    field(TWST, "Channel 2")
+    field(THST, "Channel 3")
+    field(FRST, "Channel 4")
+    field(FVST, "Channel 5")
+    field(SXST, "Channel 6")
+    field(SVST, "Channel 7")
+    field(EIST, "Channel 8")
+    field(NIST, "Channel 9")
+    field(TEST, "Channel A")
+    field(ELST, "Channel B")
+    field(TVST, "Channel C")
+    field(TTST, "Channel D")
+    field(FTST, "Channel E")
+    field(FFST, "Channel F")
+    field(VAL, "$(N)")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(bo, "$(DEVICE):TRG$(NN):POL")
+{
+    field(DESC, "Trigger $(NN) Polarity")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) trgPolarity_T$(N)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Falling Edge")
+    field(ONAM, "Rising Edge")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TRG$(NN):LCLS1WIDTH")
+{
+    field(DESC, "Trigger $(NN) Width for LCLS1")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) trgWidth_T$(N)LCLS1")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TRG$(NN):LCLS1DELAY")
+{
+    field(DESC, "Trigger $(N) Delay for LCLS1")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) trgDelay_T$(N)LCLS1")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TRG$(NN):LCLS2WIDTH")
+{
+    field(DESC, "Trigger $(NN) Width for LCLS2")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) trgWidth_T$(N)LCLS2")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TRG$(NN):LCLS2DELAY")
+{
+    field(DESC, "Trigger $(NN) Delay for LCLS2")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) trgDelay_T$(N)LCLS2")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+

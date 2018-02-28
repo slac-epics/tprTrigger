@@ -1,0 +1,389 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 995
+y 556
+w 800
+h 240
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-medium-r-18.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor index 14
+bgColor index 0
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 0
+ctlBgColor2 index 14
+topShadowColor index 0
+botShadowColor index 14
+endScreenProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 61
+y 38
+w 50
+h 20
+fgColor index 14
+onColor index 41
+offColor index 4
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 14
+controlPv "$(DEVICE):TRG$(NN):LCLS1ENABLE"
+indicatorPv "$(DEVICE):TRG$(NN):LCLS1ENABLE"
+3d
+font "helvetica-medium-r-12.0"
+objType "controls"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 38
+w 120
+h 20
+fgColor index 14
+bgColor index 4
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 14
+controlPv "$(DEVICE):TRG$(NN):POL"
+indicatorPv "$(DEVICE):TRG$(NN):POL"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 270
+y 18
+w 42
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Polarity"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 12
+y 12
+w 76
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Trigger $(NN)"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 405
+y 38
+w 100
+h 18
+controlPv "$(DEVICE):TRG$(NN):LCLS1DELAY"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 407
+y 21
+w 114
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS1 Delay (nsec)"
+}
+autoSize
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 38
+w 120
+h 20
+fgColor index 14
+bgColor index 4
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 14
+controlPv "$(DEVICE):TRG$(NN):SOURCE"
+indicatorPv "$(DEVICE):TRG$(NN):SOURCE"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 146
+y 18
+w 40
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Source"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 525
+y 38
+w 100
+h 18
+controlPv "$(DEVICE):TRG$(NN):LCLS1WIDTH"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 527
+y 21
+w 112
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS1 Width (nsec)"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 401
+y 83
+w 100
+h 18
+controlPv "$(DEVICE):TRG$(NN):LCLS2DELAY"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 403
+y 66
+w 114
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS2 Delay (nsec)"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 521
+y 83
+w 100
+h 18
+controlPv "$(DEVICE):TRG$(NN):LCLS2WIDTH"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 523
+y 66
+w 112
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS2 Width (nsec)"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 14
+y 38
+w 38
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS1"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 15
+y 61
+w 38
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS2"
+}
+autoSize
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 61
+y 60
+w 50
+h 20
+fgColor index 14
+onColor index 41
+offColor index 4
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 14
+controlPv "$(DEVICE):TRG$(NN):LCLS2ENABLE"
+indicatorPv "$(DEVICE):TRG$(NN):LCLS2ENABLE"
+3d
+font "helvetica-medium-r-12.0"
+objType "controls"
+endObjectProperties
+

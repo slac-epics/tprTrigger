@@ -1,0 +1,138 @@
+record(longin, "$(DEVICE):TCORE:FPGAVERSION")
+{
+    field(DESC, "TimingCore FPGA version")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) fpgaVersion")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:UPTIME")
+{
+    field(DESC, "TimingCore Uptime")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) uptime")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:SOFCOUNTER")
+{
+    field(DESC, "TimingCore Start of Frame Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) sofCounter")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:EOFCOUNTER")
+{
+    field(DESC, "TimingCore End of Frame Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) eofCounter")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:FIDCOUNTER")
+{
+    field(DESC, "TimingCore Fiducial Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) fidCounter")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:CRCERRCOUNTER")
+{
+    field(DESC, "TimingCore CRC ERROR Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) crcErrCounter")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TCORE:RXCLOCKCOUNTER")
+{
+    field(DESC, "TimingCore Rx Clock Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) rxClockCounter")
+    field(SCAN, "I/O Intr")
+}
+
+record(mbbi, "$(DEVICE):TCORE:RXLINKSTATUS")
+{
+    field(DESC, "TimingCore Rx Link Status")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) rxLinkStatus")
+    field(SCAN, "I/O Intr")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(ZRST, "Link Down")
+    field(ONST, "Link Up")
+}
+
+record(mbbi, "$(DEVICE):TCORE:VERSIONERROR")
+{
+    field(DESC, "TimingCore Version Chceck Error")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) versionError")
+    field(SCAN, "I/O Intr")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(ZRST, "No Error")
+    field(ONST, "Error")
+}
+
+record(longin, "$(DEVICE):TCORE:FRAMEVERSION")
+{
+    field(DESC, "TimingCore Received Frame Version")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) frameVersion")
+    field(SCAN, "I/O Intr")
+}
+
+
+record(bo, "$(DEVICE):TCORE:MODE")
+{
+    field(DESC, "Mode selection LCLS1/LCLS2")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) mode")
+    field(OMSL, "supervisory")
+    field(ZNAM, "LCLS1")
+    field(ONAM, "LCLS2")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TCORE:MSGDELAY")
+{
+    field(DESC, "Message Delay for LCLS2 Timing Frame")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) msgDelay")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(VAL, "107692.3076923077")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TCORE:MASTERDELAY")
+{
+    field(DESC, "Master Delay for LCLS1 mode")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) masterDelay")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEVICE):TCORE:CLOCK")
+{
+    field(DESC, "Application Clock in MHz")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) applicationClock")
+    field(OMSL, "supervisory")
+    field(EGU,  "MHz")
+    field(PREC, "6")
+    field(VAL, "185.7142857142857")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}

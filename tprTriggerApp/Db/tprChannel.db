@@ -1,0 +1,161 @@
+record(bo, "$(DEVICE):CHN$(NN):LCLS1ENABLE")
+{
+    field(DESC, "LCLS1 Channel $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEnable_C$(N)LCLS1")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(bo, "$(DEVICE):CHN$(NN):LCLS2ENABLE")
+{
+    field(DESC, "LCLS2Channel $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEnable_C$(N)LCLS2")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disable")
+    field(ONAM, "Enable")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "$(DEVICE):CHN$(NN):RATEMODE")
+{
+    field(DESC, "Channel $(N) Rate Mode Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnRateMode_C$(N)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Fixed")
+    field(ONST, "AC")
+    field(TWST, "Seq")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+    
+}
+
+record(mbbo, "$(DEVICE):CHN$(NN):FIXEDRATE")
+{
+    field(DESC, "Channel $(NN) Fixed Rate Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnFixedRate_C$(N)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(SXVL, "6")
+    field(ZRST, "1MHz")
+    field(ONST, "71.5kHz")
+    field(TWST, "10kHz")
+    field(THST, "1kHz")
+    field(FRST, "100Hz")
+    field(FVST, "10Hz")
+    field(SXST, "1Hz")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "$(DEVICE):CHN$(NN):ACRATE")
+{
+    field(DESC, "Channel $(NN) AC Rate Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnACRate_C$(N)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(ZRST, "60Hz")
+    field(ONST, "30Hz")
+    field(TWST, "10Hz")
+    field(THST, "5Hz")
+    field(FRST, "1Hz")
+    field(FVST, "0.5Hz")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "$(DEVICE):CHN$(NN):TSMASK")
+{
+    field(DESC, "Channel $(NN) Timeslot Mask")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnTSMask_C$(N)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "$(DEVICE):CHN$(NN):SEQBIT")
+{
+    field(DESC, "Channel $(NN) Sequence Bit")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnSeqBit_C$(N)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "$(DEVICE):CHN$(NN):DESTMODE")
+{
+    field(DESC, "Channel $(NN) Destination Mode Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnDestMode_C$(N)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Inclusive")
+    field(ONST, "Exclusive")
+    field(TWST, "Don't care")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "$(DEVICE):CHN$(NN):DESTMASK")
+{
+    field(DESC, "Channel $(NN) Destination Mask")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnDestMask_C$(N)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "$(DEVICE):CHN$(NN):EVENTCODE")
+{
+    field(DESC, "Channel $(NN) LCLS1 Event Code")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEventCode_C$(N)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longin, "$(DEVICE):CHN$(NN):COUNTER")
+{
+    field(DESC, "Channel $(NN) Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) chnCounter_C$(N)")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "$(DEVICE):CHN$(NN):RATE")
+{
+    field(DESC, "Channel $(NN) event rates")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),0) chnRate_C$(N)")
+    field(SCAN, "I/O Intr")
+    field(EGU,  "Hz")
+    field(PREC, "1")
+}
+
