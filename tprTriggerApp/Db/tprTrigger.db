@@ -126,3 +126,23 @@ record(ao, "$(DEVICE):TRG$(NN):LCLS2DELAY")
     info(autosaveFields, "VAL")
 }
 
+
+record(longin, "$(DEVICE):TRG$(NN):WIDTHTICKS")
+{
+    field(DESC, "Trigger Width in Clock Ticks")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) trgWidthTicks_T$(N)")
+    field(EGU,  "ticks")
+    field(SCAN, "I/O Intr")
+}
+
+record(longin, "$(DEVICE):TRG$(NN):DELAYTICKS")
+{
+    field(DESC, "Trigger Delay in Clock Ticks")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) trgDelayTicks_T$(N)")
+    field(EGU,  "ticks")
+    field(SCAN, "I/O Intr")
+}
+
+
