@@ -23,7 +23,7 @@ LIBRARY_IOC = tprTrigger
 
 tprTrigger_DBD  += tprTriggerAsynDriver.dbd
 tprTrigger_SRCS += tprTriggerAsynDriver.cpp
-tprTrigger_SRCS += tprTriggerYaml.cc
+
 
 boost_DIR = $(BOOST_LIB)
 tprTrigger_LIBS += boost
