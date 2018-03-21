@@ -5,6 +5,7 @@
 #       BASE_MODULE_VERSION
 #       EPICS_MODULES
 # from one of the following options
+-include $(TOP)/../../RELEASE_SITE
 -include $(TOP)/RELEASE_SITE
 
 
@@ -24,8 +25,7 @@
 # ==========================================================
 
 ASYN_MODULE_VERSION=R4.31-0.1.0
-YAMLLOADER_MODULE_VERSION=R1.0.3
-TIMINGAPI_MODULE_VERSION=timingApi-git
+YAMLLOADER_MODULE_VERSION=R1.1.0-BR-ts
 
 
 # ==========================================================
@@ -36,14 +36,13 @@ TIMINGAPI_MODULE_VERSION=timingApi-git
 # ==========================================================
 ASYN=$(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
 YAMLLOADER=$(EPICS_MODULES)/yamlLoader/$(YAMLLOADER_MODULE_VERSION)
-TIMINGAPI=$(EPICS_MODULES)/timingApi/$(TIMINGAPI_MODULE_VERSION)
 
 
 
 # =====================================================================
 # Set EPICS_BASE last so it appears last in the DB, DBD, INCLUDE, and LIB search paths
 # ====================================================================
-EPICS_BASE=$(BASE_SITE_TOP)/$(BASE_MODULE_VERSION)
+EPICS_BASE=$(EPICS_SITE_TOP)/base/$(BASE_MODULE_VERSION)
 
 # Location of Linux Kernel Modules:
 LINUX_KERNEL_MODULES=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
