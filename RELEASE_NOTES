@@ -1,6 +1,7 @@
 R1.0.0    March 21, 2018   Kukhee Kim (KHKIM)
 
           Use cpsw frame R3.6.3
+          Use hpsTpr R1.0.0
           Use yamlLoader R1.1.0
            
 
