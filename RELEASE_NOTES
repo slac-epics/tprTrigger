@@ -1,1 +1,19 @@
-April 7, 2018  Prepare Initial Release
+R1.0.0    March 21, 2018   Kukhee Kim (KHKIM)
+
+          User cpsw frame R3.6.3
+
+          Merge with Till's ts_fixes branch 
+
+          Merge branch 'ts_fixes'
+          new-style EPICS_BASE definition in RELEASE_SITE
+          Removed RELEASE_SITE from git
+          configure/RELEASE: removed unused TIMINGAPI definition
+          Makefile: removed std=c++0x; replaced -I$(VAR) by $(addprefix -I,$(VAR))
+          configure/RELEASE: removed unused TIMINGAPI definition
+          Makefile: removed std=c++0x; replaced -I$(VAR) by $(addprefix -I,$(VAR))
+          ... this expands to an empty string if VAR is empty (the original version to '-I'
+          which can be harmful)
+
+
+
+March 7, 2018  Prepare Initial Release
