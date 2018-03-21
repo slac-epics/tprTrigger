@@ -1,6 +1,8 @@
 R1.0.0    March 21, 2018   Kukhee Kim (KHKIM)
 
-          User cpsw frame R3.6.3
+          Use cpsw frame R3.6.3
+          Use yamlLoader R1.1.0
+           
 
           Merge with Till's ts_fixes branch 
 
