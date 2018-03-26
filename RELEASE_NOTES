@@ -1,3 +1,9 @@
+R1.1.0    March 21, 2018   Till Straumann
+
+          Set DOL=1 for trigger polarity so that they come up with
+          the usual 'rising-edge'. Otherwise, normal triggers are
+          asserted until initialized.
+
 R1.0.0    March 21, 2018   Kukhee Kim (KHKIM)
 
           Use cpsw frame R3.6.3
