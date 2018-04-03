@@ -1,0 +1,96 @@
+----------
+tprTrigger
+----------
+
+The tprTrigger is an epics module which provides a standard PV interface 
+for trigger configuration and monitoring fo TimingCore
+
+
+How to build an ioc with tprTrigger
+-----------------------------------
+
+1. tprTrigger requires hpsTpr API
+configure/CONFIG_STIE should have the followings for the hpsTpr API.
+
+HPSTPR_PACKAGE_NAME=timing/hpsTpr
+HPSTPR_VERSION=R1.1.0
+HPSTPR_ARCH=$(LINUXRT_BUILDROOT_VERSION)-x86_64
+HPSTPR=$(PACKAGE_AREA)/$(HPSTPR_PACKAGE_NAME)/$(HPSTPR_VERSION)/$(HPSTPR_ARCH)
+HPSTPR_LIB     = $(HPSTPR)/lib
+HPSTPR_INCLUDE = $(HPSTPR)/include
+
+(The version number should be replaced with a proper version for your ioc.)
+
+2. tprTrigger module
+configure/RELEASE should have the followings for the tprTrigger module.
+
+TPRTRIGGER_MODULE_VERSION=R1.1.0
+TPRTRIGGER=$(EPICS_MODULES)/tprTrigger/$(TPRTRIGGER_MODULE_VERSION)
+
+(The version number should be replaced with a proper version for your ioc.)
+
+
+3. Other modules and API
+the tprTrigger module assumes the following API and modules are included in the application.
+
+asyn            R4.31-0.1.0
+yamlLoader      R1.1.0
+timingApi       R0.6
+
+cpsw/framework  R3.6.4
+yaml-cpp        yaml-cpp-0.5.3
+boost           1.63.0
+hpsTpr          R1.0.0
+
+
+4. How to build application binary
+
+The Makefile in source directory should include the followings:
+
+# DBD files for tprTrigger
+<your_application>_DBD += tprTriggerAsynDriver.dbd
+
+# Library for tprTrigger
+hpsTpr_DIR = $(HPSTPR_LIB)
+<your_application>_LIBS += hpsTpr
+
+The Makefile in Db directory should have the followings to install database template 
+into db directory.
+
+# Install Database for tprTrigger module
+DB_INSTALLS += $(TPRTRIGGER)/db/tprTrg.db
+
+
+
+How to run the ioc with tprTrigger
+----------------------------------
+
+1. how to load database template for tprTrigger.
+
+The template has two macros: DEV and PORT.
+DEV  - prefix for PV name (ex, KLYS:LI28:21", "TPR:SYS2:0")
+PORT - port name for asyn port driver, tprTrigger moudle has port name "trig".
+
+Here is an eample to load up the template.
+
+epicsEnvSet("IOC_PV", "TPR:SYS2:0")
+dbLoadRecords("db/tprTrg.db", "DEV=${IOC_PV},PORT=trig")
+
+
+2. how to initialize the driver
+
+The prTrigger assuems yamlLoader driver loaded up the register hierarchy as the followings:
+
+cpswLoadYamlFile("000TopLevel.yaml", "NetIODev", "", "10.0.3.105")
+
+(The yaml file path, root path name for register name, and FPGA IP address are application specific.)
+
+After load up the hierarchy, we can configure tprTrigger driver with the followig command.
+
+tprTriggerAsynDriverConfigure("trig", "mmio/AmcCarrierEmpty/AmcCarrierCore")
+
+
+
+3. how to bring up engineering screen
+
+Please, check up a script in the module: <TOP>/tprTriggerApp/edm/launch_edm
