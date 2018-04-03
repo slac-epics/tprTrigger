@@ -50,9 +50,12 @@ The Makefile in source directory should include the followings:
 # DBD files for tprTrigger
 <your_application>_DBD += tprTriggerAsynDriver.dbd
 
-# Library for tprTrigger
+# API for tprTrigger
 hpsTpr_DIR = $(HPSTPR_LIB)
 <your_application>_LIBS += hpsTpr
+
+# Libary for tprTrigger
+<your_application>_LIBS += tprTrigger
 
 The Makefile in Db directory should have the followings to install database template 
 into db directory.
