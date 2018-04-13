@@ -634,6 +634,7 @@ void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
     if(mode == 1) return;  // nothing todo in LCLS2 mode, just latch set values into parameter space
     
     uint32_t ticks = (width*1.E-3 * application_clock) + 0.5;
+    if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 }
 void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
@@ -642,6 +643,7 @@ void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
     if(mode ==0) return;    // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     uint32_t ticks = (width*1.E-3 * application_clock) + 0.5;
+    if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 }
 
