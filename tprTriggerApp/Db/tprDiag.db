@@ -64,6 +64,7 @@ record(mbbi, "$(DEVICE):TCORE:RXLINKSTATUS")
     field(ONVL, "1")
     field(ZRST, "Link Down")
     field(ONST, "Link Up")
+    field(ZSV,  "MAJOR")
 }
 
 record(mbbi, "$(DEVICE):TCORE:VERSIONERROR")
@@ -76,6 +77,7 @@ record(mbbi, "$(DEVICE):TCORE:VERSIONERROR")
     field(ONVL, "1")
     field(ZRST, "No Error")
     field(ONST, "Error")
+    field(OSV,  "MAJOR")
 }
 
 record(longin, "$(DEVICE):TCORE:FRAMEVERSION")
