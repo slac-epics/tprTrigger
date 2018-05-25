@@ -1,3 +1,7 @@
+R1.1.0    May 25, 2018
+          Force tag
+          Fix a typo in tprDiag.db
+
 R1.1.0    Aprill 12, 2018
           Force tag
           Add minimum ticks (1) for width calculation, asked by Leonid
