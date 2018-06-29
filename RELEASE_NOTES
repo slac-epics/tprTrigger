@@ -1,3 +1,7 @@
+R1.1.0    June 28, 2018
+          force tag
+          change lables on bo record to "Enabled"/"Disabled"
+
 R1.1.0    May 25, 2018
           Force tag
           Fix a typo in tprDiag.db
