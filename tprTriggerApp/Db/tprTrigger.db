@@ -1,4 +1,4 @@
-record(bo, "$(DEVICE):TRG$(NN):LCLS1ENABLE")
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL")
 {
     field(DESC, "LCLS1 Trigger $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -10,7 +10,7 @@ record(bo, "$(DEVICE):TRG$(NN):LCLS1ENABLE")
     info(autosaveFields, "VAL")
 }
 
-record(bo, "$(DEVICE):TRG$(NN):LCLS2ENABLE")
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL")
 {
     field(DESC, "LCLS2 Trigger $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -23,7 +23,7 @@ record(bo, "$(DEVICE):TRG$(NN):LCLS2ENABLE")
 }
 
 
-record(mbbo, "$(DEVICE):TRG$(NN):SOURCE")
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE")
 {
     field(DESC, "Trigger $(NN) Source")
     field(DTYP, "asynInt32")
@@ -55,23 +55,23 @@ record(mbbo, "$(DEVICE):TRG$(NN):SOURCE")
     field(SVST, "Channel 7")
     field(EIST, "Channel 8")
     field(NIST, "Channel 9")
-    field(TEST, "Channel A")
-    field(ELST, "Channel B")
-    field(TVST, "Channel C")
-    field(TTST, "Channel D")
-    field(FTST, "Channel E")
-    field(FFST, "Channel F")
+    field(TEST, "Channel 10")
+    field(ELST, "Channel 11")
+    field(TVST, "Channel 12")
+    field(TTST, "Channel 13")
+    field(FTST, "Channel 14")
+    field(FFST, "Channel 15")
     field(VAL, "$(N)")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-record(bo, "$(DEVICE):TRG$(NN):POL")
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_POL")
 {
     field(DESC, "Trigger $(NN) Polarity")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),0) trgPolarity_T$(N)")
-	field(DOL,  "1")
+    field(DOL,  "1")
     field(OMSL, "supervisory")
     field(ZNAM, "Falling Edge")
     field(ONAM, "Rising Edge")
@@ -79,7 +79,7 @@ record(bo, "$(DEVICE):TRG$(NN):POL")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "$(DEVICE):TRG$(NN):LCLS1WIDTH")
+record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TWID")
 {
     field(DESC, "Trigger $(NN) Width for LCLS1")
     field(DTYP, "asynFloat64")
@@ -91,7 +91,7 @@ record(ao, "$(DEVICE):TRG$(NN):LCLS1WIDTH")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "$(DEVICE):TRG$(NN):LCLS1DELAY")
+record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TDES")
 {
     field(DESC, "Trigger $(N) Delay for LCLS1")
     field(DTYP, "asynFloat64")
@@ -103,7 +103,7 @@ record(ao, "$(DEVICE):TRG$(NN):LCLS1DELAY")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "$(DEVICE):TRG$(NN):LCLS2WIDTH")
+record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TWID")
 {
     field(DESC, "Trigger $(NN) Width for LCLS2")
     field(DTYP, "asynFloat64")
@@ -115,7 +115,7 @@ record(ao, "$(DEVICE):TRG$(NN):LCLS2WIDTH")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "$(DEVICE):TRG$(NN):LCLS2DELAY")
+record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TDES")
 {
     field(DESC, "Trigger $(NN) Delay for LCLS2")
     field(DTYP, "asynFloat64")
@@ -128,7 +128,7 @@ record(ao, "$(DEVICE):TRG$(NN):LCLS2DELAY")
 }
 
 
-record(longin, "$(DEVICE):TRG$(NN):WIDTHTICKS")
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TWIDTICKS")
 {
     field(DESC, "Trigger Width in Clock Ticks")
     field(DTYP, "asynInt32")
@@ -137,7 +137,7 @@ record(longin, "$(DEVICE):TRG$(NN):WIDTHTICKS")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "$(DEVICE):TRG$(NN):DELAYTICKS")
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTICKS")
 {
     field(DESC, "Trigger Delay in Clock Ticks")
     field(DTYP, "asynInt32")
@@ -145,5 +145,4 @@ record(longin, "$(DEVICE):TRG$(NN):DELAYTICKS")
     field(EGU,  "ticks")
     field(SCAN, "I/O Intr")
 }
-
 
