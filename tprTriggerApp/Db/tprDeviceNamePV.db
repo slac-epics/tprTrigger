@@ -1,5 +1,5 @@
-alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TCTL", "$(DEV_PREFIX):TCTL")
-alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_POL",         "$(DEV_PREFIX):TPOL")
-alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TWID", "$(DEV_PREFIX):TWID")
-alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TDES", "$(DEV_PREFIX):TDES")
+alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TCTL", "$(DEV_PREFIX)TCTL")
+alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_POL",         "$(DEV_PREFIX)TPOL")
+alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TWID", "$(DEV_PREFIX)TWID")
+alias("TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(SYS)_TDES", "$(DEV_PREFIX)TDES")
 
