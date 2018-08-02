@@ -13,7 +13,7 @@ How to build an ioc with tprTrigger
 configure/CONFIG_STIE should have the followings for the hpsTpr API.
 
 HPSTPR_PACKAGE_NAME=timing/hpsTpr
-HPSTPR_VERSION=R1.1.0
+HPSTPR_VERSION=R1.0.1
 HPSTPR_ARCH=$(LINUXRT_BUILDROOT_VERSION)-x86_64
 HPSTPR=$(PACKAGE_AREA)/$(HPSTPR_PACKAGE_NAME)/$(HPSTPR_VERSION)/$(HPSTPR_ARCH)
 HPSTPR_LIB     = $(HPSTPR)/lib
@@ -24,7 +24,7 @@ HPSTPR_INCLUDE = $(HPSTPR)/include
 2. tprTrigger module
 configure/RELEASE should have the followings for the tprTrigger module.
 
-TPRTRIGGER_MODULE_VERSION=R1.1.0
+TPRTRIGGER_MODULE_VERSION=R1.2.0
 TPRTRIGGER=$(EPICS_MODULES)/tprTrigger/$(TPRTRIGGER_MODULE_VERSION)
 
 (The version number should be replaced with a proper version for your ioc.)
@@ -62,6 +62,7 @@ into db directory.
 
 # Install Database for tprTrigger module
 DB_INSTALLS += $(TPRTRIGGER)/db/tprTrg.db
+DB_INSTALLS += $(TPRTRIGGER)/db/tprDeviceNamePV.db
 
 
 
@@ -70,14 +71,40 @@ How to run the ioc with tprTrigger
 
 1. how to load database template for tprTrigger.
 
-The template has two macros: DEV and PORT.
-DEV  - prefix for PV name (ex, KLYS:LI28:21", "TPR:SYS2:0")
-PORT - port name for asyn port driver, tprTrigger moudle has port name "trig".
+Macros for tprTrig.db
 
-Here is an eample to load up the template.
+PORT      - port name for asyn port driver, tprTrigger moudle has port name "trig".
+LOCA      - location (ex, LI24, IN20) 
+IOC_UNIT  - IOC name (ex, RF01, RF02)
+INST      - instance number for mutiple TPR in an ioc
 
-epicsEnvSet("IOC_PV", "TPR:SYS2:0")
-dbLoadRecords("db/tprTrg.db", "DEV=${IOC_PV},PORT=trig")
+example)
+dbLoadRecords("db/tprTrig.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0")
+
+It will make TPR PVs (low level PVs) which have prefix "TPR:LI24:RF02:0:".
+--------------
+
+Macro for tprDeviceNamePVs.db
+The tprDeviceNamePVs.db provides device name PVs (high level PVs)
+
+LOCA       -  same with tprTrig.db
+IOC_UNIT   -  smae with tprTrig.db 
+INST       -  same with tprTrig.db
+SYS        -  for LCLS1 shoud be SYS0, for LCLS2 should be SYS2
+NN         -  two digit number for trigger channel number (ex, 00, 01, 02 ... 10, 11)
+DEV_PREFIX  - prefix for PV name (ex, KLYS:LI28:21")
+
+example)
+dbLoadRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=00,DEV_PREFIX=KLYS:LI28:21:")
+dbLodsRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=01,DEV_PREFIX=KLYS:LI28:22:")
+
+Remark)
+The DEV_PREFIX should have ":" at very last charactor.
+ex)  BPMS:IN20:221:, YAG:IN20:221:
+But, some of cases, we don't need to put the ":"
+ex) BPMS:LI26:201:CALB
+
+
 
 
 2. how to initialize the driver
@@ -97,3 +124,5 @@ tprTriggerAsynDriverConfigure("trig", "mmio/AmcCarrierEmpty/AmcCarrierCore")
 3. how to bring up engineering screen
 
 Please, check up a script in the module: <TOP>/tprTriggerApp/edm/launch_edm
+
+
