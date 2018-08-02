@@ -1,4 +1,4 @@
-R1.2.0    July 25, 2018     Kukhee Kim
+R1.2.0    Aug 2, 2018     Kukhee Kim
           * PV name changes to reflect LCLS-II naming convention
           * build aganst cpsw framework R3.6.4
           * add device centric PVs (high level PVs), but is is a temporal solution using name aliasing
