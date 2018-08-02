@@ -66,7 +66,7 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE")
     info(autosaveFields, "VAL")
 }
 
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_POL")
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL")
 {
     field(DESC, "Trigger $(NN) Polarity")
     field(DTYP, "asynInt32")
