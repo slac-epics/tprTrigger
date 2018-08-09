@@ -37,8 +37,8 @@ offColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):LCLS1ENABLE"
-indicatorPv "$(DEVICE):CHN$(NN):LCLS1ENABLE"
+controlPv "$(DEVICE):CH$(NN):LCLS1ENABLE"
+indicatorPv "$(DEVICE):CH$(NN):LCLS1ENABLE"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
@@ -59,8 +59,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):RATEMODE"
-indicatorPv "$(DEVICE):CHN$(NN):RATEMODE"
+controlPv "$(DEVICE):CH$(NN):RATEMODE"
+indicatorPv "$(DEVICE):CH$(NN):RATEMODE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -79,8 +79,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):FIXEDRATE"
-indicatorPv "$(DEVICE):CHN$(NN):FIXEDRATE"
+controlPv "$(DEVICE):CH$(NN):FIXEDRATE"
+indicatorPv "$(DEVICE):CH$(NN):FIXEDRATE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -139,8 +139,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):ACRATE"
-indicatorPv "$(DEVICE):CHN$(NN):ACRATE"
+controlPv "$(DEVICE):CH$(NN):ACRATE"
+indicatorPv "$(DEVICE):CH$(NN):ACRATE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -174,7 +174,7 @@ x 268
 y 130
 w 80
 h 18
-controlPv "$(DEVICE):CHN$(NN):TSMASK"
+controlPv "$(DEVICE):CH$(NN):TSMASK"
 format "hex"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -220,7 +220,7 @@ x 187
 y 167
 w 80
 h 18
-controlPv "$(DEVICE):CHN$(NN):SEQBIT"
+controlPv "$(DEVICE):CH$(NN):SEQBIT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -291,8 +291,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):DESTMODE"
-indicatorPv "$(DEVICE):CHN$(NN):DESTMODE"
+controlPv "$(DEVICE):CH$(NN):DESTMODE"
+indicatorPv "$(DEVICE):CH$(NN):DESTMODE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -346,7 +346,7 @@ x 494
 y 103
 w 80
 h 18
-controlPv "$(DEVICE):CHN$(NN):DESTMASK"
+controlPv "$(DEVICE):CH$(NN):DESTMASK"
 format "hex"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -372,7 +372,7 @@ x 658
 y 194
 w 80
 h 14
-controlPv "$(DEVICE):CHN$(NN):COUNTER"
+controlPv "$(DEVICE):CH$(NN):COUNTER"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -394,7 +394,7 @@ x 658
 y 212
 w 80
 h 14
-controlPv "$(DEVICE):CHN$(NN):RATE"
+controlPv "$(DEVICE):CH$(NN):RATE"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -456,7 +456,7 @@ x 136
 y 42
 w 80
 h 18
-controlPv "$(DEVICE):CHN$(NN):EVENTCODE"
+controlPv "$(DEVICE):CH$(NN):EVENTCODE"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -507,8 +507,8 @@ offColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):CHN$(NN):LCLS2ENABLE"
-indicatorPv "$(DEVICE):CHN$(NN):LCLS2ENABLE"
+controlPv "$(DEVICE):CH$(NN):LCLS2ENABLE"
+indicatorPv "$(DEVICE):CH$(NN):LCLS2ENABLE"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
