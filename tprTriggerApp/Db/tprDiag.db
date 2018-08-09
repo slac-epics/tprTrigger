@@ -98,7 +98,7 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE")
     field(ZNAM, "LCLS1")
     field(ONAM, "LCLS2")
     field(PINI, "YES")
-    info(autosaveFields, "VAL")
+    info(autosaveFields, "VAL ZSV OSV")
 }
 
 record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
