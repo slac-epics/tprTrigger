@@ -24,7 +24,7 @@ HPSTPR_INCLUDE = $(HPSTPR)/include
 2. tprTrigger module
 configure/RELEASE should have the followings for the tprTrigger module.
 
-TPRTRIGGER_MODULE_VERSION=R1.2.0
+TPRTRIGGER_MODULE_VERSION=R1.2.1
 TPRTRIGGER=$(EPICS_MODULES)/tprTrigger/$(TPRTRIGGER_MODULE_VERSION)
 
 (The version number should be replaced with a proper version for your ioc.)
@@ -61,7 +61,7 @@ The Makefile in Db directory should have the followings to install database temp
 into db directory.
 
 # Install Database for tprTrigger module
-DB_INSTALLS += $(TPRTRIGGER)/db/tprTrg.db
+DB_INSTALLS += $(TPRTRIGGER)/db/tprTrig.db
 DB_INSTALLS += $(TPRTRIGGER)/db/tprDeviceNamePV.db
 
 
