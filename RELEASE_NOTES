@@ -1,3 +1,6 @@
+R1.2.2    Aug 13, 2018    Carolina Bianchini (carolina)
+	  * bugfix POL to TPOL in tprTriggerApp/Db/tprDeviceNamePV.db 
+
 R1.2.1    Aug 8, 2018     Carolina Bianchini
 	  * Fixed typo for the channel PVs to use CH instead of CHN
 	  * Added one more EPICS record to tprTrig.db file for TPRTRIG as trigger number 
