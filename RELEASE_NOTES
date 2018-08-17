@@ -1,3 +1,24 @@
+R1.2.3    Aug 17, 2018    Kukhee Kim (khkim)
+
+          * delete un-necessary file
+          * update EDM screens for new PV (following naming convention)
+          * provide an example to bring up edm screens 
+          * fix few errata in README file
+
+#       deleted:    tprTriggerApp/Db/tprTrg.substitutions
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#       modified:   README
+#       modified:   RELEASE_NOTES
+#       modified:   tprTriggerApp/edm/launch_edm
+#       modified:   tprTriggerApp/edm/tprChannel.edl
+#       modified:   tprTriggerApp/edm/tprMain_final.edl
+#       modified:   tprTriggerApp/edm/tprTrigger.edl
+
+
 R1.2.2    Aug 13, 2018    Carolina Bianchini (carolina)
 	  * bugfix POL to TPOL in tprTriggerApp/Db/tprDeviceNamePV.db 
 
