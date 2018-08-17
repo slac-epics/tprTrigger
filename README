@@ -24,7 +24,7 @@ HPSTPR_INCLUDE = $(HPSTPR)/include
 2. tprTrigger module
 configure/RELEASE should have the followings for the tprTrigger module.
 
-TPRTRIGGER_MODULE_VERSION=R1.2.1
+TPRTRIGGER_MODULE_VERSION=R1.2.3
 TPRTRIGGER=$(EPICS_MODULES)/tprTrigger/$(TPRTRIGGER_MODULE_VERSION)
 
 (The version number should be replaced with a proper version for your ioc.)
@@ -79,7 +79,7 @@ IOC_UNIT  - IOC name (ex, RF01, RF02)
 INST      - instance number for mutiple TPR in an ioc
 
 example)
-dbLoadRecords("db/tprTrig.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0")
+dbLoadRecords("db/tprTrig.db", "PORT=trig,LOCA=LI24,IOC_UNIT=RF02,INST=0")
 
 It will make TPR PVs (low level PVs) which have prefix "TPR:LI24:RF02:0:".
 --------------
