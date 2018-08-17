@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 957
-y 144
+x 1957
+y 128
 w 512
 h 460
 font "helvetica-medium-r-18.0"
@@ -231,7 +231,7 @@ x 229
 y 27
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:FPGAVERSION"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FPGAVER"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -254,7 +254,7 @@ x 229
 y 45
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:UPTIME"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):UPTIME"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -277,7 +277,7 @@ x 229
 y 64
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:SOFCOUNTER"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SOFCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -300,7 +300,7 @@ x 229
 y 82
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:EOFCOUNTER"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):EOFCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -323,7 +323,7 @@ x 229
 y 101
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:FIDCOUNTER"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FIDCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -346,7 +346,7 @@ x 229
 y 118
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:CRCERRCOUNTER"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CRCERRCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -369,7 +369,7 @@ x 229
 y 136
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:RXCLOCKCOUNTER"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXCLKCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -392,7 +392,7 @@ x 229
 y 156
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:RXLINKSTATUS"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS"
 format "string"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -415,7 +415,7 @@ x 229
 y 173
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:VERSIONERROR"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):VERERR"
 format "string"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -438,7 +438,7 @@ x 229
 y 192
 w 80
 h 14
-controlPv "$(DEVICE):TCORE:FRAMEVERSION"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -521,7 +521,7 @@ x 231
 y 229
 w 80
 h 18
-controlPv "$(DEVICE):TCORE:MASTERDELAY"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -547,7 +547,7 @@ x 231
 y 250
 w 80
 h 18
-controlPv "$(DEVICE):TCORE:MSGDELAY"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -573,7 +573,7 @@ x 231
 y 271
 w 80
 h 18
-controlPv "$(DEVICE):TCORE:CLOCK"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CLK"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -626,8 +626,8 @@ selectColor index 41
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "$(DEVICE):TCORE:MODE"
-indicatorPv "$(DEVICE):TCORE:MODE"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE"
+indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE"
 font "helvetica-medium-r-12.0"
 orientation "horizontal"
 endObjectProperties
