@@ -328,6 +328,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         for(int i =0; i<NUM_TRIGGERS; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st +i)->p_width[0], &width);
             uint32_t ticks = (width*1.E-3 * application_clock) + 0.5;
+            if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             
             epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
@@ -382,6 +383,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         for(int i =0; i<NUM_TRIGGERS; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
             uint32_t ticks = (width*1.E-3 * application_clock) + 0.5;
+            if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             
             epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[1], &delay);
