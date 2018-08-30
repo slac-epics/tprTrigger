@@ -1,3 +1,7 @@
+R1.2.4    Aug 29, 2018    Kukhee Kim (khkim)
+          * Separate clock frequency PVs for LCLS1 and LCLS2
+          * re-calculate trigger width and delay when the clock frequency is changed by users
+          
 R1.2.3    Aug 17, 2018    Kukhee Kim (khkim)
 
           * delete un-necessary file
