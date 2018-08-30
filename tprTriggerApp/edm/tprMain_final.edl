@@ -3,9 +3,9 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1957
+x 1952
 y 128
-w 512
+w 528
 h 460
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-medium-r-18.0"
@@ -27,7 +27,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 140
+x 169
 y 27
 w 81
 h 14
@@ -47,7 +47,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 184
+x 213
 y 43
 w 37
 h 14
@@ -67,7 +67,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 109
+x 138
 y 61
 w 112
 h 14
@@ -87,7 +87,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 112
+x 141
 y 81
 w 109
 h 14
@@ -107,7 +107,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 128
+x 157
 y 101
 w 93
 h 14
@@ -127,7 +127,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 116
+x 145
 y 119
 w 105
 h 14
@@ -147,7 +147,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 120
+x 149
 y 136
 w 101
 h 14
@@ -167,7 +167,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 139
+x 168
 y 157
 w 82
 h 14
@@ -187,7 +187,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 147
+x 176
 y 175
 w 74
 h 14
@@ -207,7 +207,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 139
+x 168
 y 195
 w 82
 h 14
@@ -227,7 +227,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 27
 w 80
 h 14
@@ -250,7 +250,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 45
 w 80
 h 14
@@ -273,7 +273,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 64
 w 80
 h 14
@@ -296,7 +296,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 82
 w 80
 h 14
@@ -319,7 +319,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 101
 w 80
 h 14
@@ -342,7 +342,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 118
 w 80
 h 14
@@ -365,7 +365,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 136
 w 80
 h 14
@@ -388,7 +388,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 156
 w 80
 h 14
@@ -411,7 +411,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 173
 w 80
 h 14
@@ -434,7 +434,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 229
+x 258
 y 192
 w 80
 h 14
@@ -457,7 +457,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 74
+x 103
 y 232
 w 152
 h 14
@@ -477,7 +477,7 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 73
+x 102
 y 253
 w 152
 h 14
@@ -497,16 +497,16 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 49
-y 271
-w 177
+x 17
+y 274
+w 237
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Application Clock Speed (MHz)"
+  "Application Clock Speed (MHz) for LCLS1"
 }
 autoSize
 endObjectProperties
@@ -517,7 +517,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 231
+x 260
 y 229
 w 80
 h 18
@@ -543,7 +543,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 231
+x 260
 y 250
 w 80
 h 18
@@ -569,11 +569,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 231
+x 260
 y 271
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CLK"
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS0_CLK"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -595,8 +595,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 132
-y 303
+x 126
+y 330
 w 88
 h 28
 font "helvetica-medium-r-12.0"
@@ -616,8 +616,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 232
-y 305
+x 226
+y 332
 w 104
 h 24
 fgColor index 14
@@ -784,5 +784,51 @@ symbols {
   14 "NN=14"
   15 "NN=15"
 }
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 18
+y 295
+w 237
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Application Clock Speed (MHz) for LCLS2"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 261
+y 292
+w 80
+h 18
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
 endObjectProperties
 
