@@ -52,7 +52,7 @@ The Makefile in source directory should include the followings:
 
 # API for tprTrigger
 hpsTpr_DIR = $(HPSTPR_LIB)
-<your_application>_LIBS += hpsTpr
+<your_application>_LIBS += hpstpr
 
 # Libary for tprTrigger
 <your_application>_LIBS += tprTrigger
