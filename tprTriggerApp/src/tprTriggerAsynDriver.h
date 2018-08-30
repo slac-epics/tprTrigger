@@ -25,9 +25,12 @@ class tprTriggerAsynDriver:asynPortDriver {
         Tpr::TprTriggerYaml *pApiDrv;
         
         epicsFloat64 lcls2_clock;
-        epicsFloat64 application_clock;
         
-        void SetClock(epicsFloat64 clock_mhz);
+        epicsFloat64 application_clock_1;
+        epicsFloat64 application_clock_2;
+        
+        void SetClock1(epicsFloat64 clock_mhz);
+        void SetClock2(epicsFloat64 clock_mhz);
         
         void SetMode(epicsInt32 mode);
         void SetMsgDelay(epicsFloat64 msg_delay);
@@ -80,7 +83,8 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_msg_delay;          /* asynFloat64, rw */  // LCLS2 100 pulses delay and fine adjust 
         int p_master_delay;       /* asynFloat64, rw */  // LCLS1 master delay adjust
         
-        int p_app_clock;          /* asynFloat64, rw */  // application clock in MHz
+        int p_app_clock_1;          /* asynFloat64, rw */  // application clock in MHz for LCLS1
+        int p_app_clock_2;          /* asynFloat64, rw */  // application clock in MHz for LCLS2
   
         struct {
             int p_enable[2];         /* asynInt32, rw, 0: diable, 1: enable */
@@ -136,7 +140,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 
 #define msgDelayString             "msgDelay"
 #define masterDelayString          "masterDelay"
-#define appClockString             "applicationClock"
+#define appClock1String            "applicationClock1"
+#define appClock2String            "applicationClock2"
 
 #define chnEnableString            "chnEnable_C%dLCLS%d"
 #define chnRateModeString          "chnRateMode_C%d"
