@@ -61,6 +61,12 @@ class tprTriggerAsynDriver:asynPortDriver {
         void PropagateTWID(int trigger, epicsFloat64 width);  // propagate from low level to high level
         void PropagateDelay(int trigger, epicsFloat64 tdes); // propagate from high level to low level
         void PropagateWidth(int trigger, epicsFloat64 twid); // propagate from high level to low level
+
+        void PropagateTPOL(int trigger, epicsInt32 polarity);  // propagate from low level to high level
+        void PropagatePolarity(int trigger, epicsInt32 tpol);  // propagate from high level to low level
+
+        void PropagateTCTL(int trigger, epicsInt32 enable);    // propagate from low level to high level
+        void PropagateEnable(int trigger, epicsInt32 tctl);    // propagate from high level to low level
              
         int _update_flag;
         uint32_t _prev_chn_counter[NUM_CHANNELS];
@@ -122,11 +128,20 @@ class tprTriggerAsynDriver:asynPortDriver {
 
             int p_twid;           /* asynFloat64, rw */
             int p_tdes;           /* asynFloat64, rw */
+            int p_tctl;           /* asynInt32,   rw */
+            int p_tpol;           /* asynInt32,   rw */
  
             int p_prop_twid;      /* asynFloat64, ro */
             int p_prop_tdes;      /* asynFloat64, ro */
             int p_prop_width[2];  /* asynFloat64, ro */
             int p_prop_delay[2];  /* aysnFloat64, ro */
+
+            int p_prop_tctl;        /* asynInt32, ro */
+            int p_prop_tpol;        /* asynInt32, ro */
+            int p_prop_enable[2];   /* asynInt32, ro */
+            int p_prop_polarity;    /* asynInt32, ro */
+
+            
         } p_trigger_st[NUM_TRIGGERS];
         
 
@@ -177,10 +192,18 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define trgTDESString              "trgTDES_T%d"
 #define trgTWIDString              "trgTWID_T%d"
 
+#define trgTCTLString              "trgTCTL_T%d"
+#define trgTPOLString              "trgTPOL_T%d"
+
 #define propTDESString             "propTDES_T%d"
 #define propTWIDString             "propTWID_T%d"
 #define propDelayString            "propDelay_T%dLCLS%d"
 #define propWidthString            "propWidth_T%dLCLS%d"
+
+#define propTCTLString             "propTCTL_T%d"
+#define propTPOLString             "propTPOL_T%d"
+#define propEnableString           "propEnable_T%dLCLS%d"
+#define propPolarityString         "propPolarity_T%d"
 
 #define trgDelayTicksString        "trgDelayTicks_T%d"
 #define trgWidthTicksString        "trgWidthTicks_T%d"

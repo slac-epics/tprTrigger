@@ -148,15 +148,23 @@ void tprTriggerAsynDriver::CreateParameters(void)
 
             sprintf(param_name, propDelayString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_delay[j]));
             sprintf(param_name, propWidthString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_width[j]));
+            sprintf(param_name, propEnableString, i, j+i); createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_prop_enable[j]));
         }
         sprintf(param_name, trgDelayTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTicks));
         sprintf(param_name, trgWidthTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_widthTicks));
 
         sprintf(param_name, trgTDESString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_tdes));
         sprintf(param_name, trgTWIDString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_twid));
+ 
+        sprintf(param_name, trgTCTLString, i);            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tctl));
+        sprintf(param_name, trgTPOLString, i);            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tpol));
 
         sprintf(param_name, propTDESString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
         sprintf(param_name, propTWIDString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
+
+        sprintf(param_name, propTCTLString, i);           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tctl));
+        sprintf(param_name, propTPOLString, i);           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
+        sprintf(param_name, propPolarityString, i);       createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_polarity));
     }
 }
 
@@ -316,6 +324,16 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
 
         if(function == (p_trigger_st +i)->p_tdes) {
             PropagateDelay(i, value);
+            break;
+        }
+
+        if(function == (p_trigger_st +i)->p_tpol) {
+            PropagatePolarity(i, value);
+            break;
+        }
+
+        if(function == (p_trigger_st +i)->p_tctl) {
+            PropagateEnable(i, value);
             break;
         }
     }
@@ -667,9 +685,10 @@ void tprTriggerAsynDriver::SetLCLS1TriggerEnable(int trigger, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
     
-    if(mode == 0)    /* set trigger status in LCLS1 mode */ 
+    if(mode == 0) {    /* set trigger status in LCLS1 mode */ 
         pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
-    else             /* nothing todo in LCLS2 mode */
+        PropagateTCTL(trigger, enable);
+    } else             /* nothing todo in LCLS2 mode */
         return;
 }
 
@@ -679,8 +698,10 @@ void tprTriggerAsynDriver::SetLCLS2TriggerEnable(int trigger, epicsInt32 enable)
     
     if(mode == 0)    /* nothing doto in LCLS1 mode */
         return;
-    else             /* set trigger status in LCLs2 mode */
+    else {            /* set trigger status in LCLs2 mode */
         pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
+        PropagateTCTL(trigger, enable);
+    }
         
 }
 void tprTriggerAsynDriver::SetSource(int trigger, epicsInt32 source)
@@ -692,6 +713,7 @@ void tprTriggerAsynDriver::SetSource(int trigger, epicsInt32 source)
 void tprTriggerAsynDriver::SetPolarity(int trigger, epicsInt32 polarity)
 {
     pApiDrv->SetPolarity(trigger, (uint32_t) polarity);
+    PropagateTPOL(trigger, polarity);
 }
 
 void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
@@ -757,6 +779,22 @@ void tprTriggerAsynDriver::PropagateTWID(int trigger, epicsFloat64 width)
     if(twid != width) setDoubleParam((p_trigger_st + trigger)->p_prop_twid, width);
 }
 
+
+void tprTriggerAsynDriver::PropagateTPOL(int trigger, epicsInt32 polarity)
+{
+    epicsInt32 tpol;
+    getIntegerParam((p_trigger_st + trigger)->p_tpol, &tpol);
+    if(tpol != polarity) setIntegerParam((p_trigger_st + trigger)->p_prop_tpol, polarity);
+}
+
+void tprTriggerAsynDriver::PropagateTCTL(int trigger, epicsInt32 enable)
+{
+    epicsInt32 tctl;
+    getIntegerParam((p_trigger_st + trigger)->p_tctl, &tctl);
+
+    if(tctl != enable) setIntegerParam((p_trigger_st + trigger)->p_prop_tctl, enable);
+}
+
 void tprTriggerAsynDriver::PropagateDelay(int trigger, epicsFloat64 tdes)
 {
     int mode; getIntegerParam(p_mode, &mode);
@@ -771,6 +809,22 @@ void tprTriggerAsynDriver::PropagateWidth(int trigger, epicsFloat64 twid)
     epicsFloat64 width; getDoubleParam((p_trigger_st + trigger)->p_width[mode], &width);
 
     if(width != twid) setDoubleParam((p_trigger_st + trigger)->p_prop_width[mode], twid);
+}
+
+
+void tprTriggerAsynDriver::PropagatePolarity(int trigger, epicsInt32 tpol)
+{
+    epicsInt32 polarity; getIntegerParam((p_trigger_st + trigger)->p_polarity, &polarity);
+  
+    if(polarity != tpol) setIntegerParam((p_trigger_st + trigger)->p_prop_polarity, tpol);
+}
+
+void tprTriggerAsynDriver::PropagateEnable(int trigger, epicsInt32 tctl)
+{
+    int mode; getIntegerParam(p_mode, &mode);
+    epicsInt32 enable; getIntegerParam((p_trigger_st + trigger)->p_enable[mode], &enable);
+
+    if(enable != tctl) setIntegerParam((p_trigger_st + trigger)->p_prop_enable[mode], enable);
 }
 
 
