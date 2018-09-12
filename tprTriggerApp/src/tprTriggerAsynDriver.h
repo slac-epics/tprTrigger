@@ -56,6 +56,11 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetLCLS2Delay(int trigger, epicsFloat64 delay);
         void SetLCLS1Width(int trigger, epicsFloat64 width);
         void SetLCLS2Width(int trigger, epicsFloat64 width);
+
+        void PropagateTDES(int trigger, epicsFloat64 delay);  // propagate from low level to high level
+        void PropagateTWID(int trigger, epicsFloat64 width);  // propagate from low level to high level
+        void PropagateDelay(int trigger, epicsFloat64 tdes); // propagate from high level to low level
+        void PropagateWidth(int trigger, epicsFloat64 twid); // propagate from high level to low level
              
         int _update_flag;
         uint32_t _prev_chn_counter[NUM_CHANNELS];
@@ -114,6 +119,14 @@ class tprTriggerAsynDriver:asynPortDriver {
             
             int p_widthTicks;     /* asynInt32, ro */
             int p_delayTicks;     /* asynInt32, ro */
+
+            int p_twid;           /* asynFloat64, rw */
+            int p_tdes;           /* asynFloat64, rw */
+ 
+            int p_prop_twid;      /* asynFloat64, ro */
+            int p_prop_tdes;      /* asynFloat64, ro */
+            int p_prop_width[2];  /* asynFloat64, ro */
+            int p_prop_delay[2];  /* aysnFloat64, ro */
         } p_trigger_st[NUM_TRIGGERS];
         
 
@@ -161,6 +174,14 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define trgDelayString             "trgDelay_T%dLCLS%d"
 #define trgWidthString             "trgWidth_T%dLCLS%d"
 
+#define trgTDESString              "trgTDES_T%d"
+#define trgTWIDString              "trgTWID_T%d"
+
+#define propTDESString             "propTDES_T%d"
+#define propTWIDString             "propTWID_T%d"
+#define propDelayString            "propDelay_T%dLCLS%d"
+#define propWidthString            "propWidth_T%dLCLS%d"
+
 #define trgDelayTicksString        "trgDelayTicks_T%d"
 #define trgWidthTicksString        "trgWidthTicks_T%d"
 
@@ -176,3 +197,4 @@ typedef struct {
 
 
 #endif
+

@@ -145,9 +145,18 @@ void tprTriggerAsynDriver::CreateParameters(void)
         for(int j = 0; j < 2; j++) {
             sprintf(param_name, trgDelayString, i, j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_delay[j]));
             sprintf(param_name, trgWidthString, i, j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_width[j]));
+
+            sprintf(param_name, propDelayString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_delay[j]));
+            sprintf(param_name, propWidthString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_width[j]));
         }
         sprintf(param_name, trgDelayTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTicks));
         sprintf(param_name, trgWidthTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_widthTicks));
+
+        sprintf(param_name, trgTDESString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_tdes));
+        sprintf(param_name, trgTWIDString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_twid));
+
+        sprintf(param_name, propTDESString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
+        sprintf(param_name, propTWIDString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
     }
 }
 
@@ -299,6 +308,16 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
                 break;
             }
         }
+
+        if(function == (p_trigger_st + i)->p_twid) {
+            PropagateWidth(i, value);
+            break;
+        }
+
+        if(function == (p_trigger_st +i)->p_tdes) {
+            PropagateDelay(i, value);
+            break;
+        }
     }
 
     callParamCallbacks();
@@ -388,11 +407,14 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
             if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
+            PropagateTWID(i, width);
             
             epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
             epicsFloat64 delay;        getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
             ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
+            PropagateTDES(i, delay);
+
         }
         
         pApiDrv->SetClkSel(0);  /* set clcok for LCLS1 */
@@ -443,10 +465,12 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
             if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
+            PropagateTWID(i, width);
             
             epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[1], &delay);
             ticks = (delay*1.E-3 * application_clock_2) + 0.5;
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
+            PropagateTDES(i, delay);
         }
         
         pApiDrv->SetClkSel(1); /* set clock for LCLS2 */
@@ -678,7 +702,9 @@ void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
     epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
     uint32_t ticks  = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
     pApiDrv->SetDelay(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_delayTicks, ticks);
-    
+
+    PropagateTDES(trigger, delay);
+
 }
 void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
 {
@@ -687,6 +713,9 @@ void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
     
     uint32_t ticks = (delay*1.E-3 * application_clock_2) + 0.5;
     pApiDrv->SetDelay(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_delayTicks, ticks);
+
+    PropagateTDES(trigger, delay);
+
 }
 void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
 {
@@ -696,6 +725,9 @@ void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
     uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
     if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
+
+    PropagateTWID(trigger, width);
+
 }
 void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
 {
@@ -705,6 +737,40 @@ void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
     uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
     if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
+
+    PropagateTWID(trigger, width);
+
+}
+
+
+void tprTriggerAsynDriver::PropagateTDES(int trigger, epicsFloat64 delay)
+{
+    epicsFloat64 tdes;
+    getDoubleParam((p_trigger_st + trigger)->p_tdes, &tdes);
+    if(tdes != delay) setDoubleParam((p_trigger_st + trigger)->p_prop_tdes, delay);
+}
+
+void tprTriggerAsynDriver::PropagateTWID(int trigger, epicsFloat64 width)
+{
+    epicsFloat64 twid;
+    getDoubleParam((p_trigger_st + trigger)->p_twid, &twid);
+    if(twid != width) setDoubleParam((p_trigger_st + trigger)->p_prop_twid, width);
+}
+
+void tprTriggerAsynDriver::PropagateDelay(int trigger, epicsFloat64 tdes)
+{
+    int mode; getIntegerParam(p_mode, &mode);
+    epicsFloat64 delay; getDoubleParam((p_trigger_st + trigger)->p_delay[mode], &delay);
+
+    if(delay != tdes) setDoubleParam((p_trigger_st + trigger)->p_prop_delay[mode], tdes);
+}
+
+void tprTriggerAsynDriver::PropagateWidth(int trigger, epicsFloat64 twid)
+{
+    int mode; getIntegerParam(p_mode, &mode);
+    epicsFloat64 width; getDoubleParam((p_trigger_st + trigger)->p_width[mode], &width);
+
+    if(width != twid) setDoubleParam((p_trigger_st + trigger)->p_prop_width[mode], twid);
 }
 
 
