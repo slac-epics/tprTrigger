@@ -109,6 +109,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(modeString,            asynParamInt32, &p_mode);
     
     createParam(msgDelayString,        asynParamFloat64, &p_msg_delay);
+    createParam(msgDelayRBString,      asynParamInt32,   &p_msg_delay_ticks);
     createParam(masterDelayString,     asynParamFloat64, &p_master_delay);
     
     createParam(appClock1String,       asynParamFloat64, &p_app_clock_1);
@@ -514,6 +515,8 @@ void tprTriggerAsynDriver::SetMsgDelay(epicsFloat64 msg_delay)
 {
     uint32_t ticks = (msg_delay * 1.E-3 * lcls2_clock) + 0.5;
     pApiDrv->SetMsgDelay(ticks);
+
+    setIntegerParam(p_msg_delay_ticks, (epicsInt32) ticks);
     
 }
 

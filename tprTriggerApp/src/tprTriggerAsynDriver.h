@@ -93,6 +93,8 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_mode;               /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
         int p_msg_delay;          /* asynFloat64, rw */  // LCLS2 100 pulses delay and fine adjust 
         int p_master_delay;       /* asynFloat64, rw */  // LCLS1 master delay adjust
+
+        int p_msg_delay_ticks;    /* asynInt32, ro */ // readback value in ticks for the message delay
         
         int p_app_clock_1;          /* asynFloat64, rw */  // application clock in MHz for LCLS1
         int p_app_clock_2;          /* asynFloat64, rw */  // application clock in MHz for LCLS2
@@ -167,6 +169,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define modeString                 "mode"
 
 #define msgDelayString             "msgDelay"
+#define msgDelayRBString           "msgDelayRB"
 #define masterDelayString          "masterDelay"
 #define appClock1String            "applicationClock1"
 #define appClock2String            "applicationClock2"
