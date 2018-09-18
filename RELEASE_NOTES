@@ -1,3 +1,8 @@
+R1.3.0   Sep 13, 2018   Kukhee Kim (khkim)
+         * add up readback value for msg delay in LCLS2
+         * implement high level PVs (device centric name PVs, TCTL, TPOL, TDES, TWID)
+         * implmenmt forward/backward propagations between high level PVs and low level PVs 
+
 Branch out to forward_backward_propagation from R1.2.4
 to implement the forward/backward propagation for TDES and TWID
 
