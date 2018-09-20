@@ -1,3 +1,6 @@
+R1.2.5    Sep 20, 2018    Kukhee Kim (khkim)
+          * build with cpsw/framework R3.6.6, hpsTpr R1.0.2 and yamlLoader R1.1.1
+
 R1.2.4    Aug 29, 2018    Kukhee Kim (khkim)
           * Separate clock frequency PVs for LCLS1 and LCLS2
           * re-calculate trigger width and delay when the clock frequency is changed by users
