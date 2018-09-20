@@ -40,7 +40,7 @@ timingApi       R0.6
 cpsw/framework  R3.6.6
 yaml-cpp        yaml-cpp-0.5.3
 boost           1.63.0
-hpsTpr          R1.0.0
+hpsTpr          R1.0.2
 
 
 4. How to build application binary
