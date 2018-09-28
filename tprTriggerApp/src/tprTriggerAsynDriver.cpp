@@ -47,6 +47,15 @@ static void init_pList(void)
     }
 }
 
+static const char * _num2Str(int i)
+{
+    static const char *_str[] = { "00", "01", "02", "03", "04", "05", "06", "07",
+                                  "08", "09", "10", "11", "12", "13", "14", "15", ""};
+
+    if(i<0 || i>15) return _str[16];
+    else            return _str[i];
+}
+
 
 Tpr::TprTriggerYaml *p;
 
@@ -120,52 +129,52 @@ void tprTriggerAsynDriver::CreateParameters(void)
         char param_name[128];
         
         for(int j =0; j < 2; j++) {
-            sprintf(param_name, chnEnableString, i,j+1);  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_enable[j]));
+            sprintf(param_name, chnEnableString, _num2Str(i),j+1);  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_enable[j]));
         }
-        sprintf(param_name, chnRateModeString, i);  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_rate_mode));
-        sprintf(param_name, chnFixedRateString, i); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_fixed_rate));
-        sprintf(param_name, chnACRateString, i);    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ac_rate));
-        sprintf(param_name, chnTSMaskString, i);    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ts_mask));
-        sprintf(param_name, chnSeqBitString, i);    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_bit));
-        sprintf(param_name, chnDestModeString, i);  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mode));
-        sprintf(param_name, chnDestMaskString, i);  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mask));
-        sprintf(param_name, chnEventCodeString, i); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_event_code));
-        sprintf(param_name, chnCounterString, i);   createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_counter));
-        sprintf(param_name, chnRateString, i);      createParam(param_name, asynParamFloat64, &((p_channel_st+i)->p_rate));
+        sprintf(param_name, chnRateModeString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_rate_mode));
+        sprintf(param_name, chnFixedRateString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_fixed_rate));
+        sprintf(param_name, chnACRateString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ac_rate));
+        sprintf(param_name, chnTSMaskString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ts_mask));
+        sprintf(param_name, chnSeqBitString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_bit));
+        sprintf(param_name, chnDestModeString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mode));
+        sprintf(param_name, chnDestMaskString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mask));
+        sprintf(param_name, chnEventCodeString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_event_code));
+        sprintf(param_name, chnCounterString, _num2Str(i));   createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_counter));
+        sprintf(param_name, chnRateString, _num2Str(i));      createParam(param_name, asynParamFloat64, &((p_channel_st+i)->p_rate));
     }
     
     
     for(int i = 0; i < NUM_TRIGGERS; i++) {
         char param_name[128];
         for(int j = 0; j < 2; j++) {
-            sprintf(param_name, trgEnableString, i, j+1);    createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_enable[j]));
+            sprintf(param_name, trgEnableString, _num2Str(i), j+1);    createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_enable[j]));
         }
-        sprintf(param_name, trgSourceString, i);    createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_source));
-        sprintf(param_name, trgPolarityString, i);  createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_polarity));
+        sprintf(param_name, trgSourceString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_source));
+        sprintf(param_name, trgPolarityString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_polarity));
         
         for(int j = 0; j < 2; j++) {
-            sprintf(param_name, trgDelayString, i, j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_delay[j]));
-            sprintf(param_name, trgWidthString, i, j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_width[j]));
+            sprintf(param_name, trgDelayString, _num2Str(i), j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_delay[j]));
+            sprintf(param_name, trgWidthString, _num2Str(i), j+1);  createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_width[j]));
 
-            sprintf(param_name, propDelayString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_delay[j]));
-            sprintf(param_name, propWidthString, i, j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_width[j]));
-            sprintf(param_name, propEnableString, i, j+i); createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_prop_enable[j]));
+            sprintf(param_name, propDelayString, _num2Str(i), j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_delay[j]));
+            sprintf(param_name, propWidthString, _num2Str(i), j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_width[j]));
+            sprintf(param_name, propEnableString, _num2Str(i), j+1); createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_prop_enable[j]));
         }
-        sprintf(param_name, trgDelayTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTicks));
-        sprintf(param_name, trgWidthTicksString, i);      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_widthTicks));
+        sprintf(param_name, trgDelayTicksString, _num2Str(i));      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTicks));
+        sprintf(param_name, trgWidthTicksString, _num2Str(i));      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_widthTicks));
 
-        sprintf(param_name, trgTDESString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_tdes));
-        sprintf(param_name, trgTWIDString, i);            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_twid));
+        sprintf(param_name, trgTDESString, _num2Str(i));            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_tdes));
+        sprintf(param_name, trgTWIDString, _num2Str(i));            createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_twid));
  
-        sprintf(param_name, trgTCTLString, i);            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tctl));
-        sprintf(param_name, trgTPOLString, i);            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tpol));
+        sprintf(param_name, trgTCTLString, _num2Str(i));            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tctl));
+        sprintf(param_name, trgTPOLString, _num2Str(i));            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tpol));
 
-        sprintf(param_name, propTDESString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
-        sprintf(param_name, propTWIDString, i);           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
+        sprintf(param_name, propTDESString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
+        sprintf(param_name, propTWIDString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
 
-        sprintf(param_name, propTCTLString, i);           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tctl));
-        sprintf(param_name, propTPOLString, i);           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
-        sprintf(param_name, propPolarityString, i);       createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_polarity));
+        sprintf(param_name, propTCTLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tctl));
+        sprintf(param_name, propTPOLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
+        sprintf(param_name, propPolarityString, _num2Str(i));       createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_polarity));
     }
 }
 
