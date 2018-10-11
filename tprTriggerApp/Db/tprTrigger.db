@@ -61,7 +61,7 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE")
     field(TTST, "Channel 13")
     field(FTST, "Channel 14")
     field(FFST, "Channel 15")
-    field(VAL, "Channel $(NN)")
+    field(VAL, "$(V)")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }

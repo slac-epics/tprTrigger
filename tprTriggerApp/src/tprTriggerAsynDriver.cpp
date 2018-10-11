@@ -169,8 +169,8 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, trgTCTLString, _num2Str(i));            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tctl));
         sprintf(param_name, trgTPOLString, _num2Str(i));            createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_tpol));
 
-        sprintf(param_name, propTDESString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
-        sprintf(param_name, propTWIDString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
+        sprintf(param_name, propTDESString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_tdes));
+        sprintf(param_name, propTWIDString, _num2Str(i));           createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_twid));
 
         sprintf(param_name, propTCTLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tctl));
         sprintf(param_name, propTPOLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
@@ -282,8 +282,15 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         if(function == (p_trigger_st +i)->p_polarity) {
             SetPolarity(i, value);
             break;
+        } else
+        if(function == (p_trigger_st +i)->p_tpol) {
+            PropagatePolarity(i, value);
+            break;
+        } else
+        if(function == (p_trigger_st +i)->p_tctl) {
+            PropagateEnable(i, value);
+            break;
         }
-    
     }
     
     
@@ -337,15 +344,6 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
             break;
         }
 
-        if(function == (p_trigger_st +i)->p_tpol) {
-            PropagatePolarity(i, value);
-            break;
-        }
-
-        if(function == (p_trigger_st +i)->p_tctl) {
-            PropagateEnable(i, value);
-            break;
-        }
     }
 
     callParamCallbacks();
@@ -443,6 +441,9 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
             PropagateTDES(i, delay);
 
+            int _enable; getIntegerParam((p_trigger_st +i)->p_enable[0], &_enable);
+            PropagateTCTL(i, _enable);
+
         }
         
         pApiDrv->SetClkSel(0);  /* set clcok for LCLS1 */
@@ -499,6 +500,9 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             ticks = (delay*1.E-3 * application_clock_2) + 0.5;
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
             PropagateTDES(i, delay);
+
+            int _enable; getIntegerParam((p_trigger_st +i)->p_enable[1], &_enable);
+            PropagateTCTL(i, _enable); 
         }
         
         pApiDrv->SetClkSel(1); /* set clock for LCLS2 */
@@ -696,6 +700,7 @@ void tprTriggerAsynDriver::SetEventCode(int channel, epicsInt32 event_code)
 void tprTriggerAsynDriver::SetLCLS1TriggerEnable(int trigger, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
+    mode = !mode?0:1;
     
     if(mode == 0) {    /* set trigger status in LCLS1 mode */ 
         pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
@@ -707,6 +712,7 @@ void tprTriggerAsynDriver::SetLCLS1TriggerEnable(int trigger, epicsInt32 enable)
 void tprTriggerAsynDriver::SetLCLS2TriggerEnable(int trigger, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
+    mode = !mode?0:1;
     
     if(mode == 0)    /* nothing doto in LCLS1 mode */
         return;
@@ -836,7 +842,7 @@ void tprTriggerAsynDriver::PropagateEnable(int trigger, epicsInt32 tctl)
     int mode; getIntegerParam(p_mode, &mode);
     epicsInt32 enable; getIntegerParam((p_trigger_st + trigger)->p_enable[mode], &enable);
 
-    if(enable != tctl) setIntegerParam((p_trigger_st + trigger)->p_prop_enable[mode], enable);
+    if(enable != tctl) setIntegerParam((p_trigger_st + trigger)->p_prop_enable[mode], tctl);
 }
 
 
