@@ -116,7 +116,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
 
 record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLYRB")
 {
-    field(DESC, "Readback value for message delay in ticks")
+    field(DESC, "message delay in ticks")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),0) msgDelayRB")
     field(SCAN, "I/O Intr")
