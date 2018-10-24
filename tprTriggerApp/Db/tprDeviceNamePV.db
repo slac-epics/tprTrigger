@@ -226,7 +226,7 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL_PROPOUT")
     field(OUT,  "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL PP")
     field(DOL,  "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL_PROP NPP")
     field(OMSL, "closed_loop")
-    field(SCAN, "Passvie")
+    field(SCAN, "Passive")
 }
 
 #
@@ -248,7 +248,7 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL_PROPOUT")
     field(OUT,  "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL PP")
     field(DOL,  "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL_PROP NPP")
     field(OMSL, "closed_loop")
-    field(SCAN, "Passvie")
+    field(SCAN, "Passive")
 }
 
 
