@@ -13,7 +13,7 @@ How to build an ioc with tprTrigger
 configure/CONFIG_STIE should have the followings for the hpsTpr API.
 
 HPSTPR_PACKAGE_NAME=timing/hpsTpr
-HPSTPR_VERSION=R1.0.1
+HPSTPR_VERSION=R1.0.2
 HPSTPR_ARCH=$(LINUXRT_BUILDROOT_VERSION)-x86_64
 HPSTPR=$(PACKAGE_AREA)/$(HPSTPR_PACKAGE_NAME)/$(HPSTPR_VERSION)/$(HPSTPR_ARCH)
 HPSTPR_LIB     = $(HPSTPR)/lib
@@ -34,13 +34,13 @@ TPRTRIGGER=$(EPICS_MODULES)/tprTrigger/$(TPRTRIGGER_MODULE_VERSION)
 the tprTrigger module assumes the following API and modules are included in the application.
 
 asyn            R4.31-0.1.0
-yamlLoader      R1.1.0
+yamlLoader      R1.1.2
 timingApi       R0.6
 
 cpsw/framework  R3.6.4
-yaml-cpp        yaml-cpp-0.5.3
-boost           1.63.0
-hpsTpr          R1.0.0
+yaml-cpp        yaml-cpp-0.5.3_boost-1.64.0
+boost           1.64.0
+hpsTpr          R1.0.2
 
 
 4. How to build application binary
