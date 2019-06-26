@@ -1,6 +1,8 @@
+R1.3.2 June 25, 2019       Kukhee Kim (khkim)
+         * build with cpsw/framework R4.1.0 and yamlLoader R1.1.3
+
 R1.3.1  November 8, 2018   Kukhee Kim (khkim)
          * build with  cpsw/framework R3.6.6,  yaml-cpp-0.5.3_boost-1.64.0, boost 1.64.0, yamlLoader R1.1.2
-
 
 
 R1.3.0   October 10, 2018   Kukhee Kim (khkim)
