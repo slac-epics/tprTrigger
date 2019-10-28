@@ -1,3 +1,6 @@
+R1.3.4 Oct 28, 2019        Kukhee Kim (khkim)
+         * build with cpsw/framework R4.3.1, timing/hpsTpr R1.0.5 and yamlLoader R1.1.5
+
 R1.3.3 Sep 20, 2019        Kukhee Kim (khkim)
          * build with cpsw/framework R4.2.0, timing/hpsTpr R1.0.4 and yamlLoader R1.1.4
 
