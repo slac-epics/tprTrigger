@@ -75,7 +75,7 @@ void API_TEST_INIT(void)
     
 }
 
-tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *corePath)
+tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *corePath, const char *named_root)
     : asynPortDriver(portName,
                      1,
                      NUM_TPR_TRG_DET_PARAMS,
@@ -86,8 +86,9 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
                      0,
                      0)
 {
-
-    Path _core = cpswGetRoot()->findByName(corePath);
+    if(named_root && !strlen(named_root)) named_root = NULL;
+ 
+    Path _core = ((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath);
     pApiDrv    = new Tpr::TprTriggerYaml(_core);
     pApiDrv->_debug_ = 0;      /* turn on the debugging message in API layer */
     // pApiDrv->_debug_ = 0;   /* turn off the debugging message in API layer */
@@ -850,16 +851,16 @@ void tprTriggerAsynDriver::PropagateEnable(int trigger, epicsInt32 tctl)
 
 extern "C" {
 
-static void tprTriggerAsynDriverConfigure(const char *port_name, const char *core_path)
+static void tprTriggerAsynDriverConfigure(const char *port_name, const char *core_path, const char *named_root)
 {
     tprTriggerDrvList_t    *pDrvNode = new tprTriggerDrvList_t; 
-    pDrvNode->pAsynDrv               = new tprTriggerAsynDriver(port_name, core_path);
+    pDrvNode->pAsynDrv               = new tprTriggerAsynDriver(port_name, core_path, named_root);
     pDrvNode->pApiDrv                = pDrvNode->pAsynDrv->getApiDrv();
     
     
     strcpy(pDrvNode->port_name, port_name);
     strcpy(pDrvNode->core_path, core_path);
-    
+    pDrvNode->named_root = (named_root && strlen(named_root))? epicsStrDup(named_root):cpswGetRootName();
     
     ellAdd(pList, &pDrvNode->node);
     
@@ -933,6 +934,7 @@ static int tprTriggerAsynDriverReport(int interest)
     
     p = (tprTriggerDrvList_t *) ellFirst(pList);
     while (p) {
+        printf("named_root   : %s\n", p->named_root);
         printf("    port name: %s\n", p->port_name);
         printf("    core path: %s\n", p->core_path);
         printf("    api location: %p\n", p->pApiDrv);
@@ -966,13 +968,16 @@ static int tprTriggerAsynDriverInitialize(void)
 
 static const iocshArg initArg0 = { "port name", iocshArgString };
 static const iocshArg initArg1 = { "core path", iocshArgString };
+static const iocshArg initArg2 = { "named_root (optional)", iocshArgString };
 static const iocshArg * const initArgs[] = { &initArg0,
-                                             &initArg1 };
-static const iocshFuncDef initFuncDef = { "tprTriggerAsynDriverConfigure", 2, initArgs };
+                                             &initArg1,
+                                             &initArg2 };
+static const iocshFuncDef initFuncDef = { "tprTriggerAsynDriverConfigure", 3, initArgs };
 static void initCallFunc(const iocshArgBuf *args)
 {
     init_pList();
-    tprTriggerAsynDriverConfigure(args[0].sval, args[1].sval);
+    tprTriggerAsynDriverConfigure(args[0].sval, args[1].sval,
+                                  (args[2].sval && strlen(args[2].sval))? args[2].sval: NULL);
     
 }
 

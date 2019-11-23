@@ -12,7 +12,7 @@
 
 class tprTriggerAsynDriver:asynPortDriver {
     public:
-        tprTriggerAsynDriver(const char *portName, const char *corePath);
+        tprTriggerAsynDriver(const char *portName, const char *corePath, const char *named_root = NULL);
         Tpr::TprTriggerYaml* getApiDrv(void) { return pApiDrv; }
         void CreateParameters(void);
         void Monitor(void);
@@ -217,6 +217,7 @@ typedef struct {
     ELLNODE     node;
     char        port_name[64];
     char        core_path[256];
+    char        *named_root;
     Tpr::TprTriggerYaml  *pApiDrv;
     tprTriggerAsynDriver *pAsynDrv;
 } tprTriggerDrvList_t;
