@@ -9,7 +9,6 @@ record(ao, "$(DEV_PREFIX)TDES")
     field(EGU,  "nsec")
     field(PREC, "0")
 #    field(PINI, "YES")
-    info(autosaveFields, "VAL")
 }
 
 record(ao, "$(DEV_PREFIX)TWID")
@@ -21,7 +20,6 @@ record(ao, "$(DEV_PREFIX)TWID")
     field(EGU,  "nsec")
     field(PREC, "0")
 #    field(PINI, "YES")
-    info(autosaveFields, "VAL")
 }
 
 record(bo, "$(DEV_PREFIX)TCTL")
@@ -33,7 +31,6 @@ record(bo, "$(DEV_PREFIX)TCTL")
     field(ZNAM, "Disable")
     field(ONAM, "Enable")
 #    field(PINI, "YES")
-    info(autosaveFields, "VAL")
 }
 
 record(bo, "$(DEV_PREFIX)TPOL")
@@ -46,7 +43,6 @@ record(bo, "$(DEV_PREFIX)TPOL")
     field(ZNAM, "Falling Edge")
     field(ONAM, "Rising Edge")
 #    field(PINI, "YES")
-    info(autosaveFields, "VAL")
 }
 
 #
