@@ -75,9 +75,11 @@ class tprTriggerAsynDriver:asynPortDriver {
     //
     // parameter section for asynPortDrver
     //
-    
+
+#if (ASYN_VERSION <<8 | ASYN_REVISION) < (4<<8 | 32)    
         int firstTprTrgParam;
 #define FIRST_TPR_TRG_PARAM    firstTprTrgParam
+#endif /* asyn version check, under 4.32 */
 
         int p_fpga_version;        /* asynInt32, ro */
         int p_uptime_counter;      /* asynInt32, ro */
@@ -147,13 +149,15 @@ class tprTriggerAsynDriver:asynPortDriver {
         } p_trigger_st[NUM_TRIGGERS];
         
 
-
+#if (ASYN_VERSION <<8 | ASYN_REVISION) < (4<<8 | 32)
         int lastTprTrgParam;
 #define LAST_TPR_TRG_PARAM     lastTprTrgParam
-
+#endif /* asyn version check, under 4.32 */
 };
 
+#if (ASYN_VERSION <<8 | ASYN_REVISION) < (4<<8 | 32)
 #define NUM_TPR_TRG_DET_PARAMS ((int)(&LAST_TPR_TRG_PARAM-&FIRST_TPR_TRG_PARAM -1))
+#endif /* asyn version check, under 4.32 */
 
 #define fpgaVersionString          "fpgaVersion"
 #define uptimeCounterString        "uptime"

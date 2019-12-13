@@ -78,7 +78,9 @@ void API_TEST_INIT(void)
 tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *corePath, const char *named_root)
     : asynPortDriver(portName,
                      1,
+#if (ASYN_VERSION <<8 | ASYN_REVISION) < (4<<8 | 32)
                      NUM_TPR_TRG_DET_PARAMS,
+#endif /* asyn version check, under 4.32 */
                      asynInt32Mask | asynFloat64Mask | asynOctetMask | asynDrvUserMask | asynInt32ArrayMask | asynInt16ArrayMask,
                      asynInt32Mask | asynFloat64Mask | asynOctetMask | asynEnumMask | asynInt32ArrayMask | asynInt16ArrayMask,
                      1,
