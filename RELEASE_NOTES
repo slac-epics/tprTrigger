@@ -1,3 +1,8 @@
+R1.3.5-1.0 Jan 9, 2019     Kukhee Km (khkim)
+         * fix UDF issue on high level Pvs (TDES, TWID, TPOL and TCTL)
+
+R1.3.5-br  Jan 9, 2019     Kukhee Kim (khkim) - branch out from R1.3.5 to fix UDF issue on high level PVs (TDES, TWID, TPOL and TCTL)
+
 R1.3.5 Nov 18, 2019        Kukhee Kim (khkim)
          * build with asyn R4.32-1.0.0
 
