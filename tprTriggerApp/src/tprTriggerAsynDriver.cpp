@@ -790,6 +790,14 @@ void tprTriggerAsynDriver::PropagateTDES(int trigger, epicsFloat64 delay)
 {
     epicsFloat64 tdes;
     getDoubleParam((p_trigger_st + trigger)->p_tdes, &tdes);
+
+    // to avoid udf on TDES PV at the beginning
+    if(tdes == 0.0) {
+        setDoubleParam((p_trigger_st + trigger)->p_prop_tdes, -1.);
+        setDoubleParam((p_trigger_st + trigger)->p_prop_tdes, delay);
+        return;
+    }
+
     if(tdes != delay) setDoubleParam((p_trigger_st + trigger)->p_prop_tdes, delay);
 }
 
@@ -797,6 +805,13 @@ void tprTriggerAsynDriver::PropagateTWID(int trigger, epicsFloat64 width)
 {
     epicsFloat64 twid;
     getDoubleParam((p_trigger_st + trigger)->p_twid, &twid);
+    // to avoid udf on TWID PV at the beginning
+    if(twid == 0.0) {
+        setDoubleParam((p_trigger_st + trigger)->p_prop_twid, -1.);
+        setDoubleParam((p_trigger_st + trigger)->p_prop_twid, width);
+        return;
+    }
+
     if(twid != width) setDoubleParam((p_trigger_st + trigger)->p_prop_twid, width);
 }
 
@@ -805,6 +820,12 @@ void tprTriggerAsynDriver::PropagateTPOL(int trigger, epicsInt32 polarity)
 {
     epicsInt32 tpol;
     getIntegerParam((p_trigger_st + trigger)->p_tpol, &tpol);
+    // to avoid udf on TPOL PV at the beginning
+    if(tpol == 0) {
+        setIntegerParam((p_trigger_st + trigger)->p_prop_tpol, -1);
+        setIntegerParam((p_trigger_st + trigger)->p_prop_tpol, polarity);
+        return;
+    }
     if(tpol != polarity) setIntegerParam((p_trigger_st + trigger)->p_prop_tpol, polarity);
 }
 
@@ -812,6 +833,12 @@ void tprTriggerAsynDriver::PropagateTCTL(int trigger, epicsInt32 enable)
 {
     epicsInt32 tctl;
     getIntegerParam((p_trigger_st + trigger)->p_tctl, &tctl);
+    // to avoid udf on TCTL PV at the beginning
+    if(tctl == 0) {
+        setIntegerParam((p_trigger_st + trigger)->p_prop_tctl, -1);
+        setIntegerParam((p_trigger_st + trigger)->p_prop_tctl, enable);
+        return;
+    }
 
     if(tctl != enable) setIntegerParam((p_trigger_st + trigger)->p_prop_tctl, enable);
 }
