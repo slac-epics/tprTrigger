@@ -1,3 +1,6 @@
+R1.4.1 Jan 9, 2020         Kukhee Kim (khkim)
+         * fix UDF issue on high level PVs (TDES, TWID, TPOL and TCTL)
+
 R1.4.0 Nov 22, 2019        Kukhee Kim (khkim)
          * build with yamlLoader R2.0.0
          * implement named_root to support multiple blades in a single ioc
