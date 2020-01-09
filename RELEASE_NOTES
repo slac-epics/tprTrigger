@@ -1,3 +1,8 @@
+R1.3.4-1.0  Jan 9, 2020    Kukhee Kim (khkim)
+         * fix UDF issue on high Level PVs (TDES, TCTL, TWID, TPOL)
+
+R1.3.4-br  Jan 9, 2020     Kukhee Kim (khkim) - Brach out from R1.3.4 to fix UDF issue on high level PVs (TDES, TCTL, TWID, TPOL)
+
 R1.3.4 Oct 28, 2019        Kukhee Kim (khkim)
          * build with cpsw/framework R4.3.1, timing/hpsTpr R1.0.5 and yamlLoader R1.1.5
 
