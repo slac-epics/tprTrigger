@@ -1,3 +1,9 @@
+
+ued_support    May 21, 2020   Kukhee Kim (khkim)
+         * branch out from R1.5.0 in forward_backward_propagation branch to support a new mode for ued
+         * build with hpsTpr ued_support for development period
+
+
 R1.5.0 Jan 29, 2020        Kukhee Kim (khkim)
          * build with yamlLoader R2.1.0, asyn R4.32-1.0.0, cpsw/framework R4.4.1, hpsTpr R1.1.0 and buildroot-2019.08
 
