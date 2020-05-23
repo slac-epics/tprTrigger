@@ -159,3 +159,20 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
+
+
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):UEDSPECIAL")
+{
+    field(DESC, "UED Special Mode")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) ued_special")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Backward Compatible")
+    field(ONAM, "UED Special")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL ZSV OSV")
+}
+
+
+
+

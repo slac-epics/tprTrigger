@@ -126,6 +126,8 @@ void tprTriggerAsynDriver::CreateParameters(void)
     
     createParam(appClock1String,       asynParamFloat64, &p_app_clock_1);
     createParam(appClock2String,       asynParamFloat64, &p_app_clock_2);
+
+    createParam(uedSpecialString,      asynParamInt32,  &p_ued_special);
     
     
     for(int i = 0; i < NUM_CHANNELS; i++) {
@@ -296,6 +298,8 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         }
     }
     
+
+    if(function == p_ued_special) SetUedSpecialMode(value);
     
     callParamCallbacks();
     
@@ -875,6 +879,18 @@ void tprTriggerAsynDriver::PropagateEnable(int trigger, epicsInt32 tctl)
     if(enable != tctl) setIntegerParam((p_trigger_st + trigger)->p_prop_enable[mode], tctl);
 }
 
+
+void tprTriggerAsynDriver::SetUedSpecialMode(int mode)
+{
+    if(mode) {    // ued_special mode
+        pApiDrv->SetModeSelEn(1);    // enable independant clock selection and timing decoding
+        pApiDrv->SetModeSel(1);      // make timing decoding to LCLS2 style
+        pApiDrv->SetClkSel(0);       // use LCLS1 timing rate
+    }
+    else {        // backward compatible
+        pApiDrv->SetModeSelEn(0);    // unset ModeSelEn register for backward compatible mode
+    }
+}
 
 
 

@@ -67,6 +67,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 
         void PropagateTCTL(int trigger, epicsInt32 enable);    // propagate from low level to high level
         void PropagateEnable(int trigger, epicsInt32 tctl);    // propagate from high level to low level
+
+        void SetUedSpecialMode(int mode);
              
         int _update_flag;
         uint32_t _prev_chn_counter[NUM_CHANNELS];
@@ -147,6 +149,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 
             
         } p_trigger_st[NUM_TRIGGERS];
+
+        int p_ued_special;        /* asynInt32 */
         
 
 #if (ASYN_VERSION <<8 | ASYN_REVISION) < (4<<8 | 32)
@@ -214,6 +218,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 
 #define trgDelayTicksString        "trgDelayTicks_T%s"
 #define trgWidthTicksString        "trgWidthTicks_T%s"
+
+#define uedSpecialString           "ued_special"
 
 
 
