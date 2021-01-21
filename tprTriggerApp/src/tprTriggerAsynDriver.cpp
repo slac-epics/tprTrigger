@@ -454,6 +454,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         }
         
         pApiDrv->SetClkSel(0);  /* set clcok for LCLS1 */
+        pApiDrv->SetModeSel(0); /* set protocol mode for LCLS1 */ 
     
     
     } else { /* LCLS 2 mode */
@@ -511,8 +512,18 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             int _enable; getIntegerParam((p_trigger_st +i)->p_enable[1], &_enable);
             PropagateTCTL(i, _enable); 
         }
-        
-        pApiDrv->SetClkSel(1); /* set clock for LCLS2 */
+
+        epicsInt32 _ued_support;
+        getIntegerParam(p_ued_special, &_ued_support);
+        if(!_ued_support) {       
+            /* back ward compatible mode */
+            pApiDrv->SetClkSel(1); /* set clock for LCLS2 */
+            pApiDrv->SetModeSel(1); /* set protocol mode for LCLS2 */
+        }  else {
+            /* UED support */
+            pApiDrv->SetClkSel(0);  /* use LCLS1 clock rate */
+            pApiDrv->SetModeSel(1); /* use LCLS1 protocol */
+        }
         
     }
     
