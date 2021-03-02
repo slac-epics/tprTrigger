@@ -1,3 +1,5 @@
+ued_support    Mar 1, 2021   Kukhee Kim (khkim)
+         * build with timing/hpsTpr R1.2.0
 
 ued_support    May 21, 2020   Kukhee Kim (khkim)
          * branch out from R1.5.0 in forward_backward_propagation branch to support a new mode for ued
