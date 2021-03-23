@@ -79,6 +79,22 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL")
     info(autosaveFields, "VAL")
 }
 
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TCMPL")
+{
+    field(DESC, "Trigger $(NN) Complementary")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) trgCMPL_T$(NN)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Disable")
+    field(ONST, "OR")
+    field(TWST, "AND")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
 record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TWID")
 {
     field(DESC, "Trigger $(NN) Width for LCLS1")
