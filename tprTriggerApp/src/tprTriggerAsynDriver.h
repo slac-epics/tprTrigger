@@ -52,6 +52,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetLCLS2TriggerEnable(int trigger, epicsInt32 enable);
         void SetSource(int trigger, epicsInt32 source);
         void SetPolarity(int trigger, epicsInt32 polarity);
+        void SetCmpl(int trigger, epicsInt32 cmpl);
         void SetLCLS1Delay(int trigger, epicsFloat64 delay);
         void SetLCLS2Delay(int trigger, epicsFloat64 delay);
         void SetLCLS1Width(int trigger, epicsFloat64 width);
@@ -136,6 +137,7 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_tdes;           /* asynFloat64, rw */
             int p_tctl;           /* asynInt32,   rw */
             int p_tpol;           /* asynInt32,   rw */
+            int p_cmpl;           /* asynInt32,   rw */
  
             int p_prop_twid;      /* asynFloat64, ro */
             int p_prop_tdes;      /* asynFloat64, ro */
@@ -146,6 +148,7 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_prop_tpol;        /* asynInt32, ro */
             int p_prop_enable[2];   /* asynInt32, ro */
             int p_prop_polarity;    /* asynInt32, ro */
+
 
             
         } p_trigger_st[NUM_TRIGGERS];
@@ -205,6 +208,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 
 #define trgTCTLString              "trgTCTL_T%s"
 #define trgTPOLString              "trgTPOL_T%s"
+
+#define trgCMPLString              "trgCMPL_T%s"
 
 #define propTDESString             "propTDES_T%s"
 #define propTWIDString             "propTWID_T%s"
