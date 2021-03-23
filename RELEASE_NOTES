@@ -1,3 +1,8 @@
+R2.1.0   Mar 23, 2021       Kukhee Kim (khkim)
+         * build with timing/hpsTpr R2.0.0
+         * support PCIe and ATCA both system
+         * support complementary trigger (group two channels with AND/OR logic)
+
 R2.0.0   Mar 1, 2021        Kukhee Kim (khkim)
          * merge ued_support branch
 
