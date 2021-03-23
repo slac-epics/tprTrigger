@@ -88,10 +88,29 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
                      0,
                      0)
 {
+    Path _core;
+    busType = _atca;
     if(named_root && !strlen(named_root)) named_root = NULL;
- 
-    Path _core = ((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath);
-    pApiDrv    = new Tpr::TprTriggerYaml(_core);
+    if(corePath && !strlen(corePath)) {
+        if(!strncmp(corePath, "PCI:", 4) || !strncmp(corePath, "pci:", 4)) busType = _pcie;
+        else                                                               busType = _atca;
+    } else {
+        busType = _atca;
+    }
+
+    switch(busType) {
+        case _atca:
+            _core   = ((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath);
+            pApiDrv = new Tpr::TprTriggerYaml(_core, 0);
+            break;
+        case _pcie:
+            _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root));
+            pApiDrv = new Tpr::TprTriggerYaml(_core, 1);
+            break;
+    }
+
+
+
     pApiDrv->_debug_ = 0;      /* turn on the debugging message in API layer */
     // pApiDrv->_debug_ = 0;   /* turn off the debugging message in API layer */
     

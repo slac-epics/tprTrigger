@@ -22,6 +22,8 @@ class tprTriggerAsynDriver:asynPortDriver {
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
         
     private:
+        enum { _atca, _pcie } busType;
+
         Tpr::TprTriggerYaml *pApiDrv;
         
         epicsFloat64 lcls2_clock;
