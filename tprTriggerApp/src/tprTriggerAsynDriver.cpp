@@ -91,9 +91,9 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
     Path _core;
     busType = _atca;
     if(named_root && !strlen(named_root)) named_root = NULL;
-    if(corePath && !strlen(corePath)) {
-        if(!strncmp(corePath, "PCI:", 4) || !strncmp(corePath, "pci:", 4)) busType = _pcie;
-        else                                                               busType = _atca;
+    if(corePath && strlen(corePath)) {
+        if(!strncmp(corePath, "PCIe:/", 6) || !strncmp(corePath, "pcie:/", 6)) busType = _pcie;
+        else                                                                   busType = _atca;
     } else {
         busType = _atca;
     }
@@ -104,7 +104,7 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
             pApiDrv = new Tpr::TprTriggerYaml(_core, 0);
             break;
         case _pcie:
-            _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root));
+            _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath+6);;
             pApiDrv = new Tpr::TprTriggerYaml(_core, 1);
             break;
     }
