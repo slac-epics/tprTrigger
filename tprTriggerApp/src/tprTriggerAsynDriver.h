@@ -110,6 +110,7 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_fixed_rate;     /* asynInt32, rw, 0: to 6: */
             int p_ac_rate;        /* asynInt32, rw, 0: to 5: */
             int p_ts_mask;        /* asynInt32, rw, 6bits mask */
+            int p_seq_num;        /* asynInt32, rw, sequencer number */
             int p_seq_bit;        /* asynInt32, rw */
             int p_dest_mode;      /* asynInt32, rw, 0: Inclusive, 1: Exclusive, 2: Don't care, 3: Reserved */
             int p_dest_mask;      /* asynInt32, rw */
@@ -187,6 +188,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define chnFixedRateString         "chnFixedRate_C%s"
 #define chnACRateString            "chnACRate_C%s"
 #define chnTSMaskString            "chnTSMask_C%s"
+#define chnSeqNumString            "chnSeqNum_C%s"
 #define chnSeqBitString            "chnSeqBit_C%s"
 #define chnDestModeString          "chnDestMode_C%s"
 #define chnDestMaskString          "chnDestMask_C%s"
