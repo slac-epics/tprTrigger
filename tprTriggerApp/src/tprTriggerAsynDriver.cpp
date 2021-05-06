@@ -159,6 +159,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, chnFixedRateString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_fixed_rate));
         sprintf(param_name, chnACRateString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ac_rate));
         sprintf(param_name, chnTSMaskString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ts_mask));
+        sprintf(param_name, chnSeqNumString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_num));
         sprintf(param_name, chnSeqBitString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_bit));
         sprintf(param_name, chnDestModeString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mode));
         sprintf(param_name, chnDestMaskString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mask));
@@ -275,8 +276,13 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
             SetTSMask(i, value);
             break;
         } else
+        if(function == (p_channel_st +i)->p_seq_num) {
+            epicsInt32 seq_bit; getIntegerParam((p_channel_st + i)->p_seq_bit, &seq_bit);
+            SetSeqBit(i, (uint32_t) (((value & 0x1f)<<4)|(seq_bit & 0xf)));
+        } else
         if(function == (p_channel_st +i)->p_seq_bit) {
-            SetSeqBit(i, value);
+            epicsInt32 seq_num; getIntegerParam((p_channel_st + i)->p_seq_num, &seq_num);
+            SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4)|(value & 0xf)));
             break;
         } else
         if(function == (p_channel_st +i)->p_dest_mode) {
@@ -485,11 +491,12 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
     
         // channel, filtering section
         for(int i = 0; i < NUM_CHANNELS; i++) {
-            epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask, seq_bit, dest_mode, dest_mask;
+            epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask, seq_num, seq_bit, dest_mode, dest_mask;
             getIntegerParam((p_channel_st+i)->p_rate_mode, &rate_mode);
             getIntegerParam((p_channel_st+i)->p_fixed_rate, &fixed_rate);
             getIntegerParam((p_channel_st+i)->p_ac_rate, &ac_rate);
             getIntegerParam((p_channel_st+i)->p_ts_mask, &ts_mask);
+            getIntegerParam((p_channel_st+i)->p_seq_num, &seq_num);
             getIntegerParam((p_channel_st+i)->p_seq_bit, &seq_bit);
             getIntegerParam((p_channel_st+i)->p_dest_mode, &dest_mode);
             getIntegerParam((p_channel_st+i)->p_dest_mask, &dest_mask);
@@ -502,7 +509,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
                     pApiDrv->SetACRate(i, (uint32_t)ts_mask, (uint32_t)ac_rate);
                     break;
                 case 2: /* Seq */
-                    pApiDrv->SetSeqBit(i, (uint32_t)seq_bit);
+                    pApiDrv->SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4) | (seq_bit &0xf)));
                     break;
             }
             switch(dest_mode) {
@@ -620,8 +627,9 @@ void tprTriggerAsynDriver::SetRateMode(int channel, epicsInt32 rate_mode)
             pApiDrv->SetACRate(channel, (uint32_t) ts_mask, (uint32_t) ac_rate);
             break;
         case 2: /* Seq mode */
+            epicsInt32 seq_num; getIntegerParam((p_channel_st + channel)->p_seq_num, &seq_num);
             epicsInt32 seq_bit; getIntegerParam((p_channel_st + channel)->p_seq_bit, &seq_bit);
-            pApiDrv->SetSeqBit(channel, (uint32_t) seq_bit);
+            pApiDrv->SetSeqBit(channel, (uint32_t) (((seq_num & 0x1f)<<4)|(seq_bit & 0xf)));
             break;
     }
 }

@@ -1,7 +1,18 @@
+R2.2.0   May 6, 2021        Kukhee Kim (khkim)
+         * merge R2.0.0-R0 to support sequencer number PV in the channel configuration
+
 R2.1.0   Mar 23, 2021       Kukhee Kim (khkim)
          * build with timing/hpsTpr R2.0.0
          * support PCIe and ATCA both system
          * support complementary trigger (group two channels with AND/OR logic)
+
+///// branched activity ////////
+R2.0.0-R0 May 6, 2021 Kukhee Kim
+          add sequencer number PV in the channel configuration
+
+R2.0.0-br May 6, 2021 Kukhee Kim 
+          branch out from R2.0.0
+////////////////////////////////
 
 R2.0.0   Mar 1, 2021        Kukhee Kim (khkim)
          * merge ued_support branch
