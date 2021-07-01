@@ -1,3 +1,70 @@
+
+merge     July 1, 2021     Kukhee Kim (khkim)
+          * merge forward_backward_propagation branch into the master
+            (all of release after R1.2.7 merged into the master)
+
+
+R2.2.0   May 6, 2021        Kukhee Kim (khkim)
+         * merge R2.0.0-R0 to support sequencer number PV in the channel configuration
+
+R2.1.0   Mar 23, 2021       Kukhee Kim (khkim)
+         * build with timing/hpsTpr R2.0.0
+         * support PCIe and ATCA both system
+         * support complementary trigger (group two channels with AND/OR logic)
+
+///// branched activity ////////
+R2.0.0-R0 May 6, 2021 Kukhee Kim
+          add sequencer number PV in the channel configuration
+
+R2.0.0-br May 6, 2021 Kukhee Kim 
+          branch out from R2.0.0
+////////////////////////////////
+
+R2.0.0   Mar 1, 2021        Kukhee Kim (khkim)
+         * merge ued_support branch
+
+ued_support    Mar 1, 2021   Kukhee Kim (khkim)
+         * build with timing/hpsTpr R1.2.0
+
+ued_support    May 21, 2020   Kukhee Kim (khkim)
+         * branch out from R1.5.0 in forward_backward_propagation branch to support a new mode for ued
+         * build with hpsTpr ued_support for development period
+
+
+R1.5.0 Jan 29, 2020        Kukhee Kim (khkim)
+         * build with yamlLoader R2.1.0, asyn R4.32-1.0.0, cpsw/framework R4.4.1, hpsTpr R1.1.0 and buildroot-2019.08
+
+R1.4.1 Jan 9, 2020         Kukhee Kim (khkim)
+         * fix UDF issue on high level PVs (TDES, TWID, TPOL and TCTL)
+
+R1.4.0 Nov 22, 2019        Kukhee Kim (khkim)
+         * build with yamlLoader R2.0.0
+         * implement named_root to support multiple blades in a single ioc
+
+R1.3.5 Nov 18, 2019        Kukhee Kim (khkim)
+         * build with asyn R4.32-1.0.0
+
+R1.3.4 Oct 28, 2019        Kukhee Kim (khkim)
+         * build with cpsw/framework R4.3.1, timing/hpsTpr R1.0.5 and yamlLoader R1.1.5
+
+R1.3.3 Sep 20, 2019        Kukhee Kim (khkim)
+         * build with cpsw/framework R4.2.0, timing/hpsTpr R1.0.4 and yamlLoader R1.1.4
+
+R1.3.2 June 25, 2019       Kukhee Kim (khkim)
+         * build with cpsw/framework R4.1.2 and yamlLoader R1.1.3
+
+R1.3.1  November 8, 2018   Kukhee Kim (khkim)
+         * build with  cpsw/framework R3.6.6,  yaml-cpp-0.5.3_boost-1.64.0, boost 1.64.0, yamlLoader R1.1.2
+
+
+R1.3.0   October 10, 2018   Kukhee Kim (khkim)
+         * add up readback value for msg delay in LCLS2
+         * implement high level PVs (device centric name PVs, TCTL, TPOL, TDES, TWID)
+         * implmenmt forward/backward propagations between high level PVs and low level PVs 
+
+         * build with cpsw/framework R3.6.6, hpsTpr R1.0.2 and yamlLoader R1.1.1
+
+
 ???????   Jan 29, 2020    Kukhee Kim (khkim)
          * build with yamlLoader R2.1.0, asyn R4.32-1.0.0, cpsw/framework R4.4.1, hpsTpr R1.1.0 and buildroot-2019.08
 
@@ -10,6 +77,7 @@ R1.2.6    Nov 8, 2018     Kukhee Kim (khkim)
 
 R1.2.5    Sep 20, 2018    Kukhee Kim (khkim)
           * build with cpsw/framework R3.6.6, hpsTpr R1.0.2 and yamlLoader R1.1.1
+
 
 R1.2.4    Aug 29, 2018    Kukhee Kim (khkim)
           * Separate clock frequency PVs for LCLS1 and LCLS2

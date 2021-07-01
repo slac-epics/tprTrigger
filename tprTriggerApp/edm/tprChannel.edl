@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1816
-y 65
+x 978
+y 633
 w 800
 h 280
 font "helvetica-medium-r-18.0"
@@ -550,6 +550,52 @@ bgColor index 0
 useDisplayBg
 value {
   "LCLS2"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 96
+y 169
+w 80
+h 18
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM"
+format "hex"
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 98
+y 152
+w 83
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Seq Num (hex)"
 }
 autoSize
 endObjectProperties

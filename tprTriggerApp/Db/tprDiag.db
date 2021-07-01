@@ -114,6 +114,14 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
     info(autosaveFields, "VAL")
 }
 
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLYRB")
+{
+    field(DESC, "message delay in ticks")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) msgDelayRB")
+    field(SCAN, "I/O Intr")
+}
+
 record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF")
 {
     field(DESC, "Master Delay for LCLS1 mode")
@@ -151,3 +159,20 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
+
+
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):UEDSPECIAL")
+{
+    field(DESC, "UED Special Mode")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) ued_special")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Backward Compatible")
+    field(ONAM, "UED Special")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL ZSV OSV")
+}
+
+
+
+

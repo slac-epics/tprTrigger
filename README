@@ -126,3 +126,20 @@ tprTriggerAsynDriverConfigure("trig", "mmio/AmcCarrierEmpty/AmcCarrierCore")
 Please, check up a script in the module: <TOP>/tprTriggerApp/edm/launch_edm
 
 
+
+4. how to use multiple blades sytem
+
+Load hierachy yaml file multiple times with describing named_root (very last argument, optional for mutilple blades system)
+
+cd ${YAML_DIR0}
+cpswLoadYamlFile("000TopLevel.yaml", "NetIODev", "", "10.0.3.102", "root_slot2")
+cd ${YAML_DIR1}
+cpswLoadYamlFile("000TopLevel.yaml", "NetIODev", "", "10.0.3.103", "root_slot3")
+cd ${YAML_DIR2}
+cpswLoadYamlFile("000TopLevel.yaml", "NetIODev", "", "10.0.3.104", "root_slot4")
+
+Call driver configure multiple time with the named_root (very last argument, optional for multiple blades system)
+
+tprTriggerAsynDriverConfigure("trig0", "mmio/AmcCarrierEmpty/AmcCarrierCore", "root_slot2")
+tprTriggerAsynDriverConfigure("trig1", "mmio/AmcCarrierEmpty/AmcCarrierCore", "root_slot3")
+tprTriggerAsynDriverConfigure("trig2", "mmio/AmcCarrierEmpty/AmcCarrierCore", "root_slot4")
