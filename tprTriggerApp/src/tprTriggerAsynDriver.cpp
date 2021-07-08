@@ -323,7 +323,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
             break;
         } else
         if(function == (p_trigger_st+i)->p_cmpl) {
-            SetCmpl(i, value);
+            if(busType == _pcie) SetCmpl(i, value);
             break;
         }
     }
