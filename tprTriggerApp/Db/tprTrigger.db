@@ -162,6 +162,16 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTICKS")
     field(SCAN, "I/O Intr")
 }
 
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTAPS")
+{
+    field(DESC, "Trigger Delay in Delay Taps")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) trgDelayTaps_T$(NN)")
+    field(EGU,  "Delay Taps")
+    field(SCAN, "I/O Intr")
+}
+
+
 # Trigger number is hard-coded in FW per 
 # signal and cannot be changed
 # This PV is informational only 
