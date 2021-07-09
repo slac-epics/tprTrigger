@@ -59,6 +59,21 @@ static const char * _num2Str(int i)
 
 Tpr::TprTriggerYaml *p;
 
+static void tick(epicsFloat64 t, epicsFloat64 clock, uint32_t *tick)
+{
+    *tick = t * 1.E-3 * clock + 0.5;
+}
+
+static void tick(epicsFloat64 t, epicsFloat64 clock, uint32_t *tick, uint32_t *tap)
+{
+    epicsFloat64 ts = t * 1.E-3 * clock;
+
+    *tick = ts;
+    *tap  = (ts - (int) ts) * 64. + 0.5;
+    if(*tap > 62) *tap = 62;
+
+}
+
 void API_TEST(void)
 {
 
@@ -401,13 +416,21 @@ void tprTriggerAsynDriver::SetClock1(epicsFloat64 clock_mhz)
     
     for(int i =0; i<NUM_TRIGGERS; i++) {
         epicsFloat64 width; getDoubleParam((p_trigger_st +i)->p_width[0], &width);
-        uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+        // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+        uint32_t ticks, taps;
+        tick(width, application_clock_1, &ticks);
         if(!ticks) ticks = 1;
         pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
            
         epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
         epicsFloat64 delay;        getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
-        ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
+        // ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
+        if(busType == _pcie) {
+            tick(master_delay + delay, application_clock_1, &ticks, &taps);
+            pApiDrv->SetDelayTap(i, taps);
+        } else {
+            tick(master_delay + delay, application_clock_1, &ticks);
+        }
         pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
     }
     
@@ -431,12 +454,20 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
 
     for(int i =0; i<NUM_TRIGGERS; i++) {
         epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
-        uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+        // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+        uint32_t ticks, taps;
+        tick(width, application_clock_2, &ticks);
         if(!ticks) ticks = 1;
         pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             
         epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[1], &delay);
-        ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+        // ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+        if(busType == _pcie) {
+            tick(delay, application_clock_2, &ticks, &taps);
+            pApiDrv->SetDelayTap(i, taps);
+        } else {
+            tick(delay, application_clock_2, &ticks);
+        }
         pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
     }
     
@@ -467,14 +498,22 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         // trigger section
         for(int i =0; i<NUM_TRIGGERS; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st +i)->p_width[0], &width);
-            uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+            // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+            uint32_t ticks, taps;
+            tick(width, application_clock_1, &ticks);
             if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             PropagateTWID(i, width);
             
             epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
             epicsFloat64 delay;        getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
-            ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
+            // ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
+            if(busType == _pcie) {
+                tick(master_delay + delay, application_clock_1, &ticks, &taps);
+                pApiDrv->SetDelayTap(i, taps);
+            } else {
+                tick(master_delay + delay, application_clock_1, &ticks);
+            }
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
             PropagateTDES(i, delay);
 
@@ -530,13 +569,21 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         // trigger section
         for(int i =0; i<NUM_TRIGGERS; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
-            uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+            // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+            uint32_t ticks, taps;
+            tick(width, application_clock_2, &ticks);
             if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             PropagateTWID(i, width);
             
             epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[1], &delay);
-            ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+            // ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+            if(busType == _pcie) {
+                tick(delay, application_clock_2, &ticks, &taps);
+                pApiDrv->SetDelayTap(i, taps);
+            } else {
+                tick(delay, application_clock_2, &ticks);
+            }
             pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
             PropagateTDES(i, delay);
 
@@ -575,7 +622,10 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
 
 void tprTriggerAsynDriver::SetMsgDelay(epicsFloat64 msg_delay)
 {
-    uint32_t ticks = (msg_delay * 1.E-3 * lcls2_clock) + 0.5;
+    // uint32_t ticks = (msg_delay * 1.E-3 * lcls2_clock) + 0.5;
+    uint32_t ticks;
+
+    tick(msg_delay, lcls2_clock, &ticks);
     pApiDrv->SetMsgDelay(ticks);
 
     setIntegerParam(p_msg_delay_ticks, (epicsInt32) ticks);
@@ -589,7 +639,14 @@ void tprTriggerAsynDriver::SetMasterDelay(epicsFloat64 master_delay)
     
     for(int i=0; i<NUM_TRIGGERS; i++) {
         epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
-        uint32_t ticks = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
+        // uint32_t ticks = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
+        uint32_t ticks, taps;
+        if(busType == _pcie) {
+            tick(master_delay + delay, application_clock_1, &ticks, &taps);
+            pApiDrv->SetDelayTap(i, taps);
+        } else {
+            tick(master_delay + delay, application_clock_1, &ticks);
+        }
         pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st +i)->p_delayTicks, ticks);
     }
 }
@@ -795,7 +852,14 @@ void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
     if(mode == 1) return;   // nothing todo in LCLS2 mode, just latch set values into parameter space
     
     epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
-    uint32_t ticks  = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
+    // uint32_t ticks  = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
+    uint32_t ticks, taps;
+    if(busType == _pcie) {
+        tick(master_delay + delay, application_clock_1, &ticks, &taps);
+        pApiDrv->SetDelayTap(trigger, taps);
+    } else {
+        tick(master_delay + delay, application_clock_1, &ticks);
+    }
     pApiDrv->SetDelay(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_delayTicks, ticks);
 
     PropagateTDES(trigger, delay);
@@ -806,7 +870,14 @@ void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
     int mode; getIntegerParam(p_mode, &mode);
     if(mode == 0) return;   // nothing todo in LCLS1 mode, just latch set values into parameter space
     
-    uint32_t ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+    // uint32_t ticks = (delay*1.E-3 * application_clock_2) + 0.5;
+    uint32_t ticks, taps;
+    if(busType == _pcie) {
+        tick(delay, application_clock_2, &ticks, &taps);
+        pApiDrv->SetDelayTap(trigger, taps);
+    } else {
+        tick(delay, application_clock_2, &ticks);
+    }
     pApiDrv->SetDelay(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_delayTicks, ticks);
 
     PropagateTDES(trigger, delay);
@@ -817,7 +888,9 @@ void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
     int mode; getIntegerParam(p_mode, &mode);
     if(mode == 1) return;  // nothing todo in LCLS2 mode, just latch set values into parameter space
     
-    uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+    // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+    uint32_t ticks;
+    tick(width, application_clock_1, &ticks);
     if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 
@@ -829,7 +902,9 @@ void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
     int mode; getIntegerParam(p_mode, &mode);
     if(mode ==0) return;    // nothing todo in LCLS1 mode, just latch set values into parameter space
     
-    uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+    // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
+    uint32_t ticks;
+    tick(width, application_clock_2, &ticks);
     if(!ticks) ticks =1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 
