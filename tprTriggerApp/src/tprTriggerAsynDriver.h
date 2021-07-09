@@ -135,6 +135,7 @@ class tprTriggerAsynDriver:asynPortDriver {
             
             int p_widthTicks;     /* asynInt32, ro */
             int p_delayTicks;     /* asynInt32, ro */
+            int p_delayTaps;      /* asynInt32, ro */
 
             int p_twid;           /* asynFloat64, rw */
             int p_tdes;           /* asynFloat64, rw */
@@ -225,6 +226,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define propEnableString           "propEnable_T%sLCLS%d"
 #define propPolarityString         "propPolarity_T%s"
 
+#define trgDelayTapsString         "trgDelayTaps_T%s"
 #define trgDelayTicksString        "trgDelayTicks_T%s"
 #define trgWidthTicksString        "trgWidthTicks_T%s"
 

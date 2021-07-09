@@ -200,6 +200,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
             sprintf(param_name, propWidthString, _num2Str(i), j+1); createParam(param_name, asynParamFloat64, &((p_trigger_st+i)->p_prop_width[j]));
             sprintf(param_name, propEnableString, _num2Str(i), j+1); createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_prop_enable[j]));
         }
+        sprintf(param_name, trgDelayTapsString,  _num2Str(i));      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTaps));
         sprintf(param_name, trgDelayTicksString, _num2Str(i));      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_delayTicks));
         sprintf(param_name, trgWidthTicksString, _num2Str(i));      createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_widthTicks));
 
@@ -427,7 +428,7 @@ void tprTriggerAsynDriver::SetClock1(epicsFloat64 clock_mhz)
         // ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
         if(busType == _pcie) {
             tick(master_delay + delay, application_clock_1, &ticks, &taps);
-            pApiDrv->SetDelayTap(i, taps);
+            pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
         } else {
             tick(master_delay + delay, application_clock_1, &ticks);
         }
@@ -464,7 +465,7 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
         // ticks = (delay*1.E-3 * application_clock_2) + 0.5;
         if(busType == _pcie) {
             tick(delay, application_clock_2, &ticks, &taps);
-            pApiDrv->SetDelayTap(i, taps);
+            pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
         } else {
             tick(delay, application_clock_2, &ticks);
         }
@@ -510,7 +511,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             // ticks = ((master_delay+delay)*1.E-3 * application_clock_1) + 0.5;
             if(busType == _pcie) {
                 tick(master_delay + delay, application_clock_1, &ticks, &taps);
-                pApiDrv->SetDelayTap(i, taps);
+                pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
             } else {
                 tick(master_delay + delay, application_clock_1, &ticks);
             }
@@ -580,7 +581,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             // ticks = (delay*1.E-3 * application_clock_2) + 0.5;
             if(busType == _pcie) {
                 tick(delay, application_clock_2, &ticks, &taps);
-                pApiDrv->SetDelayTap(i, taps);
+                pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
             } else {
                 tick(delay, application_clock_2, &ticks);
             }
@@ -643,7 +644,7 @@ void tprTriggerAsynDriver::SetMasterDelay(epicsFloat64 master_delay)
         uint32_t ticks, taps;
         if(busType == _pcie) {
             tick(master_delay + delay, application_clock_1, &ticks, &taps);
-            pApiDrv->SetDelayTap(i, taps);
+            pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
         } else {
             tick(master_delay + delay, application_clock_1, &ticks);
         }
@@ -856,7 +857,7 @@ void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
     uint32_t ticks, taps;
     if(busType == _pcie) {
         tick(master_delay + delay, application_clock_1, &ticks, &taps);
-        pApiDrv->SetDelayTap(trigger, taps);
+        pApiDrv->SetDelayTap(trigger, taps); setIntegerParam((p_trigger_st + trigger)->p_delayTaps, taps);
     } else {
         tick(master_delay + delay, application_clock_1, &ticks);
     }
@@ -874,7 +875,7 @@ void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
     uint32_t ticks, taps;
     if(busType == _pcie) {
         tick(delay, application_clock_2, &ticks, &taps);
-        pApiDrv->SetDelayTap(trigger, taps);
+        pApiDrv->SetDelayTap(trigger, taps); setIntegerParam((p_trigger_st + trigger)->p_delayTaps, taps);
     } else {
         tick(delay, application_clock_2, &ticks);
     }
