@@ -1,5 +1,6 @@
-R2.3.0    July 8, 2021     Kukhee Kim (khkim)
+R2.3.0    July 22, 2021     Kukhee Kim (khkim)
           * build with timing/hpsTpr R2.0.1 to support DelayTap and Complementary Trigger
+          * implement DelayTap and Complementary Trigger
 
 merge     July 1, 2021     Kukhee Kim (khkim)
           * merge forward_backward_propagation branch into the master
