@@ -4,7 +4,7 @@ R2.5.0    Sep 14, 2021      Kukhee Kim (khkim)
           * add template for different beam program
             - LCLS-II: tprTrig.db, (keep the same template name for backward compatibility)
             - UED:     tprTrig_ued.db
-            - SMURF:   tprTrig_smuf.db
+            - SMURF:   tprTrig_smrf.db
 
 
 R2.4.0    Sep 10, 2021      Kukhee Kim (khkim)
