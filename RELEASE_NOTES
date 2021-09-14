@@ -1,3 +1,12 @@
+R2.5.0    Sep 14, 2021      Kukhee Kim (khkim)
+          * work with TPG R1.13.0 or later
+          * using descending order divisors (order of rate selection is filipped, ascending order)
+          * add template for different beam program
+            - LCLS-II: tprTrig.db, (keep the same template name for backward compatibility)
+            - UED:     tprTrig_ued.db
+            - SMURF:   tprTrig_smuf.db
+
+
 R2.4.0    Sep 10, 2021      Kukhee Kim (khkim)
           * build against yamlLoader R2.2.0
 
