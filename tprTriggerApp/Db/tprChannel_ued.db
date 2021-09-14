@@ -1,0 +1,174 @@
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS0_TCTL")
+{
+    field(DESC, "LCLS1 Channel $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEnable_C$(NN)LCLS1")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS2_TCTL")
+{
+    field(DESC, "LCLS2Channel $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEnable_C$(NN)LCLS2")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATEMODE")
+{
+    field(DESC, "Channel $(NN) Rate Mode Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnRateMode_C$(NN)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Fixed")
+    field(ONST, "AC")
+    field(TWST, "Seq")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+    
+}
+
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_FIXEDRATE")
+{
+    field(DESC, "Channel $(NN) Fixed Rate Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnFixedRate_C$(NN)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(SXVL, "6")
+    field(SVVL, "7")
+    field(ZRST, "1Hz")
+    field(ONST, "500Hz")
+    field(TWST, "1kHz")
+    field(THST, "5kHz")
+    field(FRST, "10kHz")
+    field(FVST, "50kHz")
+    field(SXST, "100kHz")
+    field(SVST, "500kHz")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_ACRATE")
+{
+    field(DESC, "Channel $(NN) AC Rate Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnACRate_C$(NN)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(ZRST, "1Hz")
+    field(ONST, "2Hz")
+    field(TWST, "5Hz")
+    field(THST, "10Hz")
+    field(FRST, "30Hz")
+    field(FVST, "60Hz")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TSMASK")
+{
+    field(DESC, "Channel $(NN) Timeslot Mask")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnTSMask_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM")
+{
+    field(DESC, "Channel $(NN) Sequence Num")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnSeqNum_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+
+record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQBIT")
+{
+    field(DESC, "Channel $(NN) Sequence Bit")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnSeqBit_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMODE")
+{
+    field(DESC, "Channel $(NN) Destination Mode Selector")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnDestMode_C$(NN)")
+    field(OMSL, "supervisory")
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(ZRST, "Inclusive")
+    field(ONST, "Exclusive")
+    field(TWST, "Don't care")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMASK")
+{
+    field(DESC, "Channel $(NN) Destination Mask")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnDestMask_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVCODE")
+{
+    field(DESC, "Channel $(NN) LCLS1 Event Code")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnEventCode_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CNT")
+{
+    field(DESC, "Channel $(NN) Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) chnCounter_C$(NN)")
+    field(SCAN, "I/O Intr")
+}
+
+record(ai, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATE")
+{
+    field(DESC, "Channel $(NN) event rates")
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),0) chnRate_C$(NN)")
+    field(SCAN, "I/O Intr")
+    field(EGU,  "Hz")
+    field(PREC, "1")
+}
+
