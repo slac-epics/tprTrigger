@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 901
-y 556
+x 905
+y 612
 w 800
 h 280
 font "helvetica-medium-r-18.0"
@@ -585,7 +585,7 @@ y 183
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM"
-format "hex"
+format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
