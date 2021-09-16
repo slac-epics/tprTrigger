@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 978
-y 633
+x 901
+y 556
 w 800
 h 280
 font "helvetica-medium-r-18.0"
@@ -216,8 +216,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 187
-y 167
+x 268
+y 184
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQBIT"
@@ -242,8 +242,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 189
-y 150
+x 270
+y 167
 w 72
 h 14
 font "helvetica-medium-r-12.0"
@@ -554,14 +554,34 @@ value {
 autoSize
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 323
+y 7
+w 91
+h 21
+font "helvetica-medium-r-18.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "$(DEVICE)"
+}
+autoSize
+endObjectProperties
+
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 96
-y 169
+x 180
+y 183
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM"
@@ -586,16 +606,16 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 98
-y 152
-w 83
+x 182
+y 166
+w 69
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Seq Num (hex)"
+  "Seq Number"
 }
 autoSize
 endObjectProperties

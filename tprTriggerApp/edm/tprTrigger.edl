@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1047
-y 785
+x 1305
+y 656
 w 800
 h 246
 font "helvetica-medium-r-18.0"
@@ -551,5 +551,25 @@ fieldLen "8"
 nullColor index 0
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 647
+y 5
+w 91
+h 21
+font "helvetica-medium-r-18.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "$(DEVICE)"
+}
+autoSize
 endObjectProperties
 

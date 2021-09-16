@@ -147,6 +147,8 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(eofCounterString,      asynParamInt32, &p_eof_counter);
     createParam(fidCounterString,      asynParamInt32, &p_fid_counter);
     createParam(crckErrCounterString,  asynParamInt32, &p_crc_err_counter);
+    createParam(rxDecErrCounterString, asynParamInt32, &p_rx_dec_err_counter);
+    createParam(rxDspErrCounterString, asynParamInt32, &p_rx_dsp_err_counter);
     createParam(rxClockCounterString,  asynParamInt32, &p_rx_clock_counter);
     createParam(rxLinkStatusString,    asynParamInt32, &p_rx_link_status);
     createParam(versionErrorString,    asynParamInt32, &p_version_error);
@@ -230,6 +232,8 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->eofCount();      setIntegerParam(p_eof_counter, val);
     val = pApiDrv->fidCount();      setIntegerParam(p_fid_counter, val);
     val = pApiDrv->crcErrCount();   setIntegerParam(p_crc_err_counter, val);
+    val = pApiDrv->rxDecErrCount(); setIntegerParam(p_rx_dec_err_counter, val);
+    val = pApiDrv->rxDspErrCount(); setIntegerParam(p_rx_dsp_err_counter, val);
     val = pApiDrv->rxClkCount();    setIntegerParam(p_rx_clock_counter, val);
     val = pApiDrv->rxLinkStatus();  setIntegerParam(p_rx_link_status, val);
     val = pApiDrv->versionErr();    setIntegerParam(p_version_error, val);
