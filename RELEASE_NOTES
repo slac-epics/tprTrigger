@@ -1,5 +1,5 @@
 R2.5.1    Sep 15, 2021      Kukhee Kim (khkim)
-          * add rxDecErrCount and rxDspErrCount for tpr diagnostics
+          * add rxDecErrCount, rxDspErrCount and rxRsetCount for tpr diagnostics
 
 R2.5.0    Sep 14, 2021      Kukhee Kim (khkim)
           * work with TPG R1.13.0 or later

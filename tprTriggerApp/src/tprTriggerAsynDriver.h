@@ -92,6 +92,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_eof_counter;         /* asynInt32, ro */
         int p_fid_counter;         /* asynInt32, ro */
         int p_crc_err_counter;     /* asynInt32, ro */
+        int p_rx_rst_counter;      /* asynInt32, ro */
         int p_rx_dec_err_counter;  /* asynInt32, ro */
         int p_rx_dsp_err_counter;  /* asynInt32, ro */
         int p_rx_clock_counter;    /* asynInt32, ro */
@@ -178,6 +179,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define eofCounterString           "eofCounter"
 #define fidCounterString           "fidCounter"
 #define crckErrCounterString       "crcErrCounter"
+#define rxRstCounterString         "rxRstCounter"
 #define rxDecErrCounterString      "rxDecErrCounter"
 #define rxDspErrCounterString      "rxDspErrCounter"
 #define rxClockCounterString       "rxClockCounter"

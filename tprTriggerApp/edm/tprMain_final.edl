@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1047
-y 228
+x 1049
+y 256
 w 528
 h 512
 font "helvetica-medium-r-18.0"
@@ -168,7 +168,7 @@ major 4
 minor 1
 release 1
 x 168
-y 191
+y 209
 w 82
 h 14
 font "helvetica-medium-r-12.0"
@@ -188,7 +188,7 @@ major 4
 minor 1
 release 1
 x 176
-y 209
+y 227
 w 74
 h 14
 font "helvetica-medium-r-12.0"
@@ -208,7 +208,7 @@ major 4
 minor 1
 release 1
 x 168
-y 229
+y 247
 w 82
 h 14
 font "helvetica-medium-r-12.0"
@@ -389,7 +389,7 @@ major 4
 minor 7
 release 0
 x 258
-y 190
+y 208
 w 80
 h 14
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS"
@@ -412,7 +412,7 @@ major 4
 minor 7
 release 0
 x 258
-y 207
+y 225
 w 80
 h 14
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):VERERR"
@@ -435,7 +435,7 @@ major 4
 minor 7
 release 0
 x 258
-y 226
+y 244
 w 80
 h 14
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER"
@@ -458,7 +458,7 @@ major 4
 minor 1
 release 1
 x 103
-y 266
+y 284
 w 152
 h 14
 font "helvetica-medium-r-12.0"
@@ -478,7 +478,7 @@ major 4
 minor 1
 release 1
 x 102
-y 287
+y 305
 w 152
 h 14
 font "helvetica-medium-r-12.0"
@@ -498,7 +498,7 @@ major 4
 minor 1
 release 1
 x 17
-y 308
+y 326
 w 237
 h 14
 font "helvetica-medium-r-12.0"
@@ -518,7 +518,7 @@ major 4
 minor 7
 release 0
 x 260
-y 263
+y 281
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF"
@@ -544,7 +544,7 @@ major 4
 minor 7
 release 0
 x 260
-y 284
+y 302
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY"
@@ -570,7 +570,7 @@ major 4
 minor 7
 release 0
 x 260
-y 305
+y 323
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS0_CLK"
@@ -596,7 +596,7 @@ major 4
 minor 1
 release 1
 x 126
-y 364
+y 382
 w 88
 h 28
 font "helvetica-medium-r-12.0"
@@ -617,7 +617,7 @@ major 4
 minor 0
 release 0
 x 226
-y 366
+y 384
 w 104
 h 24
 fgColor index 14
@@ -639,7 +639,7 @@ major 4
 minor 4
 release 0
 x 112
-y 463
+y 481
 w 120
 h 20
 fgColor index 14
@@ -716,7 +716,7 @@ major 4
 minor 4
 release 0
 x 258
-y 462
+y 480
 w 120
 h 20
 fgColor index 14
@@ -793,7 +793,7 @@ major 4
 minor 1
 release 1
 x 18
-y 329
+y 347
 w 237
 h 14
 font "helvetica-medium-r-12.0"
@@ -813,7 +813,7 @@ major 4
 minor 7
 release 0
 x 261
-y 326
+y 344
 w 80
 h 18
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK"
@@ -839,7 +839,7 @@ major 4
 minor 1
 release 1
 x 84
-y 401
+y 419
 w 133
 h 42
 font "helvetica-medium-r-12.0"
@@ -861,7 +861,7 @@ major 4
 minor 0
 release 0
 x 226
-y 405
+y 423
 w 104
 h 24
 fgColor index 14
@@ -903,7 +903,7 @@ major 4
 minor 1
 release 1
 x 110
-y 155
+y 173
 w 141
 h 14
 font "helvetica-medium-r-12.0"
@@ -923,7 +923,7 @@ major 4
 minor 1
 release 1
 x 106
-y 172
+y 190
 w 146
 h 14
 font "helvetica-medium-r-12.0"
@@ -943,7 +943,7 @@ major 4
 minor 7
 release 0
 x 257
-y 154
+y 172
 w 80
 h 14
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDECERRCNT"
@@ -966,10 +966,53 @@ major 4
 minor 7
 release 0
 x 257
-y 172
+y 190
 w 80
 h 14
 controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDSPERRCNT"
+format "hex"
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 4
+autoHeight
+fieldLen "8"
+nullColor index 0
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 124
+y 155
+w 124
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Rx Link Reset Counter"
+}
+autoSize
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 259
+y 154
+w 80
+h 14
+controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXRSTCNT"
 format "hex"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
