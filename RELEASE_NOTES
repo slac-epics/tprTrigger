@@ -1,3 +1,7 @@
+
+R2.5.2    Oct 11, 2021  M. Dunning (mdunning)
+          * Upgrade to asyn R4.39-0.0.1
+
 R2.5.1    Sep 15, 2021      Kukhee Kim (khkim)
           * add rxDecErrCount, rxDspErrCount and rxRsetCount for tpr diagnostics
 
