@@ -117,12 +117,12 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER")
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE")
 {
-    field(DESC, "Mode selection LCLS1/LCLS2")
+    field(DESC, "Mode selection NC/SC")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),0) mode")
     field(OMSL, "supervisory")
-    field(ZNAM, "LCLS1")
-    field(ONAM, "LCLS2")
+    field(ZNAM, "NC")
+    field(ONAM, "SC")
     field(PINI, "YES")
     info(autosaveFields, "VAL ZSV OSV")
 }
