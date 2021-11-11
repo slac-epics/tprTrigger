@@ -1,3 +1,6 @@
+R2.5.5    Nov 11, 2021  J. Chen (justinc)
+          * Revise "tprChannel_ued" to add timeslots checkbox PVs
+
 R2.5.4    Nov 02, 2021  J. Chen (justinc)
           * Revise "tprChannel" to add timeslots checkbox PVs
 
