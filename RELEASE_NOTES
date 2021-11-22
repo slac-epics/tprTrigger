@@ -1,3 +1,6 @@
+R2.5.7    Nov 22, 2021  J. Chen (justinc)
+          * Revise "tprTriggerApp/Db/tprChannel.db, tprTriggerApp/Db/tprTrig.substitutions" to add pair source channel
+
 R2.5.6    Nov 19, 2021  J. Chen (justinc)
           * Revise "tprTrigger" to add pair source channel
 

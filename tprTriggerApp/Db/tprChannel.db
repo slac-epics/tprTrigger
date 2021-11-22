@@ -170,6 +170,13 @@ record(ai, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATE")
     field(PREC, "1")
 }
 
+record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_$(PAIR)")
+{
+    field(DESC, "Channel $(NN) paired AND/OR with Channel $(PAIR)")
+    field(DTYP, "SoftChannel")
+    field(VAL, "$(PAIR)")
+}
+
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS1"){
 field(DESC, "Time Slot 1")
 field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS2")
