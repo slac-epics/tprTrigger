@@ -1,3 +1,6 @@
+R2.6.0    Dec 13, 2021  J. Chen (justinc)
+          * Revise "tprTrig.substitutions, tprChanTrigger.db (include ued)" to add paired trigger
+
 R2.5.9    Nov 22, 2021  J. Chen (justinc)
           * Update "tprTriggerApp/Db/tprChannel.db, tprTriggerApp/Db/tprTrig.substitutions" pair source channel to stringout
 
