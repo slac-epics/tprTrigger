@@ -19,6 +19,13 @@ R2.5.5    Nov 11, 2021  J. Chen (justinc)
 R2.5.4    Nov 02, 2021  J. Chen (justinc)
           * Revise "tprChannel" to add timeslots checkbox PVs
 
+R2.5.3-1.0   Nov 22, 2021 Kukhee Kim (khkim)
+             * upgrade to asyn R4.39-1.0.1
+
+R2.5.3-br Nov 22, 2021, Kukhee kim (khkim)
+          * branch out from R2.5.3
+
+
 R2.5.3    Oct 28, 2021  J. Chen (justinc)
           * Revise "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE" to ZNAM/ONAM from lcls/lcls2 to NC/SC
 
