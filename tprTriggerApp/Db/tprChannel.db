@@ -172,56 +172,62 @@ record(ai, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATE")
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS1"){
 field(DESC, "Time Slot 1")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS2")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS2"){
 field(DESC, "Time Slot 2")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS3")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS3"){
 field(DESC, "Time Slot 3")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS4")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS4"){
 field(DESC, "Time Slot 4")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS5")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS5"){
 field(DESC, "Time Slot 5")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS6")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TS6"){
 field(DESC, "Time Slot 6")
-field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC")
+field(FLNK, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC PP")
 field(ZNAM, "TS1 DISABLE")
 field(ONAM, "TS1 ENABLE")
 field(VAL, "1")
 field(PINI, "YES")
+info(autosaveFields, "VAL")
 }
 
 record(calcout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CALC") {
