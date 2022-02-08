@@ -1,3 +1,8 @@
+R2.6.1    Feb 7, 2022   K. Kim (khkim)
+          * merge R2.5.3-br brnach to master
+          * make star shape for the forward link chain of timeslot check box PVs from daisy chain
+          * build against asyn R4.39-1.0.1
+
 R2.6.0    Dec 13, 2021  J. Chen (justinc)
           * Revise "tprTrig.substitutions, tprChanTrigger.db (include ued)" to add paired trigger
 
