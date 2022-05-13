@@ -21,7 +21,6 @@ CHECK_RELEASE = YES
 #   that Base is built for.
 CROSS_COMPILER_TARGET_ARCHS = linuxRT-x86_64
 
-
 # To install files into a location other than $(TOP) define
 #   INSTALL_LOCATION here.
 #INSTALL_LOCATION=</path/name/to/install/top>
@@ -47,15 +46,8 @@ DIRECTORY_TARGETS += $(INSTALL_LOCATION_STARTUP)
 SHARED_LIBRARIES=NO
 STATIC_BUILD=YES
 
-
 # Location of Linux Kernel Modules:
 LINUX_KERNEL_MODULES=$(PACKAGE_SITE_TOP)/linuxKernel_Modules
-
-LINUXRT_BUILDROOT_VERSION=buildroot-2019.08
-LINUX_VERSION=rhel6
-
-
-
 
 CPSW_FRAMEWORK_PACKAGE_NAME=cpsw/framework
 CPSW_FRAMEWORK_VERSION=R4.4.1
