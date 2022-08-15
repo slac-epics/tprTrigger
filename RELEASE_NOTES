@@ -1,3 +1,6 @@
+R2.5.3-2.0   Aug 15, 2022 Kukhee Kim (khkim)
+             * add operation limit for MSGDLY PV
+
 R2.5.3-1.0   Nov 22, 2021 Kukhee Kim (khkim)
              * upgrade to asyn R4.39-1.0.1
 
