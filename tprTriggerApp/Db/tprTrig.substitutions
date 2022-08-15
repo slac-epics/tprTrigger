@@ -1,8 +1,8 @@
 # $(DEV)
 
 file "tprDiag.db" {
-    pattern {    SPACE_HOLDER        }
-            {   "SPACE_HOLDER"       } 
+    pattern {    SPACE_HOLDER,  DLYLIMIT }
+            {   "SPACE_HOLDER", "136760" }
 }
 
 file "tprChannel.db" {
