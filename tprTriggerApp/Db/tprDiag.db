@@ -140,6 +140,8 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
     field(EGU,  "nsec")
     field(VAL, "107692.3076923077")
     field(PREC, "0")
+    field(HOPR, "$(DLYLIMIT=)")
+    field(DRVH, "$(DLYLIMIT=)")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
