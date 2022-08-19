@@ -32,6 +32,8 @@
 #include <tprTriggerYaml.hh>
 #include <tprTriggerAsynDriver.h>
 
+#include "pcieTpr.h"
+
 static const char * drverName = "tprTriggerAsynDriver";
 
 static int init_flag = 0;
@@ -117,10 +119,16 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
         case _atca:
             _core   = ((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath);
             pApiDrv = new Tpr::TprTriggerYaml(_core, 0);
+            dev_prefix = (char *) NULL;
             break;
         case _pcie:
             _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath+6);;
             pApiDrv = new Tpr::TprTriggerYaml(_core, 1);
+            dev_prefix = cpswGetDescofNamedRoot(named_root);
+            if(dev_prefix) pcieConfig();
+            break;
+        default:
+            dev_prefix = (char *) NULL;
             break;
     }
 
@@ -151,6 +159,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(rxDecErrCounterString, asynParamInt32, &p_rx_dec_err_counter);
     createParam(rxDspErrCounterString, asynParamInt32, &p_rx_dsp_err_counter);
     createParam(rxClockCounterString,  asynParamInt32, &p_rx_clock_counter);
+    createParam(txClockCounterString,  asynParamInt32, &p_tx_clock_counter);
     createParam(rxLinkStatusString,    asynParamInt32, &p_rx_link_status);
     createParam(versionErrorString,    asynParamInt32, &p_version_error);
     createParam(frameVersionString,    asynParamInt32, &p_frame_version);
@@ -237,6 +246,7 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->rxDecErrCount(); setIntegerParam(p_rx_dec_err_counter, val);
     val = pApiDrv->rxDspErrCount(); setIntegerParam(p_rx_dsp_err_counter, val);
     val = pApiDrv->rxClkCount();    setIntegerParam(p_rx_clock_counter, val);
+    val = pApiDrv->txClkCount();    setIntegerParam(p_tx_clock_counter, val * 16);
     val = pApiDrv->rxLinkStatus();  setIntegerParam(p_rx_link_status, val);
     val = pApiDrv->versionErr();    setIntegerParam(p_version_error, val);
     val = pApiDrv->frameVersion();  setIntegerParam(p_frame_version, val);
@@ -409,6 +419,12 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
     
     return status;
 }
+
+
+void tprTriggerAsynDriver::pcieConfig(void)
+{
+}
+
 
 void tprTriggerAsynDriver::SetClock1(epicsFloat64 clock_mhz)
 {
@@ -1031,6 +1047,7 @@ static void tprTriggerAsynDriverConfigure(const char *port_name, const char *cor
     tprTriggerDrvList_t    *pDrvNode = new tprTriggerDrvList_t; 
     pDrvNode->pAsynDrv               = new tprTriggerAsynDriver(port_name, core_path, named_root);
     pDrvNode->pApiDrv                = pDrvNode->pAsynDrv->getApiDrv();
+    pDrvNode->dev_prefix             = pDrvNode->pAsynDrv->getDevPrefix();
     
     
     strcpy(pDrvNode->port_name, port_name);
@@ -1129,6 +1146,7 @@ static int tprTriggerAsynDriverReport(int interest)
 
 static int tprTriggerAsynDriverInitialize(void)
 {
+    tprTriggerDrvList_t *p;
     init_pList();
 
     if(!ellCount(pList)) return 0;
@@ -1136,6 +1154,16 @@ static int tprTriggerAsynDriverInitialize(void)
     epicsThreadCreate("tprTriggerMon", epicsThreadPriorityLow,
                       epicsThreadGetStackSize(epicsThreadStackMedium),
                       (EPICSTHREADFUNC) tprTriggerAsynDriverMonitor, 0);
+
+    p = (tprTriggerDrvList_t *) ellFirst(pList);
+    while(p) {
+        if(p->dev_prefix) {
+            /*  handle pcie type driver initialization */
+            pcieTprInit(p->dev_prefix);   
+        }
+        p = (tprTriggerDrvList_t *) ellNext(&p->node);
+    }
+    
     
     return 0;
 }

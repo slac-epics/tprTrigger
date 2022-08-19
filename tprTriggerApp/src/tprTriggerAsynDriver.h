@@ -14,6 +14,7 @@ class tprTriggerAsynDriver:asynPortDriver {
     public:
         tprTriggerAsynDriver(const char *portName, const char *corePath, const char *named_root = NULL);
         Tpr::TprTriggerYaml* getApiDrv(void) { return pApiDrv; }
+        char * getDevPrefix(void) { return dev_prefix; };
         void CreateParameters(void);
         void Monitor(void);
         void SetDebug(int debug);
@@ -23,6 +24,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         
     private:
         enum { _atca, _pcie } busType;
+        char *dev_prefix;
 
         Tpr::TprTriggerYaml *pApiDrv;
         
@@ -30,6 +32,8 @@ class tprTriggerAsynDriver:asynPortDriver {
         
         epicsFloat64 application_clock_1;
         epicsFloat64 application_clock_2;
+
+        void pcieConfig(void);
         
         void SetClock1(epicsFloat64 clock_mhz);
         void SetClock2(epicsFloat64 clock_mhz);
@@ -96,6 +100,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_rx_dec_err_counter;  /* asynInt32, ro */
         int p_rx_dsp_err_counter;  /* asynInt32, ro */
         int p_rx_clock_counter;    /* asynInt32, ro */
+        int p_tx_clock_counter;    /* asynInt32, ro */
         int p_rx_link_status;      /* asynInt32, ro */
         int p_version_error;       /* asynInt32, ro */
         int p_frame_version;       /* asynInt32, ro */
@@ -183,6 +188,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define rxDecErrCounterString      "rxDecErrCounter"
 #define rxDspErrCounterString      "rxDspErrCounter"
 #define rxClockCounterString       "rxClockCounter"
+#define txClockCounterString       "txClockCounter"
 #define rxLinkStatusString         "rxLinkStatus"
 #define versionErrorString         "versionError"
 #define frameVersionString         "frameVersion"
@@ -247,6 +253,7 @@ typedef struct {
     char        *named_root;
     Tpr::TprTriggerYaml  *pApiDrv;
     tprTriggerAsynDriver *pAsynDrv;
+    char        *dev_prefix;      /* device name prefix for PCIe TPR */
 } tprTriggerDrvList_t;
 
 
