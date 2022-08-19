@@ -80,6 +80,16 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXCLKCNT")
     field(SCAN, "I/O Intr")
 }
 
+
+record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TXCLKCNT")
+{
+    field(DESC, "TimingCore Tx Clock Counter")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) txClockCounter")
+    field(SCAN, "I/O Intr")
+}
+
+
 record(mbbi, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS")
 {
     field(DESC, "TimingCore Rx Link Status")
