@@ -1170,6 +1170,7 @@ static int tprTriggerAsynDriverReport(int interest)
 static int tprTriggerAsynDriverInitialize(void)
 {
     tprTriggerDrvList_t *p;
+    bool    has_pcieTpr = false;
     init_pList();
 
     if(!ellCount(pList)) return 0;
@@ -1182,11 +1183,13 @@ static int tprTriggerAsynDriverInitialize(void)
     while(p) {
         if(p->dev_prefix) {
             /*  handle pcie type driver initialization */
-            pcieTprInit(p->dev_prefix);   
+            has_pcieTpr = true;
+            pcieTprInit(p->dev_prefix);
         }
         p = (tprTriggerDrvList_t *) ellNext(&p->node);
     }
     
+    if(has_pcieTpr) pcieTprGPWrapper();
     
     return 0;
 }
