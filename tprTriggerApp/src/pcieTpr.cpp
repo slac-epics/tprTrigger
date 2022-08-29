@@ -54,7 +54,8 @@ static char dev_c[] = { '0', '1', '2', '3', '4', '5', '6', '7',
 
 typedef struct {
     EVENTPVT             pevent;
-    epicsTimeStamp      time;
+    epicsMutex           *plock;
+    epicsTimeStamp       time;
 } ts_tbl_t;
 
 static std::map <int, ts_tbl_t> ts_tbl;
@@ -73,6 +74,7 @@ static void tprChannelFunc(void *param)
 
     trgChParam_t *p = (trgChParam_t *) param;
     int fd          = open(p->file_name, O_RDWR);
+
     if(fd < 0) {
         printf("%s thread: could not open %s\n", p->thread_name, p->file_name);
         return;
@@ -89,13 +91,17 @@ static void tprChannelFunc(void *param)
     char                  *ev_name = new char[16];
     int64_t               prev_allrp = -1;
     
-    sprintf(ev_name, "%d", p->ev_num);
-    ts_tbl[p->ev_num].pevent = eventNameToHandle((const char *) ev_name);
+    if(ts_tbl.find(p->ev_num) == ts_tbl.end()) {  // ts_tbl has not been configured for the specific ev_num
+        sprintf(ev_name, "%d", p->ev_num);
+        ts_tbl[p->ev_num].pevent = eventNameToHandle((const char *) ev_name);
+        ts_tbl[p->ev_num].plock  = new epicsMutex();
+    }
 
     while(1) {
         read(fd, buff, 32);
         int64_t      allrp = q.allwp[p->ch_idx] -1;
         volatile uint32_t *dp = (&q.allq[q.allrp[p->ch_idx].idx[allrp &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+
 
         if(prev_allrp == allrp) {   // there is no update
             printf("%s thread %s is notified but, no new pattern\n", p->thread_name, p->file_name);
@@ -103,18 +109,15 @@ static void tprChannelFunc(void *param)
             continue;
         }
 
+        prev_allrp = allrp;
+
+        ts_tbl[p->ev_num].plock->lock();
         ts_tbl[p->ev_num].time.secPastEpoch = dp[5];
         ts_tbl[p->ev_num].time.nsec = dp[4];
+        ts_tbl[p->ev_num].plock->unlock();
 
         postEvent(ts_tbl[p->ev_num].pevent);
 
-//        printf("%s thread: (%s, %d, %d): event update %s, timestamp update %d\n", p->thread_name, p->file_name, p->ev_num, p->ch_idx, ev_name,p->ev_num);
-        /*
-        printf("%s thread: (%s, %d, %d): (wp %16llx, qidx %16llx) (H: %lx, sz %d), %d %d %d %d\n", p->thread_name, p->file_name, p->ev_num, p->ch_idx,
-                                                             allrp, q.allrp[p->ch_idx].idx[allrp &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) , dp[0], dp[1], dp[2], dp[3], dp[4], dp[5]);   */     
-
-
-        prev_allrp = allrp;
     }
 
     munmap(ptr, sizeof(Tpr::TprQueues));
@@ -141,8 +144,12 @@ static void * createPcieThread(char * thread_name, char * file_name, int ev_num,
 
 static int pcieTprTimeGet_gtWrapper(epicsTimeStamp *time, int eventCode)
 {
-//    printf("pcieTprTimeGet_gtWrapper: ev_code = %d\n", eventCode);
+
+    if(ts_tbl.find(eventCode) == ts_tbl.end())  return -1;
+
+    ts_tbl[eventCode].plock->lock();
     *time  = ts_tbl[eventCode].time;
+    ts_tbl[eventCode].plock->unlock();
 
     return 0;
 }
