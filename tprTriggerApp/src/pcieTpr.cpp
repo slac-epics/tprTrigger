@@ -29,6 +29,15 @@
 
 #include "pcieTpr.h"
 
+#define  RESERVED_CH    11
+#define  MAX_SOFT_EV     8
+
+static uint64_t __rdtsc(void){
+    uint32_t lo, hi;
+    __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+    return ((uint64_t)hi << 32) | lo;
+}
+
 static const char *name_s[] = { "tprA", 
                                 "tprB",
                                 "tprC",
@@ -49,17 +58,52 @@ static const char *dev_s[] = { "/dev/tpra",   /* 1st card */
 static int ev_prefix[] = { 1000, 2000, 3000, 4000, 50000, 6000, 7000, 8000 };
                    
 static char dev_c[] = { '0', '1', '2', '3', '4', '5', '6', '7',
-                        '8', '8', 'a', 'b', 'c', 'd',
+                        '8', '9', 'a', 'b', 'c', 'd',
                         '\0' };
+
+typedef struct {
+    unsigned      mask:  16;  // [15..0]     channel mask
+    unsigned      tag :   4;  // [19..16]    0: event, 1: bsa ctrl, 2: bsa event
+    unsigned      dm0 :   2;  // [21..20]    bit gap
+    unsigned      mode:   1;  // [22]        1: LCLS1, 0:LCLS2
+    unsigned      dm1 :   9;  // [31..23]    bit gap
+    unsigned      size:  32;  //  
+    uint64_t      pid64:  64;
+    uint64_t      ts64:  64; 
+} time_st_t;
+
+
+
+typedef union {
+    uint32_t     u32[2];
+    uint64_t        u64;
+    epicsTimeStamp time;
+} time_cmb_t;
+
 
 typedef struct {
     EVENTPVT             pevent;
     epicsMutex           *plock;
     epicsTimeStamp       time;
+    uint64_t             pid64;
+
+    //////
+    volatile Tpr::TprQueues *pQ;
+    bool     ev_enable;
+    int      ev_num;
+    int      ch_idx;
+    uint64_t index;
 } ts_tbl_t;
 
-static std::map <int, ts_tbl_t> ts_tbl;
 
+typedef struct {
+    int      ev_num;
+    bool     ev_enable;
+} soft_ev_list_t;
+
+static std::map <int, ts_tbl_t> ts_tbl;
+static soft_ev_list_t soft_ev_list[MAX_SOFT_EV];
+static bool have_master = false;
 
 typedef struct {
     char * thread_name;
@@ -69,11 +113,47 @@ typedef struct {
 } trgChParam_t;
 
 
+static bool isNewTs(uint64_t ts)
+{
+    static uint64_t ts_last = 0LL;
+
+    if(ts > ts_last) {
+        ts_last = ts;
+        return true;
+    }
+
+    return false;
+    
+}
+
+static bool check_ev_mask(uint32_t ev, volatile uint32_t *mask)
+{
+    return mask[ev/32] & (0x00000001 << (ev%32));
+}
+
+
+static void prepLowTsTbl(int num)
+{
+    char ev_name[16];
+
+    if(ts_tbl.find(num) == ts_tbl.end()) {
+        sprintf(ev_name, "%d", num);
+        ts_tbl[num].pevent = eventNameToHandle((const char *) ev_name);
+        ts_tbl[num].plock  = new epicsMutex();
+        ts_tbl[num].pQ     = NULL;   // invalid for low event number
+        ts_tbl[num].ev_num = num;
+        ts_tbl[num].ch_idx = -1;     // invalid for low event number
+        ts_tbl[num].index  = -1;     // invalid for low event number
+        ts_tbl[num].ev_enable = false;
+    }
+}
+
 static void tprChannelFunc(void *param)
 {
 
     trgChParam_t *p = (trgChParam_t *) param;
     int fd          = open(p->file_name, O_RDWR);
+    bool     master = false;
 
     if(fd < 0) {
         printf("%s thread: could not open %s\n", p->thread_name, p->file_name);
@@ -90,12 +170,28 @@ static void tprChannelFunc(void *param)
     char                  *buff = new char[32];
     char                  *ev_name = new char[16];
     int64_t               prev_allrp = -1;
-    
+
+
+    if(!have_master && p->ch_idx == RESERVED_CH) {
+        master      = true;
+        have_master = true;
+    }
+
+    prepLowTsTbl(0);   // prepare timestamp for best time
     if(ts_tbl.find(p->ev_num) == ts_tbl.end()) {  // ts_tbl has not been configured for the specific ev_num
         sprintf(ev_name, "%d", p->ev_num);
         ts_tbl[p->ev_num].pevent = eventNameToHandle((const char *) ev_name);
         ts_tbl[p->ev_num].plock  = new epicsMutex();
+        ts_tbl[p->ev_num].pQ     = (volatile Tpr::TprQueues *) ptr;
+        ts_tbl[p->ev_num].ev_num = p->ev_num;
+        ts_tbl[p->ev_num].ch_idx = p->ch_idx;
+        ts_tbl[p->ev_num].index  = q.allwp[p->ch_idx] -1;      // an initial read point
+        ts_tbl[p->ev_num].ev_enable = false;
+
     }
+
+    ts_tbl_t *pT = &(ts_tbl[p->ev_num]);
+
 
     while(1) {
         read(fd, buff, 32);
@@ -111,14 +207,62 @@ static void tprChannelFunc(void *param)
 
         prev_allrp = allrp;
 
-        ts_tbl[p->ev_num].plock->lock();
-        ts_tbl[p->ev_num].time.secPastEpoch = dp[5];
-        ts_tbl[p->ev_num].time.nsec = dp[4];
-        ts_tbl[p->ev_num].plock->unlock();
+       volatile time_st_t *ts    = (volatile time_st_t *) dp;
 
-        postEvent(ts_tbl[p->ev_num].pevent);
+
+
+        pT->plock->lock();
+        pT->time.secPastEpoch = dp[5];
+        pT->time.nsec = dp[4];
+        if(ts->mode) {    // LCLS1 mode 
+            pT->pid64     = pT->time.nsec & 0x1ffff;
+        } else {          // LCLS2 mode 
+            pT->pid64     = ts->pid64;
+        }
+        pT->plock->unlock();
+
+        if(!ts->mode) {    // LCLS2 mode timestamp update, using the best timestamp
+            uint64_t ts = *(uint64_t *)(&dp[4]);
+            if(isNewTs(ts)) {
+                ts_tbl_t *pT0 = &(ts_tbl[0]);
+                pT0->plock->lock();
+                pT0->time  = pT->time;
+                pT0->pid64 = pT->pid64;
+                pT0->plock->unlock();
+            }
+        }
+
+        if(master && ts->mode) {   // ch11 and LCLS1 mode, handle the LCLS1 timestamp and low number events
+            int timeslot = (dp[6] >> 16 & 0x7);
+            if(timeslot == 1 || timeslot == 4) {    // update active timeslot timestamp for TSE=-1
+                ts_tbl_t *pT0 = &(ts_tbl[0]);
+                pT0->plock->lock();
+                pT0->time  = pT->time;
+                pT0->pid64 = pT->pid64;
+                pT0->plock->unlock();
+            }
+
+            for(int i = 0; i <MAX_SOFT_EV; i++) {  // soft event loop
+                if(soft_ev_list[i].ev_enable && soft_ev_list[i].ev_num >= 1 && soft_ev_list[i].ev_num <= 255) {  // soft event 
+                    volatile uint32_t *ev_mask = &dp[14];
+                    if(check_ev_mask(soft_ev_list[i].ev_num, ev_mask)) {
+                        ts_tbl_t *pTN = &(ts_tbl[soft_ev_list[i].ev_num]);
+                        pTN->plock->lock();
+                        pTN->time  = pT->time;
+                        pTN->pid64 = pT->pid64;
+                        pTN->plock->unlock();
+                        if(pTN->ev_enable) postEvent(pTN->pevent);
+                    }
+                }   // soft event
+
+            }   // loop for soft event list
+        }
+
+        if(pT->ev_enable | true /* force enable  temporally */) postEvent(pT->pevent);
 
     }
+
+
 
     munmap(ptr, sizeof(Tpr::TprQueues));
     close(fd);
@@ -145,7 +289,9 @@ static void * createPcieThread(char * thread_name, char * file_name, int ev_num,
 static int pcieTprTimeGet_gtWrapper(epicsTimeStamp *time, int eventCode)
 {
 
-    if(ts_tbl.find(eventCode) == ts_tbl.end())  return -1;
+    if(eventCode == epicsTimeEventBestTime) eventCode = 0;
+
+    if(ts_tbl.find(eventCode) == ts_tbl.end() || !time)  return -1;
 
     ts_tbl[eventCode].plock->lock();
     *time  = ts_tbl[eventCode].time;
@@ -159,6 +305,19 @@ static int pcieTprTimeGetSystem_gtWrapper(epicsTimeStamp *time, int eventCode)
     if(epicsTimeGetCurrent(time)) return -1;
 
     return 0;
+}
+
+
+int pcieTpr_evPrefix(char *dev_prefix)
+{
+    int i;
+
+    for(i = 0; dev_s[i]; i++) {
+        if(!strcmp(dev_prefix, dev_s[i])) break;
+    }
+
+    if(dev_s[i]) return ev_prefix[i];
+    else         return -1;    
 }
 
 
@@ -191,6 +350,35 @@ void *  pcieTprInit(char *dev_prefix)
 }
 
 
+void   pcieTprSetSoftEv(int idx, int ev_num, bool ev_enable)
+{
+    if(idx < 0 || idx >= MAX_SOFT_EV || ev_num < 1 || ev_num > 255) return;
+
+    prepLowTsTbl(ev_num);
+
+    soft_ev_list[idx].ev_num    = ev_num;
+    soft_ev_list[idx].ev_enable = ev_enable;
+
+    ts_tbl[ev_num].ev_enable = ev_enable;
+
+}
+
+void pcieTprSetChEv(int ev_num, bool ev_enable)
+{
+    if(ts_tbl.find(ev_num) == ts_tbl.end()) return;
+    ts_tbl[ev_num].ev_enable = ev_enable;
+}
+
+
+void  pcieTprInitSoftEv(void)
+{
+    for(int idx = 0; idx < MAX_SOFT_EV; idx++) {
+        soft_ev_list[idx].ev_num    = -1;
+        soft_ev_list[idx].ev_enable = false;
+    }
+
+}
+
 void * pcieTprGPWrapper(void)
 {
     printf("Found PCIeTPR: execute GPWrapperInit()\n");
@@ -201,6 +389,27 @@ void * pcieTprGPWrapper(void)
     return (void *) NULL;
 }
 
+TimingPulseId timingGetLastFiducial(void)
+{
+    uint64_t pid64;
+    ts_tbl_t *p = &(ts_tbl[0]);
+
+    p->plock->lock();
+    pid64 = p->pid64;
+    p->plock->unlock();
+     
+    return (TimingPulseId) pid64;
+}
+
+int timingGetEvetTimeStamp(epicsTimeStamp *ptime, int eventCode)
+{
+    return pcieTprTimeGet_gtWrapper(ptime, eventCode);
+}
+
+int timingGetCurrrTimeStamp(epicsTimeStamp *ptime)
+{
+    return pcieTprTimeGet_gtWrapper(ptime, 0);
+}
 
 extern "C" {
 
