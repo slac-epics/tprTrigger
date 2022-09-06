@@ -110,6 +110,10 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
     if(named_root && !strlen(named_root)) named_root = NULL;
     if(corePath && strlen(corePath)) {
         if(!strncmp(corePath, "PCIe:/", 6) || !strncmp(corePath, "pcie:/", 6)) busType = _pcie;
+        else
+        if(!strncmp(corePath, "PCIeMaster:/", 12) || !strncmp(corePath, "pcieMaster:/", 12)) busType = _pcie_master;
+        else
+        if(!strncmp(corePath, "PCIeSlave:/",  11) || !strncmp(corePath, "pcieSlave:/",  11)) busType = _pcie_slave;
         else                                                                   busType = _atca;
     } else {
         busType = _atca;
@@ -123,6 +127,12 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
             break;
         case _pcie:
             _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath+6);;
+            pApiDrv = new Tpr::TprTriggerYaml(_core, 1);
+            dev_prefix = cpswGetDescofNamedRoot(named_root);
+            if(dev_prefix) pcieConfig();
+            break;
+        case _pcie_master:
+            _core   =((!named_root)?cpswGetRoot():cpswGetNamedRoot(named_root))->findByName(corePath+12);;
             pApiDrv = new Tpr::TprTriggerYaml(_core, 1);
             dev_prefix = cpswGetDescofNamedRoot(named_root);
             if(dev_prefix) pcieConfig();
@@ -229,6 +239,14 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, propTCTLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tctl));
         sprintf(param_name, propTPOLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
         sprintf(param_name, propPolarityString, _num2Str(i));       createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_polarity));
+
+        sprintf(param_name, chEvEnableString, _num2Str(i));         createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_ev_enable));
+    }
+
+    for(int i = 0; i < 8; i++) {
+        char param_name[128];
+        sprintf(param_name, softEvEnableString, _num2Str(i));       createParam(param_name, asynParamInt32, &((p_soft_event_st+i)->p_ev_enable));
+        sprintf(param_name, softEvString,       _num2Str(i));       createParam(param_name, asynParamInt32, &((p_soft_event_st+i)->p_ev));
     }
 }
 
@@ -357,9 +375,26 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         if(function == (p_trigger_st+i)->p_cmpl) {
             if(busType == _pcie) SetCmpl(i, value);
             break;
+        } else
+        if(function == (p_trigger_st+i)->p_ev_enable) {
+            pcieTprSetChEv((p_trigger_st+i)->_ev, value?true:false);
+            break;
         }
     }
     
+    for(int i =0; i< 8; i++) {
+        if(function == (p_soft_event_st+i)->p_ev_enable) {
+            int ev;
+            getIntegerParam((p_soft_event_st+i)->p_ev, &ev);
+            pcieTprSetSoftEv(i, ev, value?true:false);
+            break;
+        } else
+        if(function == (p_soft_event_st+i)->p_ev) {
+            int enable;
+            getIntegerParam((p_soft_event_st+i)->p_ev_enable, &enable);
+            pcieTprSetSoftEv(i, value, enable?true:false);
+        }
+    }
 
     if(function == p_ued_special) SetUedSpecialMode(value);
     
@@ -423,6 +458,13 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
 
 void tprTriggerAsynDriver::pcieConfig(void)
 {
+    int ch_offset = pcieTpr_evPrefix(dev_prefix);
+
+    for(int i = 0 ; i < NUM_TRIGGERS; i++) {
+        if(ch_offset > 0)  p_trigger_st[i]._ev = ch_offset + 1;
+        else               p_trigger_st[i]._ev = -1;
+    }
+
 }
 
 
@@ -1166,7 +1208,10 @@ static int tprTriggerAsynDriverInitialize(void)
         p = (tprTriggerDrvList_t *) ellNext(&p->node);
     }
     
-    if(has_pcieTpr) pcieTprGPWrapper();
+    if(has_pcieTpr) {
+        pcieTprInitSoftEv();
+        pcieTprGPWrapper();
+    }
     
     return 0;
 }

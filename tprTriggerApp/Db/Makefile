@@ -10,6 +10,7 @@ include $(TOP)/configure/CONFIG
 #----------------------------------------------------
 # Create and install (or just install)
 # databases, templates, substitutions like this
+DB += pcie_tprTrig.db
 DB += tprTrig.db
 DB += tprTrig_ued.db
 DB += tprTrig_smrf.db
