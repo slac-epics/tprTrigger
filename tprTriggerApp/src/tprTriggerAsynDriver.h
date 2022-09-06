@@ -32,11 +32,10 @@ class tprTriggerAsynDriver:asynPortDriver {
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
         
     private:
-
         int valid_chns = NUM_CHANNELS;
         int valid_trgs = NUM_TRIGGERS;
 
-        enum { _atca, _pcie } busType;
+        enum { _atca, _pcie, _pcie_master, _pcie_slave } busType;
         char *dev_prefix;
 
         Tpr::TprTriggerYaml *pApiDrv;
@@ -174,9 +173,16 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_prop_enable[2];   /* asynInt32, ro */
             int p_prop_polarity;    /* asynInt32, ro */
 
-
+            int p_ev_enable;         /* asynInt32, rw */
+            int _ev;                /* not asyn parameter, string channel event number */
             
         } p_trigger_st[NUM_TRIGGERS];
+
+
+        struct {
+           int p_ev_enable;
+           int p_ev;
+        } p_soft_event_st[8];
 
         int p_ued_special;        /* asynInt32 */
         
@@ -256,6 +262,12 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define trgWidthTicksString        "trgWidthTicks_T%s"
 
 #define uedSpecialString           "ued_special"
+
+
+#define chEvEnableString            "chEvEnable_T%s"
+
+#define softEvEnableString          "softEvEnable_%s"
+#define softEvString                "softEv_%s"
 
 
 
