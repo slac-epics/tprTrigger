@@ -25,7 +25,8 @@
 # ==========================================================
 
 ASYN_MODULE_VERSION=R4.39-1.0.1
-YAMLLOADER_MODULE_VERSION=R2.2.0
+YAMLLOADER_MODULE_VERSION=R2.3.0
+TIMINGAPI_MODULE_VERSION=R0.6
 
 
 # ==========================================================
@@ -36,6 +37,7 @@ YAMLLOADER_MODULE_VERSION=R2.2.0
 # ==========================================================
 ASYN=$(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
 YAMLLOADER=$(EPICS_MODULES)/yamlLoader/$(YAMLLOADER_MODULE_VERSION)
+TIMINGAPI=$(EPICS_MODULES)/timingApi/$(TIMINGAPI_MODULE_VERSION)
 
 
 
