@@ -461,7 +461,7 @@ void tprTriggerAsynDriver::pcieConfig(void)
     int ch_offset = pcieTpr_evPrefix(dev_prefix);
 
     for(int i = 0 ; i < NUM_TRIGGERS; i++) {
-        if(ch_offset > 0)  p_trigger_st[i]._ev = ch_offset + 1;
+        if(ch_offset > 0)  p_trigger_st[i]._ev = ch_offset + i;
         else               p_trigger_st[i]._ev = -1;
     }
 
@@ -1159,6 +1159,7 @@ epicsExportAddress(drvet, tprTriggerAsynDriver);
 static int tprTriggerAsynDriverReport(int interest)
 {
     tprTriggerDrvList_t *p;
+    bool has_pcieTpr = false;
 
     printf("Total %d tprTriggerAsyn driver(s) registered.\n", ellCount(pList));
        
@@ -1177,10 +1178,11 @@ static int tprTriggerAsynDriverReport(int interest)
         printf("    report from api\n");
         p->pApiDrv->report();
         }
-    
+        if(p->dev_prefix) has_pcieTpr = true;
         p = (tprTriggerDrvList_t *)ellNext(&p->node);
     }
     
+    if(has_pcieTpr) pcieTprReport(interest);
     
 
     return 0;
