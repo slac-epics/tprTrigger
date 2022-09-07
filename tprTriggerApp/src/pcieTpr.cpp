@@ -29,8 +29,7 @@
 
 #include "pcieTpr.h"
 
-#define  RESERVED_CH    11
-#define  MAX_SOFT_EV     8
+
 
 static uint64_t __rdtsc(void){
     uint32_t lo, hi;
@@ -175,7 +174,7 @@ static void tprChannelFunc(void *param)
     if(!have_master && p->ch_idx == RESERVED_CH) {
         master      = true;
         have_master = true;
-    }
+   }
 
     prepLowTsTbl(0);   // prepare timestamp for best time
     if(ts_tbl.find(p->ev_num) == ts_tbl.end()) {  // ts_tbl has not been configured for the specific ev_num
@@ -214,11 +213,7 @@ static void tprChannelFunc(void *param)
         pT->plock->lock();
         pT->time.secPastEpoch = dp[5];
         pT->time.nsec = dp[4];
-        if(ts->mode) {    // LCLS1 mode 
-            pT->pid64     = pT->time.nsec & 0x1ffff;
-        } else {          // LCLS2 mode 
-            pT->pid64     = ts->pid64;
-        }
+        pT->pid64 = ts->mode? pT->time.nsec & 0x1ffff: ts->pid64;
         pT->plock->unlock();
 
         if(!ts->mode) {    // LCLS2 mode timestamp update, using the best timestamp
@@ -238,7 +233,7 @@ static void tprChannelFunc(void *param)
                 ts_tbl_t *pT0 = &(ts_tbl[0]);
                 pT0->plock->lock();
                 pT0->time  = pT->time;
-                pT0->pid64 = pT->pid64;
+                pT0->pid64 = pT->time.nsec & 0x1ffff;
                 pT0->plock->unlock();
             }
 
@@ -249,7 +244,7 @@ static void tprChannelFunc(void *param)
                         ts_tbl_t *pTN = &(ts_tbl[soft_ev_list[i].ev_num]);
                         pTN->plock->lock();
                         pTN->time  = pT->time;
-                        pTN->pid64 = pT->pid64;
+                        pTN->pid64 = pT->time.nsec & 0x1ffff;
                         pTN->plock->unlock();
                         if(pTN->ev_enable) postEvent(pTN->pevent);
                     }
