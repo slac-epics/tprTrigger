@@ -258,7 +258,7 @@ static void tprChannelFunc(void *param)
             }   // loop for soft event list
         }
 
-        if(pT->ev_enable | true /* force enable  temporally */) postEvent(pT->pevent);
+        if(pT->ev_enable) postEvent(pT->pevent);
 
     }
 
@@ -350,6 +350,24 @@ void *  pcieTprInit(char *dev_prefix)
 }
 
 
+void * pcieTprReport(int level)
+{
+    if(level < 1) return (void *) NULL;
+
+    printf("Pcie Tpr Channel Event\n");
+    for(std::map<int, ts_tbl_t>::iterator it = ts_tbl.begin(); it != ts_tbl.end(); it++) {
+       ts_tbl_t *p = &it->second;
+       printf("(%d) ch_idx %d, ev_num %d, soft event: %s\n",
+              it->first, p->ch_idx, p->ev_num, p->ev_enable? (char*) "enable": (char*) "disable");
+    }
+    printf("Pcie Tpr Soft Event\n");
+    for(int i = 0; i < MAX_SOFT_EV; i++) {
+        printf("soft_ev_num %d, soft ev %s\n", soft_ev_list[i].ev_num, soft_ev_list[i].ev_enable? (char*) "enable": (char *) "disable");
+    }
+    return (void *) NULL;
+}
+
+
 void   pcieTprSetSoftEv(int idx, int ev_num, bool ev_enable)
 {
     if(idx < 0 || idx >= MAX_SOFT_EV || ev_num < 1 || ev_num > 255) return;
@@ -389,6 +407,9 @@ void * pcieTprGPWrapper(void)
     return (void *) NULL;
 }
 
+
+extern "C" {
+
 TimingPulseId timingGetLastFiducial(void)
 {
     uint64_t pid64;
@@ -411,7 +432,50 @@ int timingGetCurrrTimeStamp(epicsTimeStamp *ptime)
     return pcieTprTimeGet_gtWrapper(ptime, 0);
 }
 
-extern "C" {
+int timingFifoRead(unsigned int    eventCode,
+                   int             incr,
+                   uint64_t        *index,
+                   EventTimingData *pTimingDataDest)
+{
+    if(ts_tbl.find(eventCode) == ts_tbl.end() ||
+       !index || !pTimingDataDest) return -2;   // invalid index or inputs
+
+    ts_tbl_t *pT = &(ts_tbl[eventCode]);
+
+
+    if(incr == TS_INDEX_INIT) {
+        if(pT->pQ) *index = pT->index = pT->pQ->allwp[pT->ch_idx] -1;
+        else       return -1;                 // NULL to return
+
+        volatile uint32_t *dp = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        volatile Tpr::TprEntry *p = (Tpr::TprEntry *) dp;
+        volatile time_st_t *ts    = (volatile time_st_t *) dp;
+        pTimingDataDest->fifo_time.secPastEpoch = dp[5];
+        pTimingDataDest->fifo_time.nsec         = dp[4];
+        pTimingDataDest->fifo_fid               = ts->mode? ts->pid64 &0x1ffff: ts->pid64;
+        pTimingDataDest->fifo_tsc               = p->fifo_tsc;
+    } else {
+        volatile uint32_t *dp_prev = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        pT->index += incr;  *index = pT->index;
+        volatile uint32_t *dp = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        uint64_t t_prev = *(uint64_t *)(&dp_prev[4]);
+        uint64_t t_new  = *(uint64_t *)(&dp[4]);
+
+        if(incr > 0 && t_prev > t_new) return -4;      // FIFO underrun
+        if(incr < 0 && t_prev < t_new) return -3;      // FIFO overrun
+
+        volatile Tpr::TprEntry *p = (Tpr::TprEntry *) dp;
+        volatile time_st_t *ts    = (volatile time_st_t *) dp;
+        pTimingDataDest->fifo_time.secPastEpoch = dp[5];
+        pTimingDataDest->fifo_time.nsec         = dp[4];
+        pTimingDataDest->fifo_fid               = ts->mode ? ts->pid64 & 0x1ffff : ts->pid64;
+        pTimingDataDest->fifo_tsc               = p->fifo_tsc;
+    }
+
+
+
+    return 0;
+}
 
 }  /* extern C */
 
