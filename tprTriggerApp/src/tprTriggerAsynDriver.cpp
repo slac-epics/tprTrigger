@@ -243,7 +243,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, chEvEnableString, _num2Str(i));         createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_ev_enable));
     }
 
-    for(int i = 0; i < 8; i++) {
+    for(int i = 0; i < MAX_SOFT_EV; i++) {
         char param_name[128];
         sprintf(param_name, softEvEnableString, _num2Str(i));       createParam(param_name, asynParamInt32, &((p_soft_event_st+i)->p_ev_enable));
         sprintf(param_name, softEvString,       _num2Str(i));       createParam(param_name, asynParamInt32, &((p_soft_event_st+i)->p_ev));
@@ -382,7 +382,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         }
     }
     
-    for(int i =0; i< 8; i++) {
+    for(int i =0; i< MAX_SOFT_EV; i++) {
         if(function == (p_soft_event_st+i)->p_ev_enable) {
             int ev;
             getIntegerParam((p_soft_event_st+i)->p_ev, &ev);
@@ -393,6 +393,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
             int enable;
             getIntegerParam((p_soft_event_st+i)->p_ev_enable, &enable);
             pcieTprSetSoftEv(i, value, enable?true:false);
+            break;
         }
     }
 

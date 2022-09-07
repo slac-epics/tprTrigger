@@ -6,6 +6,9 @@
 
 #include "timingFifoApi.h"
 
+#define  RESERVED_CH    11
+#define  MAX_SOFT_EV     8
+
 extern "C" {
 
 void   pcieTprSetSoftEv(int idx, int ev_num, bool ev_enable);
