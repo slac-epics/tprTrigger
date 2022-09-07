@@ -13,12 +13,16 @@ void   pcieTprSetChEv(int ev_num, bool ev_enable);
 void   pcieTprInitSoftEv(void);
 int    pcieTpr_evPrefix(char *dev_prefix);
 void * pcieTprInit(char *dev_prefix);
+void * pcieTprReport(int level);
 void * pcieTprGPWrapper(void);
 
 TimingPulseId timingGetLastFiducial();
 int timingGetCurrTimeStamp(epicsTimeStamp *ptine);
 int timingGetEventTimeStamp(epicsTimeStamp *ptime, int eventCode);
-
+int timingFifoRead(unsigned int    eventCode,
+                   int             incr,
+                   uint64_t        *index,
+                   EventTimingData *pTimingDataDest);
 
 }
 
