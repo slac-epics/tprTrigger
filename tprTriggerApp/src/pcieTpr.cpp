@@ -347,13 +347,17 @@ void *  pcieTprInit(char *dev_prefix)
 
 void * pcieTprReport(int level)
 {
+    char time_text[40];
+    char time_format[] = "%Y-%m-%d %H:%M:%S.%09f";
+    int  time_text_len = 32;
     if(level < 1) return (void *) NULL;
 
     printf("Pcie Tpr Channel Event\n");
     for(std::map<int, ts_tbl_t>::iterator it = ts_tbl.begin(); it != ts_tbl.end(); it++) {
        ts_tbl_t *p = &it->second;
-       printf("(%d) ch_idx %d, ev_num %d, soft event: %s\n",
-              it->first, p->ch_idx, p->ev_num, p->ev_enable? (char*) "enable": (char*) "disable");
+       epicsTimeToStrftime(time_text, time_text_len, time_format, &p->time);
+       printf("(%d) ch_idx %d, ev_num %d, soft event: %s, last timestamp %s\n",
+              it->first, p->ch_idx, p->ev_num, p->ev_enable? (char*) "enable": (char*) "disable", time_text);
     }
     printf("Pcie Tpr Soft Event\n");
     for(int i = 0; i < MAX_SOFT_EV; i++) {
