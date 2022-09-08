@@ -140,6 +140,7 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
         case _pcie_slave:
             pApiDrv = NULL;
             dev_prefix = (char *) epicsStrDup(corePath+10);
+            if(dev_prefix) pcieConfig();
             break;
         default:
             dev_prefix = (char *) NULL;
@@ -1230,7 +1231,7 @@ static int tprTriggerAsynDriverInitialize(void)
             /*  handle pcie type driver initialization */
 
             pcieTprInit(p->dev_prefix);
-            if(!has_pcieTpr)  p->pAsynDrv->SetupVirtualChannels();  // set up for very first card only
+            if(!has_pcieTpr && p->pApiDrv)  p->pAsynDrv->SetupVirtualChannels();  // set up for very first card only in master mode
             has_pcieTpr = true;
         }
         p = (tprTriggerDrvList_t *) ellNext(&p->node);
