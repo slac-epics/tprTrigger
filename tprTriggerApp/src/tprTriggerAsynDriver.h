@@ -18,6 +18,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         void CreateParameters(void);
         void Monitor(void);
         void SetDebug(int debug);
+        void SetupVirtualChannels(void);
         
         asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);

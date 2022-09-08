@@ -290,6 +290,18 @@ void tprTriggerAsynDriver::SetDebug(int debug)
     if(pApiDrv) pApiDrv->_debug_ = debug;
 }
 
+void tprTriggerAsynDriver::SetupVirtualChannels(void)
+{
+    int ch360Hz = 11;
+    int ev360Hz =  1;
+
+    setIntegerParam((p_channel_st + ch360Hz)->p_event_code, ev360Hz);
+    SetEventCode(ch360Hz, ev360Hz);
+
+    setIntegerParam((p_channel_st + ch360Hz)->p_enable[0], 1);
+    SetLCLS1ChannelEnable(ch360Hz, 1);
+}
+
 
 asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
@@ -403,6 +415,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
     
     return status;
 }
+
 
 asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
@@ -1083,6 +1096,8 @@ void tprTriggerAsynDriver::SetUedSpecialMode(int mode)
 
 
 
+
+
 extern "C" {
 
 static void tprTriggerAsynDriverConfigure(const char *port_name, const char *core_path, const char *named_root)
@@ -1205,8 +1220,10 @@ static int tprTriggerAsynDriverInitialize(void)
     while(p) {
         if(p->dev_prefix) {
             /*  handle pcie type driver initialization */
-            has_pcieTpr = true;
+
             pcieTprInit(p->dev_prefix);
+            if(!has_pcieTpr)  p->pAsynDrv->SetupVirtualChannels();  // set up for very first card only
+            has_pcieTpr = true;
         }
         p = (tprTriggerDrvList_t *) ellNext(&p->node);
     }
