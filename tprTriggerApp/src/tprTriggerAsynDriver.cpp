@@ -315,8 +315,8 @@ void tprTriggerAsynDriver::SetDebug(int debug)
 
 void tprTriggerAsynDriver::SetupVirtualChannels(void)
 {
-    int ch360Hz = 11;
-    int ev360Hz =  1;
+    int ch360Hz =  EV360HZ_CH;
+    int ev360Hz =  EV360HZ_EV;
 
     setIntegerParam((p_channel_st + ch360Hz)->p_event_code, ev360Hz);
     SetEventCode(ch360Hz, ev360Hz);
