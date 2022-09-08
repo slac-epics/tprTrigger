@@ -7,6 +7,8 @@
 #include "timingFifoApi.h"
 
 #define  RESERVED_CH    11
+#define  EV360HZ_CH     RESERVED_CH
+#define  EV360HZ_EV      1
 #define  MAX_SOFT_EV     8
 
 extern "C" {
