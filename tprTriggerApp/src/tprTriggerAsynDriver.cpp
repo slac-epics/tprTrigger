@@ -137,6 +137,10 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
             dev_prefix = cpswGetDescofNamedRoot(named_root);
             if(dev_prefix) pcieConfig();
             break;
+        case _pcie_slave:
+            pApiDrv = NULL;
+            dev_prefix = (char *) epicsStrDup(corePath+10);
+            break;
         default:
             dev_prefix = (char *) NULL;
             break;
@@ -144,9 +148,7 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
 
 
 
-    pApiDrv->_debug_ = 0;      /* turn on the debugging message in API layer */
-    // pApiDrv->_debug_ = 0;   /* turn off the debugging message in API layer */
-    
+    if(pApiDrv) pApiDrv->_debug_ = 0;      /* turn on the debugging message in API layer */    
     lcls2_clock = (1300./7.);  // 186MHz
     application_clock_1 = 119.;         // 119MHz as a default for LCLS1
     application_clock_2 = (1300./7.);   // 186MHz as a default for LCLS2
@@ -252,6 +254,10 @@ void tprTriggerAsynDriver::CreateParameters(void)
 
 void tprTriggerAsynDriver::Monitor(void)
 {
+    if(!pApiDrv) return;  // no API has been registered for this driver, 
+                          // it is PCIe slave mode
+                          // it doesn't need to anything
+
     uint32_t val;
     
     val = pApiDrv->fpgaVersion();   setIntegerParam(p_fpga_version, val);
@@ -1191,8 +1197,10 @@ static int tprTriggerAsynDriverReport(int interest)
         printf("    api location: %p\n", p->pApiDrv);
         printf("    drv location: %p\n", p->pAsynDrv);
         if(interest>2) {
-        printf("    report from api\n");
-        p->pApiDrv->report();
+            if(p->pApiDrv) {
+                printf("    report from api\n");
+                p->pApiDrv->report();
+            }
         }
         if(p->dev_prefix) has_pcieTpr = true;
         p = (tprTriggerDrvList_t *)ellNext(&p->node);
