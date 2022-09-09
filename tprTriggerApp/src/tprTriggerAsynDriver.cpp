@@ -206,6 +206,8 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, chnEventCodeString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_event_code));
         sprintf(param_name, chnCounterString, _num2Str(i));   createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_counter));
         sprintf(param_name, chnRateString, _num2Str(i));      createParam(param_name, asynParamFloat64, &((p_channel_st+i)->p_rate));
+
+        sprintf(param_name, chEvEnableString, _num2Str(i));   createParam(param_name, asynParamInt32,  &((p_channel_st+i)->p_ev_enable));
     }
     
     
@@ -243,7 +245,6 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, propTPOLString, _num2Str(i));           createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_tpol));
         sprintf(param_name, propPolarityString, _num2Str(i));       createParam(param_name, asynParamInt32,   &((p_trigger_st+i)->p_prop_polarity));
 
-        sprintf(param_name, chEvEnableString, _num2Str(i));         createParam(param_name, asynParamInt32,  &((p_trigger_st+i)->p_ev_enable));
     }
 
     for(int i = 0; i < MAX_SOFT_EV; i++) {
@@ -365,7 +366,11 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         if(function == (p_channel_st +i)->p_event_code) {
             SetEventCode(i, value);
             break;
-        }   
+        } else
+        if(function == (p_channel_st+i)->p_ev_enable) {
+            pcieTprSetChEv((p_channel_st+i)->_ev, value?true:false);
+            break;
+        }  
     }
     
     for(int i =0; i < NUM_TRIGGERS; i++) {
@@ -394,11 +399,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         if(function == (p_trigger_st+i)->p_cmpl) {
             if(busType == _pcie) SetCmpl(i, value);
             break;
-        } else
-        if(function == (p_trigger_st+i)->p_ev_enable) {
-            pcieTprSetChEv((p_trigger_st+i)->_ev, value?true:false);
-            break;
-        }
+        } 
     }
     
     for(int i =0; i< MAX_SOFT_EV; i++) {
@@ -482,8 +483,8 @@ void tprTriggerAsynDriver::pcieConfig(void)
     int ch_offset = pcieTpr_evPrefix(dev_prefix);
 
     for(int i = 0 ; i < NUM_TRIGGERS; i++) {
-        if(ch_offset > 0)  p_trigger_st[i]._ev = ch_offset + i;
-        else               p_trigger_st[i]._ev = -1;
+        if(ch_offset > 0)  p_channel_st[i]._ev = ch_offset + i;
+        else               p_channel_st[i]._ev = -1;
     }
 
 }
