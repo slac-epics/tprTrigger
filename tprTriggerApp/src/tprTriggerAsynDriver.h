@@ -143,6 +143,9 @@ class tprTriggerAsynDriver:asynPortDriver {
             
             int p_counter;        /* asynInt32, ro */
             int p_rate;           /* asynFloat64, rw */
+
+            int p_ev_enable;         /* asynInt32, rw */
+            int _ev;                /* not asyn parameter, string channel event number */
             
         } p_channel_st[NUM_CHANNELS];
         
@@ -173,9 +176,6 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_prop_tpol;        /* asynInt32, ro */
             int p_prop_enable[2];   /* asynInt32, ro */
             int p_prop_polarity;    /* asynInt32, ro */
-
-            int p_ev_enable;         /* asynInt32, rw */
-            int _ev;                /* not asyn parameter, string channel event number */
             
         } p_trigger_st[NUM_TRIGGERS];
 
@@ -265,7 +265,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define uedSpecialString           "ued_special"
 
 
-#define chEvEnableString            "chEvEnable_T%s"
+#define chEvEnableString            "chEvEnable_C%s"
 
 #define softEvEnableString          "softEvEnable_%s"
 #define softEvString                "softEv_%s"
