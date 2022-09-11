@@ -1,3 +1,19 @@
+R2.5.3-3.0   Sep 10, 2022 Kukhee Kim (khkim)
+             * implement timingApi (timing queue functions)
+             * support generaltime, soft event and channel event for PCIe TPR
+             * support PCIeSave:/ directive 
+             * build against timing/hpsTpr R2.2.0
+
+             remarks)  ch12 and ch13 has been designed for tprTrigger internal usage (no hardware trigger)
+                       butt we have an issue to use the ch12 and ch13 for the internal usage
+                       until resolving the issue, we borrow ch 11 and ch 12 for the internal usage.
+
+             - ch11 and ch12 have been reserved for 360Hz processing and other TBD usage, for temporally
+               thus, database template could not access ch11 and ch12 and trg11 and ch12
+             - after resolving the issue, we will move to ch12 and ch13 for the internal usage,
+               and will expose ch11 and ch12 to the database template
+             
+
 R2.5.3-2.0   Aug 15, 2022 Kukhee Kim (khkim)
              * add operation limit for MSGDLY PV
 
