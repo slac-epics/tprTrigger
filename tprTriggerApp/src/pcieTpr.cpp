@@ -100,6 +100,20 @@ typedef struct {
     bool     ev_enable;
 } soft_ev_list_t;
 
+
+typedef struct {
+    ELLNODE              node;
+    TimingEventCallback  callback;
+    void                *pUserPvt;
+} TimingEventCallback_t;
+
+typedef struct {
+    epicsMutex          *plock;
+    ELLLIST             list;
+} evCallback_t;
+
+static evCallback_t  *evCallback = NULL;
+
 static std::map <int, ts_tbl_t> ts_tbl;
 static soft_ev_list_t soft_ev_list[MAX_SOFT_EV];
 static bool have_master = false;
@@ -237,6 +251,17 @@ static void tprChannelFunc(void *param)
                 pT0->plock->unlock();
             }
 
+            // proceed the event callback
+            if(evCallback && ellCount(&evCallback->list) > 0) {
+                evCallback->plock->lock();
+                TimingEventCallback_t * p = (TimingEventCallback_t *) ellFirst(&evCallback->list);
+                while(p) {
+                    (*p->callback)(p->pUserPvt);
+                    p = (TimingEventCallback_t *) ellNext(&p->node);
+                }
+                evCallback->plock->lock();
+            }
+
             for(int i = 0; i <MAX_SOFT_EV; i++) {  // soft event loop
                 if(soft_ev_list[i].ev_enable && soft_ev_list[i].ev_num >= 1 && soft_ev_list[i].ev_num <= 255) {  // soft event 
                     volatile uint32_t *ev_mask = &dp[14];
@@ -315,6 +340,17 @@ int pcieTpr_evPrefix(char *dev_prefix)
     else         return -1;    
 }
 
+int pcieTprEvCallbackInit(void)
+{
+    if(evCallback) return 0;
+
+    evCallback        = new evCallback_t;
+    evCallback->plock = new epicsMutex();
+    ellInit(&evCallback->list);
+
+    return 0;
+}
+
 
 void *  pcieTprInit(char *dev_prefix)
 {
@@ -352,6 +388,13 @@ void * pcieTprReport(int level)
     int  time_text_len = 32;
     if(level < 1) return (void *) NULL;
 
+    pcieTprEvCallbackInit();
+    printf("Pcie Tpr Event Callback: %d registered\n", ellCount(&evCallback->list));
+    TimingEventCallback_t *p = (TimingEventCallback_t *) ellFirst(&evCallback->list);
+    while(p) {
+        printf("\t callback: %p, pUserPvt: %p\n", p->callback, p->pUserPvt);
+        p = (TimingEventCallback_t *) ellNext(&p->node); 
+    }
     printf("Pcie Tpr Channel Event\n");
     for(std::map<int, ts_tbl_t>::iterator it = ts_tbl.begin(); it != ts_tbl.end(); it++) {
        ts_tbl_t *p = &it->second;
@@ -471,6 +514,20 @@ int timingFifoRead(unsigned int    eventCode,
         pTimingDataDest->fifo_tsc               = p->fifo_tsc;
     }
 
+
+
+    return 0;
+}
+
+int RegisterTimingEventCallback(TimingEventCallback callback, void *pUserPvt)
+{
+    pcieTprEvCallbackInit();
+
+    TimingEventCallback_t *p = new TimingEventCallback_t;
+    p->callback = callback;
+    p->pUserPvt = pUserPvt;
+
+    ellAdd(&evCallback->list, &p->node);
 
 
     return 0;

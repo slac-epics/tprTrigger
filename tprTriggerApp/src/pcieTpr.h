@@ -17,6 +17,7 @@ void   pcieTprSetSoftEv(int idx, int ev_num, bool ev_enable);
 void   pcieTprSetChEv(int ev_num, bool ev_enable);
 void   pcieTprInitSoftEv(void);
 int    pcieTpr_evPrefix(char *dev_prefix);
+int    pcieTprEvCallbackInit(void);
 void * pcieTprInit(char *dev_prefix);
 void * pcieTprReport(int level);
 void * pcieTprGPWrapper(void);
@@ -28,6 +29,7 @@ int timingFifoRead(unsigned int    eventCode,
                    int             incr,
                    uint64_t        *index,
                    EventTimingData *pTimingDataDest);
+int RegisterTimingEventCallback(TimingEventCallback callback, void *pUserPvt);
 
 }
 

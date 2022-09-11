@@ -487,6 +487,8 @@ void tprTriggerAsynDriver::pcieConfig(void)
         else               p_channel_st[i]._ev = -1;
     }
 
+    pcieTprEvCallbackInit();
+
 }
 
 
