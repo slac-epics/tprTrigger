@@ -474,6 +474,29 @@ int timingGetCurrrTimeStamp(epicsTimeStamp *ptime)
     return pcieTprTimeGet_gtWrapper(ptime, 0);
 }
 
+int timingEntryRead(unsigned int eventCode, void *dtpr, EventTimingData *pTimingDataDest)
+{
+    if(ts_tbl.find(eventCode) == ts_tbl.end() || !dtpr || !pTimingDataDest) return -2;   // invalid index or inputs
+
+    ts_tbl_t *pT = &(ts_tbl[eventCode]);   
+
+    if(pT->pQ) pT->index = pT->pQ->allwp[pT->ch_idx] -1;
+    else       return -1;                 // NULL to return
+
+    volatile uint32_t *dp = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+    volatile Tpr::TprEntry *p = (Tpr::TprEntry *) dp;
+    volatile time_st_t *ts    = (volatile time_st_t *) dp;
+    pTimingDataDest->fifo_time.secPastEpoch = dp[5];
+    pTimingDataDest->fifo_time.nsec         = dp[4];
+    pTimingDataDest->fifo_fid               = ts->mode? ts->pid64 &0x1ffff: ts->pid64;
+    pTimingDataDest->fifo_tsc               = p->fifo_tsc;
+
+    memcpy(dtpr, (void *) p, sizeof(Tpr::TprEntry));
+
+   return 0;
+
+}
+
 int timingFifoRead(unsigned int    eventCode,
                    int             incr,
                    uint64_t        *index,
