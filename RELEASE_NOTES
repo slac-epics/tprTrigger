@@ -1,7 +1,12 @@
 R2.5.3-4.0   Sep 14, 2022 Kukhee Kim (khkim)
              * build against timing/hpsTpr R2.3.0
              * make PCIe Tpr support 12 channels and 12 triggers
-             * hide internal channel (ch 11 and ch12) for internal use only
+             * hide internal channel (ch 12 and ch13) for internal use only
+               . ch13 is for 360Hz processing in LCLS1 mode
+             * PV name change for the channel event control and soft event control
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVIDX_TCTL          ;  enable/disable channel event
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):EVSOFT$(NN)_TCTL            ;  enable/disable soft event
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):EVSOFT$(NN)                 ;  set event number for the soft event [1..255]
 
 
 R2.5.3-3.0   Sep 10, 2022 Kukhee Kim (khkim)
