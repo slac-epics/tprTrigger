@@ -6,7 +6,7 @@
 
 #include "timingFifoApi.h"
 
-#define  RESERVED_CH    11
+#define  RESERVED_CH    13
 #define  EV360HZ_CH     RESERVED_CH
 #define  EV360HZ_EV      1
 #define  MAX_SOFT_EV     8
@@ -23,12 +23,14 @@ void * pcieTprReport(int level);
 void * pcieTprGPWrapper(void);
 
 TimingPulseId timingGetLastFiducial();
+
 int timingGetCurrTimeStamp(epicsTimeStamp *ptine);
 int timingGetEventTimeStamp(epicsTimeStamp *ptime, int eventCode);
 int timingFifoRead(unsigned int    eventCode,
                    int             incr,
                    uint64_t        *index,
                    EventTimingData *pTimingDataDest);
+int timingEntryRead(unsigned int eventCode, void *dtpr, EventTimingData *pTimingDataDest);
 int RegisterTimingEventCallback(TimingEventCallback callback, void *pUserPvt);
 
 }
