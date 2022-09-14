@@ -1,3 +1,7 @@
+R2.5.3-4.0   Sep 14, 2022 Kukhee Kim (khkim)
+             * build against timing/hpsTpr R2.3.0
+
+
 R2.5.3-3.0   Sep 10, 2022 Kukhee Kim (khkim)
              * implement timingApi (timing queue functions)
              * support generaltime, soft event and channel event for PCIe TPR
