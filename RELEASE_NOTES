@@ -1,3 +1,6 @@
+R2.5.3-4.1   Sep 30, 2022 Marcio Donadio (marcio)
+             * Added support for RHEL7 
+
 R2.5.3-4.0   Sep 14, 2022 Kukhee Kim (khkim)
              * build against timing/hpsTpr R2.3.0
              * make PCIe Tpr support 12 channels and 12 triggers
