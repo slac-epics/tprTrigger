@@ -5,6 +5,7 @@ O.*
 bin/
 build/
 children/build/
+configure/*.local
 db/
 dbd/
 html/
