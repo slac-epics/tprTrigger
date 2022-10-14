@@ -1,3 +1,8 @@
+R2.6.2    2022-10-14 Bruce Hill
+		Build w/ yamlLoader/R2.3.2
+		Build for both LCLS and PCDS with LCLS PACKAGE_SITE_TOP
+		Add checks in CONFIG_SITE for required *_LIB and *_INCLUDE directories
+
 R2.6.1    Feb 7, 2022   K. Kim (khkim)
           * merge R2.5.3-br brnach to master
           * make star shape for the forward link chain of timeslot check box PVs from daisy chain
