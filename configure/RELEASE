@@ -25,8 +25,8 @@
 # ==========================================================
 
 ASYN_MODULE_VERSION=R4.39-1.0.1
-YAMLLOADER_MODULE_VERSION=R2.3.1
 TIMINGAPI_MODULE_VERSION=R0.9
+YAMLLOADER_MODULE_VERSION=R2.3.2
 
 
 # ==========================================================
