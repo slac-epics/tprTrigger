@@ -1,3 +1,9 @@
+R2.5.3-4.2   Oct 20, 2022 Bruce Hill (bhill)
+            Fix build warnings
+            Build w/ yamlLoader/R2.3.2
+            Build for both LCLS and PCDS with LCLS PACKAGE_SITE_TOP
+            Add macro checks for required *_LIB and *_INCLUDE directories
+
 R2.5.3-4.1   Sep 30, 2022 Marcio Donadio (marcio)
              * Added support for RHEL7 
 
