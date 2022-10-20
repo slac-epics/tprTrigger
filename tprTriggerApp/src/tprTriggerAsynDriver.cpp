@@ -34,9 +34,9 @@
 
 #include "pcieTpr.h"
 
-static const char * drverName = "tprTriggerAsynDriver";
+//static const char * driverName = "tprTriggerAsynDriver";
 
-static int init_flag = 0;
+//static int init_flag = 0;
 static ELLLIST *pList = NULL;
 
    
@@ -315,8 +315,8 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
 {
     int function = pasynUser->reason;
     asynStatus status = asynSuccess;
-    const char *functionName = "writeInt32";
-    
+    //const char *functionName = "writeInt32";
+
     /* set the parameter in the parameter library */
     status = (asynStatus) setIntegerParam(function, value);
     
@@ -429,7 +429,7 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
 {
     int function = pasynUser->reason;
     asynStatus status = asynSuccess;
-    const char * functionName = "writeFloat64";
+    //const char * functionName = "writeFloat64";
     
     /* set the parameter in the parameter library */
     status = (asynStatus) setDoubleParam(function, value);
@@ -569,7 +569,7 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
 
 void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
 {
-    uint32_t disable(0), enable(1);
+    uint32_t disable(0);
     mode = !mode?0:1;
     
     // disable all of channels and all of triggers
