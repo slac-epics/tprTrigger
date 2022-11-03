@@ -1,4 +1,4 @@
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVIDX_TCTL")
+record(bo, "$(DEV):CH$(NN)_EVIDX_TCTL")
 {
     field(DESC, "Channel Event $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
