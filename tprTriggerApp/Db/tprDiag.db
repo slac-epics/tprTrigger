@@ -1,4 +1,4 @@
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FPGAVER")
+record(longin, "$(DEV):FPGAVER")
 {
     field(DESC, "TimingCore FPGA version")
     field(DTYP, "asynInt32")
@@ -6,7 +6,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FPGAVER")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):UPTIME")
+record(longin, "$(DEV):UPTIME")
 {
     field(DESC, "TimingCore Uptime")
     field(DTYP, "asynInt32")
@@ -14,7 +14,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):UPTIME")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SOFCNT")
+record(longin, "$(DEV):SOFCNT")
 {
     field(DESC, "TimingCore Start of Frame Counter")
     field(DTYP, "asynInt32")
@@ -22,7 +22,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SOFCNT")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):EOFCNT")
+record(longin, "$(DEV):EOFCNT")
 {
     field(DESC, "TimingCore End of Frame Counter")
     field(DTYP, "asynInt32")
@@ -30,7 +30,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):EOFCNT")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FIDCNT")
+record(longin, "$(DEV):FIDCNT")
 {
     field(DESC, "TimingCore Fiducial Counter")
     field(DTYP, "asynInt32")
@@ -38,7 +38,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FIDCNT")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CRCERRCNT")
+record(longin, "$(DEV):CRCERRCNT")
 {
     field(DESC, "TimingCore CRC ERROR Counter")
     field(DTYP, "asynInt32")
@@ -46,7 +46,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CRCERRCNT")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXRSTCNT")
+record(longin, "$(DEV):RXRSTCNT")
 {
     field(DESC, "TimingCore RX Link Reset Counter")
     field(DTYP, "asynInt32")
@@ -55,7 +55,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXRSTCNT")
 }
 
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDECERRCNT")
+record(longin, "$(DEV):RXDECERRCNT")
 {
     field(DESC, "TimingCore Decoding ERROR Counter")
     field(DTYP, "asynInt32")
@@ -63,7 +63,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDECERRCNT")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDSPERRCNT")
+record(longin, "$(DEV):RXDSPERRCNT")
 {
     field(DESC, "TimingCore Disparity ERROR Counter")
     field(DTYP, "asynInt32")
@@ -72,7 +72,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDSPERRCNT")
 }
 
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXCLKCNT")
+record(longin, "$(DEV):RXCLKCNT")
 {
     field(DESC, "TimingCore Rx Clock Counter")
     field(DTYP, "asynInt32")
@@ -81,7 +81,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXCLKCNT")
 }
 
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TXCLKCNT")
+record(longin, "$(DEV):TXCLKCNT")
 {
     field(DESC, "TimingCore Tx Clock Counter")
     field(DTYP, "asynInt32")
@@ -90,7 +90,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TXCLKCNT")
 }
 
 
-record(mbbi, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS")
+record(mbbi, "$(DEV):RXLNKSTATUS")
 {
     field(DESC, "TimingCore Rx Link Status")
     field(DTYP, "asynInt32")
@@ -103,7 +103,7 @@ record(mbbi, "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS")
     field(ZRSV, "MAJOR")
 }
 
-record(mbbi, "TPR:$(LOCA):$(IOC_UNIT):$(INST):VERERR")
+record(mbbi, "$(DEV):VERERR")
 {
     field(DESC, "TimingCore Version Chceck Error")
     field(DTYP, "asynInt32")
@@ -116,7 +116,7 @@ record(mbbi, "TPR:$(LOCA):$(IOC_UNIT):$(INST):VERERR")
     field(ONSV, "MAJOR")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER")
+record(longin, "$(DEV):FRAMEVER")
 {
     field(DESC, "TimingCore Received Frame Version")
     field(DTYP, "asynInt32")
@@ -124,7 +124,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER")
     field(SCAN, "I/O Intr")
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE")
+record(mbbo, "$(DEV):MODE")
 {
     field(DESC, "Mode selection NC/SC")
     field(DTYP, "asynInt32")
@@ -138,10 +138,9 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE")
     field(TWST, "SYS7")
     field(PINI, "YES")
     info(autosaveFields, "VAL ZRSV ONSV TWSV")
-    
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
+record(ao, "$(DEV):MSGDLY")
 {
     field(DESC, "Message Delay for LCLS2 Timing Frame")
     field(DTYP, "asynFloat64")
@@ -156,7 +155,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY")
     info(autosaveFields, "VAL")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLYRB")
+record(longin, "$(DEV):MSGDLYRB")
 {
     field(DESC, "message delay in ticks")
     field(DTYP, "asynInt32")
@@ -164,7 +163,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLYRB")
     field(SCAN, "I/O Intr")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF")
+record(ao, "$(DEV):TREF")
 {
     field(DESC, "Master Delay for LCLS1 mode")
     field(DTYP, "asynFloat64")
@@ -176,7 +175,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS0_CLK")
+record(ao, "$(DEV):SYS0_CLK")
 {
     field(DESC, "Application Clock in MHz for LCLS1")
     field(DTYP, "asynFloat64")
@@ -189,7 +188,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS0_CLK")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK")
+record(ao, "$(DEV):SYS2_CLK")
 {
     field(DESC, "Application Clock in MHz for LCLS2")
     field(DTYP, "asynFloat64")
@@ -203,7 +202,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK")
 }
 
 
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):UEDSPECIAL")
+record(bo, "$(DEV):UEDSPECIAL")
 {
     field(DESC, "UED Special Mode")
     field(DTYP, "asynInt32")
