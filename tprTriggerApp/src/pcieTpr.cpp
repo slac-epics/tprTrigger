@@ -466,7 +466,7 @@ TimingPulseId timingGetLastFiducial(void)
     return (TimingPulseId) pid64;
 }
 
-int timingGetEvetTimeStamp(epicsTimeStamp *ptime, int eventCode)
+int timingGetEventTimeStamp(epicsTimeStamp *ptime, int eventCode)
 {
     return pcieTprTimeGet_gtWrapper(ptime, eventCode);
 }
