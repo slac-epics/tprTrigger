@@ -11,7 +11,7 @@ font "helvetica-medium-r-18.0"
 ctlFont "helvetica-medium-r-18.0"
 btnFont "helvetica-medium-r-18.0"
 fgColor index 14
-bgColor index 0
+bgColor index 3
 textColor index 14
 ctlFgColor1 index 14
 ctlFgColor2 index 0
@@ -19,6 +19,9 @@ ctlBgColor1 index 0
 ctlBgColor2 index 14
 topShadowColor index 0
 botShadowColor index 14
+showGrid
+snapToGrid
+gridSize 4
 endScreenProperties
 
 # (Button)
@@ -31,14 +34,14 @@ x 61
 y 38
 w 50
 h 20
-fgColor index 14
-onColor index 41
-offColor index 4
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL"
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):TRG$(NN)_SYS0_TCTL"
+indicatorPv "$(TPR_PV):TRG$(NN)_SYS0_TCTL"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
@@ -59,8 +62,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL"
+controlPv "$(TPR_PV):TRG$(NN)_TPOL"
+indicatorPv "$(TPR_PV):TRG$(NN)_TPOL"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -114,11 +117,11 @@ x 405
 y 38
 w 100
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TDES"
+controlPv "$(TPR_PV):TRG$(NN)_SYS0_TDES"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -164,8 +167,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE"
+controlPv "$(TPR_PV):TRG$(NN)_SOURCE"
+indicatorPv "$(TPR_PV):TRG$(NN)_SOURCE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -199,11 +202,11 @@ x 525
 y 38
 w 100
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TWID"
+controlPv "$(TPR_PV):TRG$(NN)_SYS0_TWID"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -244,11 +247,11 @@ x 401
 y 83
 w 100
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TDES"
+controlPv "$(TPR_PV):TRG$(NN)_SYS2_TDES"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -289,11 +292,11 @@ x 521
 y 83
 w 100
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TWID"
+controlPv "$(TPR_PV):TRG$(NN)_SYS2_TWID"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -374,14 +377,14 @@ x 61
 y 60
 w 50
 h 20
-fgColor index 14
-onColor index 41
-offColor index 4
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL"
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):TRG$(NN)_SYS2_TCTL"
+indicatorPv "$(TPR_PV):TRG$(NN)_SYS2_TCTL"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
@@ -422,8 +425,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TCMPL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TCMPL"
+controlPv "$(TPR_PV):TRG$(NN)_TCMPL"
+indicatorPv "$(TPR_PV):TRG$(NN)_TCMPL"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -497,11 +500,11 @@ x 670
 y 160
 w 80
 h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TWIDTICKS"
+controlPv "$(TPR_PV):TRG$(NN)_TWIDTICKS"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
-fgColor index 14
-bgColor index 4
+fgColor index 15
+bgColor index 12
 autoHeight
 fieldLen "8"
 nullColor index 0
@@ -519,11 +522,11 @@ x 670
 y 178
 w 80
 h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTICKS"
+controlPv "$(TPR_PV):TRG$(NN)_TDESTICKS"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
-fgColor index 14
-bgColor index 4
+fgColor index 15
+bgColor index 12
 autoHeight
 fieldLen "8"
 nullColor index 0
@@ -541,11 +544,11 @@ x 670
 y 197
 w 80
 h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTAPS"
+controlPv "$(TPR_PV):TRG$(NN)_TDESTAPS"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
-fgColor index 14
-bgColor index 4
+fgColor index 15
+bgColor index 12
 autoHeight
 fieldLen "8"
 nullColor index 0
