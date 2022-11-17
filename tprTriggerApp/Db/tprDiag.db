@@ -105,7 +105,7 @@ record(mbbi, "$(DEV):RXLNKSTATUS")
 
 record(mbbi, "$(DEV):VERERR")
 {
-    field(DESC, "TimingCore Version Chceck Error")
+    field(DESC, "TimingCore Version Check Error")
     field(DTYP, "asynInt32")
     field(INP,  "@asyn($(PORT),0) versionError")
     field(SCAN, "I/O Intr")
