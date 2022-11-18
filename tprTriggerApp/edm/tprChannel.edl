@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 264
-y 979
+x 507
+y 89
 w 800
 h 320
 font "helvetica-medium-r-18.0"
@@ -374,15 +374,16 @@ release 0
 x 658
 y 194
 w 80
-h 14
+h 20
 controlPv "$(TPR_PV):CH$(NN)_CNT"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
 fgColor index 15
+fgAlarm
 bgColor index 12
-autoHeight
 nullColor index 0
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -393,18 +394,19 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 658
-y 212
+x 660
+y 220
 w 80
-h 14
+h 20
 controlPv "$(TPR_PV):CH$(NN)_RATE"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
 fgColor index 15
+fgAlarm
 bgColor index 12
-autoHeight
 nullColor index 0
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -415,18 +417,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 565
-y 210
+x 564
+y 220
 w 88
-h 14
+h 20
 font "helvetica-medium-r-12.0"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+fgAlarm
+bgColor index 3
 value {
   "Event Rate (Hz)"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -438,15 +439,13 @@ release 1
 x 569
 y 194
 w 80
-h 14
+h 20
 font "helvetica-medium-r-12.0"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Event Counter"
 }
-autoSize
 endObjectProperties
 
 # (Text Control)
@@ -654,15 +653,106 @@ minor 1
 release 1
 x 9
 y 221
-w 152
+w 125
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "Channel Event (Soft Event)"
+  "LCLS2 Channel Event"
 }
 autoSize
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 280
+w 50
+h 20
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):EVSOFT$(NN)_TCTL"
+indicatorPv "$(TPR_PV):EVSOFT$(NN)_TCTL"
+3d
+font "helvetica-medium-r-12.0"
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 8
+y 264
+w 99
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "LCLS1 Soft Event"
+}
+autoSize
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 160
+y 280
+w 80
+h 20
+controlPv "$(TPR_PV):EVSOFT$(NN)"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 15
+fgAlarm
+bgColor index 12
+nullColor index 0
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 72
+y 280
+w 80
+h 20
+controlPv "$(TPR_PV):EVSOFT$(NN)"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+fgAlarm
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
 endObjectProperties
 
