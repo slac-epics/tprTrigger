@@ -9,6 +9,8 @@
 
 #include <ellLib.h>
 
+#include <tprTriggerYaml.hh>
+#define  MAX_SOFT_EV     12
 
 class tprTriggerAsynDriver:asynPortDriver {
     public:
@@ -171,7 +173,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         struct {
            int p_ev_enable;
            int p_ev;
-        } p_soft_event_st[8];
+        } p_soft_event_st[MAX_SOFT_EV];
 
         int p_ued_special;        /* asynInt32 */
         
