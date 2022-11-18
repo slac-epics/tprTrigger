@@ -28,7 +28,7 @@
 #include <dbScan.h>
 
 #include "pcieTpr.h"
-
+#include "tprTriggerAsynDriver.h"
 
 
 #if 0
