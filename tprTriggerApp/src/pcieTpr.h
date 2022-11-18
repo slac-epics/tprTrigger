@@ -9,7 +9,6 @@
 #define  RESERVED_CH    13
 #define  EV360HZ_CH     RESERVED_CH
 #define  EV360HZ_EV      1
-#define  MAX_SOFT_EV     8
 
 extern "C" {
 
