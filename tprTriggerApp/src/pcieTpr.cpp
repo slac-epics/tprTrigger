@@ -39,6 +39,8 @@ static uint64_t __rdtsc(void){
 }
 #endif
 
+int DEBUG_PCIE_TPR  = 1;
+
 static const char *name_s[] = { "tprA", 
                                 "tprB",
                                 "tprC",
@@ -215,7 +217,8 @@ static void tprChannelFunc(void *param)
 
 
         if(prev_allrp == allrp) {   // there is no update
-            printf("%s thread %s is notified but, no new pattern\n", p->thread_name, p->file_name);
+            if ( DEBUG_PCIE_TPR >= 2 )
+                printf("%s thread %s is notified but, no new pattern\n", p->thread_name, p->file_name);
             epicsThreadSleep(1.);
             continue;
         }
@@ -366,18 +369,23 @@ void *  pcieTprInit(char *dev_prefix)
         if(!strcmp(dev_prefix, dev_s[dev_idx])) break;
     }
 
-    if(!dev_s[dev_idx]) return (void *) NULL;
+    if(!dev_s[dev_idx])
+    {
+        printf( "pcieTprInit(%s): dev_s[%d] is NULL\n", dev_prefix, dev_idx );
+        return (void *) NULL;
+    }
 
+    if ( DEBUG_PCIE_TPR >= 1 )
+        printf( "pcieTprInit(%s): dev_idx=%d\n", dev_prefix, dev_idx );
     for(ch_idx = 0; dev_c[ch_idx]; ch_idx++) {
         ev_num = ev_prefix[dev_idx] + ch_idx;
         sprintf(file_name, "%s%c", dev_s[dev_idx], dev_c[ch_idx]);
         sprintf(thrd_name, "%s%c", name_s[dev_idx], dev_c[ch_idx]);
 
-
+        if ( DEBUG_PCIE_TPR >= 2 )
+            printf( "pcieTprInit: calling createPcieThread(%s, %s, ev %d, ch %d\n", thrd_name, file_name, ev_num, ch_idx );
         createPcieThread(thrd_name, file_name, ev_num, ch_idx);
     }
-
-
 
     return (void*) NULL;
 }
@@ -443,7 +451,8 @@ void  pcieTprInitSoftEv(void)
 
 void * pcieTprGPWrapper(void)
 {
-    printf("Found PCIeTPR: execute GPWrapperInit()\n");
+    if ( DEBUG_PCIE_TPR >= 1 )
+        printf("Found PCIeTPR: execute GPWrapperInit()\n");
 
     generalTimeRegisterEventProvider("pcieTprTimeGet",       1000, (TIMEEVENTFUN) pcieTprTimeGet_gtWrapper);
     generalTimeRegisterEventProvider("pcieTprTimeGetSystem", 2000, (TIMEEVENTFUN) pcieTprTimeGetSystem_gtWrapper);
@@ -458,7 +467,16 @@ TimingPulseId timingGetLastFiducial(void)
 {
     uint64_t pid64;
     ts_tbl_t *p = &(ts_tbl[0]);
-
+    if ( p == NULL )
+    {
+        printf( "timingGetLastFiducial: Invalid timestamp table! p = %p\n", p );
+        return 0LL;
+    }
+    if ( p->plock == NULL )
+    {
+        printf( "timingGetLastFiducial: Invalid timestamp table lock! p->plock = %p\n", p->plock );
+        return 0LL;
+    }
     p->plock->lock();
     pid64 = p->pid64;
     p->plock->unlock();
