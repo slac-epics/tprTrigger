@@ -1243,7 +1243,8 @@ static int tprTriggerAsynDriverInitialize(void)
     init_pList();
 
     if(!ellCount(pList)) return 0;
-    
+
+    printf( "tprTriggerAsynDriverInitialize: Creating tprTriggerMon thread.\n" );
     epicsThreadCreate("tprTriggerMon", epicsThreadPriorityLow,
                       epicsThreadGetStackSize(epicsThreadStackMedium),
                       (EPICSTHREADFUNC) tprTriggerAsynDriverMonitor, 0);
