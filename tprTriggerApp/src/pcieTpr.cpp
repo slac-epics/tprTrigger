@@ -28,7 +28,7 @@
 #include <dbScan.h>
 
 #include "pcieTpr.h"
-
+#include "tprTriggerAsynDriver.h"
 
 
 static const char *name_s[] = { "tprA", 

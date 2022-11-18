@@ -39,7 +39,6 @@
 
 #include <yamlLoader.h>
 
-#include <tprTriggerYaml.hh>
 #include <tprTriggerAsynDriver.h>
 
 #include "pcieTpr.h"
