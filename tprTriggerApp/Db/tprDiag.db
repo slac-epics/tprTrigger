@@ -38,6 +38,22 @@ record(longin, "$(DEV):FIDCNT")
     field(SCAN, "I/O Intr")
 }
 
+record(calc, "$(DEV):FIDRATE")
+{
+    field(DESC, "$(NAME) Fiducial Rate")
+    field(INPA, "$(DEV):FIDCNT")
+    field(INPB, "$(DEV):FIDRATE.LA NPP NMS")    # Previous FIDCNT
+    field(INPC, "$(DEV):FIDRATE.VAL NPP NMS" )  # Previous FIDRATE
+    field(INPD, "0.0" ) # Smoothing factor
+    field(CALC, "(C*D)+MAX(0,A-B)*(1-D)" )
+    field(PREC, "2" )
+    field(EGU,  "Hz" )
+    field(SCAN, "1 second" )
+    field(LOW,  "0" )
+    field(LSV,  "MINOR" )
+#   info( autosaveFields, "HHSV HIGH HIHI HSV LLSV LOLO LOW LSV" )
+}
+
 record(longin, "$(DEV):CRCERRCNT")
 {
     field(DESC, "TimingCore CRC ERROR Counter")
