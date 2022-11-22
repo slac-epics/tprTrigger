@@ -229,6 +229,7 @@ controlPv "$(TPR_PV):FPGAVER"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -252,6 +253,7 @@ controlPv "$(TPR_PV):UPTIME"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -275,6 +277,7 @@ controlPv "$(TPR_PV):SOFCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -298,6 +301,7 @@ controlPv "$(TPR_PV):EOFCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -321,6 +325,7 @@ controlPv "$(TPR_PV):FIDCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -344,6 +349,7 @@ controlPv "$(TPR_PV):CRCERRCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -367,6 +373,7 @@ controlPv "$(TPR_PV):RXCLKCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -390,11 +397,12 @@ controlPv "$(TPR_PV):RXLNKSTATUS"
 format "string"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
 smartRefresh
-showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -413,11 +421,11 @@ controlPv "$(TPR_PV):VERERR"
 format "string"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
 smartRefresh
-showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -885,6 +893,7 @@ controlPv "$(TPR_PV):RXDECERRCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -908,6 +917,7 @@ controlPv "$(TPR_PV):RXDSPERRCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
@@ -950,6 +960,7 @@ controlPv "$(TPR_PV):RXRSTCNT"
 format "hex"
 font "helvetica-bold-r-12.0"
 fgColor index 15
+fgAlarm
 bgColor index 12
 fieldLen "8"
 nullColor index 0
