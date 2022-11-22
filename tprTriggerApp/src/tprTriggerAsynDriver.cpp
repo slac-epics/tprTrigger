@@ -277,14 +277,13 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->frameVersion();  setIntegerParam(p_frame_version, val);
     
     for(int i=0; i< NUM_CHANNELS; i++) {
-        val = pApiDrv->channelCount(i); setIntegerParam((p_channel_st+i)->p_counter, val);
-        if(_update_flag) {
-            if(val >= _prev_chn_counter[i]) { 
-                epicsFloat64 _rate = (val - _prev_chn_counter[i])/2.;
-                setDoubleParam((p_channel_st+i)->p_rate, _rate);
-            }
-            _prev_chn_counter[i] = val;
-        }
+        uint32_t _newRate = pApiDrv->channelCount(i);
+        epicsFloat64 _rate = _newRate;
+        setDoubleParam((p_channel_st+i)->p_rate, _rate);
+
+        uint32_t _newCount = _prev_chn_counter[i] + _newRate;
+        setIntegerParam((p_channel_st+i)->p_counter, _newCount);
+        _prev_chn_counter[i] = _newCount;
     }
     
     _update_flag = _update_flag?0:1;
