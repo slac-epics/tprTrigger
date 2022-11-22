@@ -1,0 +1,1465 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 490
+y 1365
+w 884
+h 972
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-medium-r-12.0"
+btnFont "helvetica-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+textColor index 14
+ctlFgColor1 index 1
+ctlFgColor2 index 14
+ctlBgColor1 index 25
+ctlBgColor2 index 7
+topShadowColor index 1
+botShadowColor index 14
+title "$(TPR_PV) SLAC pciE TPR"
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 880
+h 40
+lineColor index 56
+fill
+fillColor index 56
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 8
+y 0
+w 256
+h 40
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "SLAC PCIe TPR Event Receiver"
+  "$(TPR_PV)"
+}
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 820
+y 8
+w 48
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+label "Exit"
+font "helvetica-medium-r-12.0"
+3d
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 760
+y 8
+w 56
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Diag"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/tprMain_final.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "DEVICE=TPS_PV"
+}
+icon
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 656
+y 8
+w 100
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Seq Codes"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/seqEventCodes.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ECS=ECS:SYS0,EVG=EVNT:SYS0"
+}
+replaceSymbols {
+  0 1
+}
+icon
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 552
+y 8
+w 100
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "LCLS Codes"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/lclsEventCodes.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "EVG=EVNT:SYS0,TPR_PV=$(TPR_PV)"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+icon
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 8
+y 56
+w 180
+h 60
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 8
+y 48
+w 48
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+value {
+  "Info"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 344
+y 56
+w 304
+h 60
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 344
+y 48
+w 132
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+value {
+  "Fiducial Pattern Status"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 352
+y 68
+w 56
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Fiducial"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 196
+y 56
+w 144
+h 60
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 196
+y 48
+w 80
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+value {
+  "TPR Status"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 656
+y 56
+w 132
+h 60
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 656
+y 48
+w 80
+h 16
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 3
+value {
+  "      TREF"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 200
+y 64
+w 36
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Link"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 660
+y 72
+w 124
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Reference Time (ns)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 48
+y 64
+w 136
+h 20
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+value {
+  "$(IOC)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 48
+y 92
+w 136
+h 20
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+value {
+  "$(TPR_PV)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 16
+y 92
+w 28
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "TPR"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 16
+y 64
+w 28
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "IOC"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 352
+y 92
+w 56
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Fid. Rate"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 664
+y 92
+w 119
+h 20
+controlPv "$(TPR_PV):TREF"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 8
+y 132
+w 866
+h 816
+lineColor index 3
+fill
+fillColor index 3
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 664
+y 948
+w 128
+h 20
+controlPv "$(IOC):TOD"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+fgAlarm
+bgColor index 12
+useDisplayBg
+precision 1
+nullColor index 0
+newPos
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 8
+y 124
+w 68
+h 16
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+value {
+  "Triggers"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 572
+y 136
+w 98
+h 14
+font "helvetica-medium-i-12.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "* relative to TREF"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 116
+y 136
+w 420
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Note: Delay computations are based on the nominal 119MHz clock"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 16
+y 156
+w 60
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Trigger#"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 164
+y 156
+w 180
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Description"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 356
+y 156
+w 55
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "State"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 564
+y 156
+w 84
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Delay(ns)*"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 480
+y 156
+w 64
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Width(ns)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 416
+y 156
+w 52
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Polarity"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 736
+y 156
+w 68
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Count"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 808
+y 156
+w 56
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Rate (Hz)"
+}
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 172
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=00,TPR_TR=00,TPR_SE=00"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 236
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=01,TPR_TR=01,TPR_SE=01"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 96
+y 156
+w 64
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Event Code"
+}
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 300
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=02,TPR_TR=02,TPR_SE=02"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 364
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=03,TPR_TR=03,TPR_SE=03"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 428
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=04,TPR_TR=04,TPR_SE=04"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 492
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=05,TPR_TR=05,TPR_SE=05"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 556
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=06,TPR_TR=06,TPR_SE=06"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 620
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=07,TPR_TR=07,TPR_SE=07"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 684
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=08,TPR_TR=08,TPR_SE=08"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 748
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=09,TPR_TR=09,TPR_SE=09"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 812
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=10,TPR_TR=10,TPR_SE=10"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 12
+y 876
+w 858
+h 64
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "LOC\\\\emb-lcls1-tprTrig=0"
+sizeOfs 5
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-tprTrig.edl"
+}
+menuLabel {
+  0 "Embedded Trigger"
+}
+symbols {
+  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=11,TPR_TR=11,TPR_SE=11"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+noScroll
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 648
+y 156
+w 84
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Delay(ticks)*"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 256
+y 92
+w 80
+h 20
+controlPv "$(TPR_PV):VERERR"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 196
+y 92
+w 56
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Vers Err"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 420
+y 68
+w 76
+h 20
+controlPv "$(TPR_PV):FIDCNT"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 244
+y 64
+w 56
+h 20
+controlPv "$(TPR_PV):RXLNKSTATUS"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Lines)
+object activeLineClass
+beginObjectProperties
+major 4
+minor 0
+release 1
+x 304
+y 60
+w 24
+h 24
+lineColor index 14
+fill
+fillColor index 15
+fillAlarm
+alarmPv "$(TPR_PV):RXLNKSTATUS"
+numPoints 5
+xPoints {
+  0 316
+  1 304
+  2 316
+  3 328
+  4 316
+}
+yPoints {
+  0 60
+  1 72
+  2 84
+  3 72
+  4 60
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 420
+y 92
+w 76
+h 20
+controlPv "$(TPR_PV):FIDRATE"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 508
+y 92
+w 132
+h 20
+controlPv "$(TPR_PV):SYS0_CLK"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 508
+y 72
+w 132
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "App Clock Speed"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 376
+y 0
+w 84
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Timing Mode"
+}
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 376
+y 16
+w 84
+h 20
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):MODE"
+onLabel "LCLS2"
+offLabel "LCLS1"
+labelType "literal"
+3d
+font "helvetica-bold-r-12.0"
+objType "controls"
+endObjectProperties
+
