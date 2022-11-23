@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1380
-y 1646
+x 954
+y 1686
 w 880
 h 200
 font "helvetica-medium-r-18.0"
@@ -39,7 +39,7 @@ fontAlign "center"
 fgColor index 14
 bgColor index 5
 value {
-  "CH$(TPR_CH)"
+  "CH $(TPR_CH)"
 }
 endObjectProperties
 
@@ -202,8 +202,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 343
-y 9
+x 144
+y 8
 w 64
 h 24
 fgColor index 25
@@ -263,6 +263,7 @@ fontAlign "center"
 fgColor index 25
 fgAlarm
 bgColor index 5
+editable
 motifWidget
 limitsFromDb
 nullColor index 18
@@ -277,8 +278,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 143
-y 8
+x 139
+y 133
 w 196
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_SYS0_TCTL.DESC"
@@ -287,6 +288,7 @@ font "courier-bold-r-12.0"
 fontAlign "center"
 fgColor index 25
 bgColor index 5
+editable
 motifWidget
 nullColor index 18
 smartRefresh
@@ -311,7 +313,7 @@ fontAlign "center"
 fgColor index 14
 bgColor index 5
 value {
-  "TR$(TPR_TR)"
+  "TR $(TPR_TR)"
 }
 endObjectProperties
 
@@ -357,6 +359,7 @@ font "courier-bold-r-12.0"
 fontAlign "center"
 fgColor index 25
 bgColor index 5
+editable
 motifWidget
 nullColor index 18
 smartRefresh
@@ -372,8 +375,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 91
-y 36
+x 292
+y 8
 w 48
 h 24
 controlPv "$(TPS_PV):EVSOFT$(TPR_SE)"
@@ -382,11 +385,56 @@ fontAlign "center"
 fgColor index 25
 fgAlarm
 bgColor index 5
+editable
 motifWidget
 limitsFromDb
 nullColor index 18
 nullCondition "disabled"
 newPos
 objType "controls"
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 345
+y 8
+w 64
+h 24
+fgColor index 25
+fgAlarm
+onColor index 6
+offColor index 3
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
+indicatorPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
+onLabel "Enabled"
+offLabel "Disabled"
+3d
+font "helvetica-medium-r-12.0"
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 213
+y 8
+w 73
+h 25
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "SoftEvent $(TPR_SE)"
+}
 endObjectProperties
 

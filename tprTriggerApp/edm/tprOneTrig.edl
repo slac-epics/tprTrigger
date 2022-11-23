@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1374
-y 1366
+x 958
+y 1403
 w 882
 h 248
 font "helvetica-medium-r-18.0"
@@ -64,7 +64,7 @@ minor 1
 release 1
 x 8
 y 0
-w 256
+w 272
 h 40
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -72,7 +72,7 @@ bgColor index 3
 useDisplayBg
 value {
   "Shared TPR Receiver"
-  "$(TPS_PV) CH$(TPR_CH) TRG$(TPR_TR)"
+  "$(TPS_PV) CH $(TPR_CH) TRG $(TPR_TR) SE $(TPR_SE)"
 }
 endObjectProperties
 
