@@ -178,7 +178,7 @@ record(longin, "$(DEV):TRG$(NN)_TDESTAPS")
 record(longout, "$(DEV):TPRTRIG$(NN)") {
    field(DESC, "Trigger Number Description")
    field(DTYP, "Soft Channel")
-   field(DOL,  "$(NN="")")
+   field(DOL,  "$(V="")")
    field(OMSL, "closed_loop")
    field(ASG,  "NO_WRITE")
    field(PINI, "YES")
