@@ -11,9 +11,11 @@ record(bo, "$(DEV):EVSOFT$(NN)_TCTL")
 }
 
 
-record(longout, "$(DEV):EVSOFT$(NN)") {
+record(longout, "$(DEV):EVSOFT$(NN)")
+{
    field(DESC, "Soft Event $(NN)")
    field(DTYP, "asynInt32")
+   field(DOL,  "45")
    field(OUT,  "@asyn($(PORT),0) softEv_$(NN)")
    field(OMSL, "supervisory")
    field(PINI, "YES")
