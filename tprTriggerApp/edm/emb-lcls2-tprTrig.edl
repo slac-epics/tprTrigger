@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 954
-y 1686
+x 1086
+y 1170
 w 880
 h 200
 font "helvetica-medium-r-18.0"
@@ -124,11 +124,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 547
+x 553
 y 36
-w 80
+w 74
 h 24
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TDES"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TDES"
 format "exponential"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
@@ -150,11 +150,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 463
+x 474
 y 36
-w 80
+w 74
 h 24
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TWID"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TWID"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
 fgColor index 25
@@ -175,9 +175,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 411
-y 36
-w 48
+x 417
+y 37
+w 53
 h 24
 fgColor index 25
 fgAlarm
@@ -202,7 +202,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 90
+x 92
 y 8
 w 64
 h 24
@@ -213,8 +213,8 @@ offColor index 3
 inconsistentColor index 40
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(TPR_PV):CH$(TPR_CH)_SYS0_TCTL"
-indicatorPv "$(TPR_PV):CH$(TPR_CH)_SYS0_TCTL"
+controlPv "$(TPR_PV):CH$(TPR_CH)_SYS2_TCTL"
+indicatorPv "$(TPR_PV):CH$(TPR_CH)_SYS2_TCTL"
 onLabel "Enabled"
 offLabel "Disabled"
 3d
@@ -253,36 +253,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 160
-y 8
-w 48
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_EVCODE"
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor index 25
-fgAlarm
-bgColor index 5
-editable
-motifWidget
-limitsFromDb
-nullColor index 18
-nullCondition "disabled"
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
 x 139
 y 133
 w 196
 h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SYS0_TCTL.DESC"
+controlPv "$(TPR_PV):CH$(TPR_CH)_SYS2_TCTL.DESC"
 format "string"
 font "courier-bold-r-12.0"
 fontAlign "center"
@@ -323,7 +298,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 344
+x 92
 y 36
 w 64
 h 24
@@ -334,8 +309,8 @@ offColor index 3
 inconsistentColor index 40
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TCTL"
-indicatorPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TCTL"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TCTL"
+indicatorPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TCTL"
 onLabel "Enabled"
 offLabel "Disabled"
 3d
@@ -349,11 +324,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 143
-y 37
+x 159
+y 36
 w 196
 h 24
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TCTL.DESC"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TCTL.DESC"
 format "string"
 font "courier-bold-r-12.0"
 fontAlign "center"
@@ -369,72 +344,276 @@ objType "controls"
 noExecuteClipMask
 endObjectProperties
 
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 37
+w 60
+h 24
+fgColor index 25
+bgColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):TRG$(TPR_TR)_TCMPL"
+font "helvetica-bold-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 160
+y 8
+w 60
+h 24
+fgColor index 25
+bgColor index 5
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 224
+y 8
+w 80
+h 24
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 224
+y 8
+w 80
+h 24
+
+beginGroup
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 224
+y 8
+w 80
+h 24
+fgColor index 25
+bgColor index 5
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(TPR_CH)_FIXEDRATE"
+indicatorPv "$(TPR_PV):CH$(TPR_CH)_FIXEDRATE"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 224
+y 8
+w 163
+h 24
+
+beginGroup
+
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 292
+x 307
 y 8
-w 48
+w 80
 h 24
-controlPv "$(TPS_PV):EVSOFT$(TPR_SE)"
+controlPv "$(TPR_PV):CH$(TPR_CH)_TSMASK"
+format "hex"
 font "helvetica-medium-r-12.0"
-fontAlign "center"
 fgColor index 25
-fgAlarm
 bgColor index 5
 editable
 motifWidget
 limitsFromDb
-nullColor index 18
-nullCondition "disabled"
+precision 0
+nullColor index 0
+updatePvOnDrop
 newPos
 objType "controls"
 endObjectProperties
 
-# (Button)
-object activeButtonClass
+# (Menu Button)
+object activeMenuButtonClass
 beginObjectProperties
 major 4
-minor 1
+minor 0
 release 0
-x 345
+x 224
 y 8
-w 64
+w 80
 h 24
 fgColor index 25
-fgAlarm
-onColor index 6
-offColor index 3
-inconsistentColor index 40
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
-indicatorPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
-onLabel "Enabled"
-offLabel "Disabled"
-3d
+bgColor index 5
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(TPR_CH)_ACRATE"
 font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 224
+y 8
+w 167
+h 24
+
+beginGroup
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 311
+y 8
+w 80
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_SEQBIT"
+format "hex"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
 objType "controls"
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
+# (Text Control)
+object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 1
-release 1
-x 213
+minor 7
+release 0
+x 224
 y 8
-w 73
-h 25
+w 80
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_SEQNUM"
+format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 7
-value {
-  "SoftEvent $(TPR_SE)"
-}
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "2"
+visMax "3"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 411
+y 8
+w 100
+h 24
+fgColor index 25
+bgColor index 5
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(TPR_CH)_DESTMODE"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 520
+y 8
+w 80
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_DESTMASK"
+format "hex"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
 endObjectProperties
 
