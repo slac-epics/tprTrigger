@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1086
-y 1170
+x 1229
+y 1679
 w 880
 h 200
 font "helvetica-medium-r-18.0"
@@ -31,8 +31,8 @@ major 4
 minor 1
 release 1
 x 4
-y 8
-w 84
+y 7
+w 63
 h 24
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -124,9 +124,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 553
-y 36
-w 74
+x 631
+y 7
+w 81
 h 24
 controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TDES"
 format "exponential"
@@ -150,9 +150,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 474
-y 36
-w 74
+x 547
+y 7
+w 80
 h 24
 controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TWID"
 font "helvetica-medium-r-12.0"
@@ -175,9 +175,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 417
-y 37
-w 53
+x 465
+y 7
+w 77
 h 24
 fgColor index 25
 fgAlarm
@@ -187,7 +187,6 @@ inconsistentColor index 40
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(TPR_PV):TRG$(TPR_TR)_TPOL"
-indicatorPv "$(TPR_PV):TRG$(TPR_TR)_TPOL"
 onLabel "Inverted"
 offLabel "Normal"
 labelType "literal"
@@ -202,9 +201,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 92
-y 8
-w 64
+x 69
+y 7
+w 62
 h 24
 fgColor index 25
 fgAlarm
@@ -229,7 +228,7 @@ major 4
 minor 7
 release 0
 x 631
-y 37
+y 36
 w 80
 h 24
 controlPv "$(TPR_PV):TRG$(TPR_TR)_TDESTICKS"
@@ -247,32 +246,6 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 139
-y 133
-w 196
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SYS2_TCTL.DESC"
-format "string"
-font "courier-bold-r-12.0"
-fontAlign "center"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-nullColor index 18
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-noExecuteClipMask
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -281,7 +254,7 @@ minor 1
 release 1
 x 3
 y 36
-w 84
+w 63
 h 24
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -298,9 +271,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 92
+x 69
 y 36
-w 64
+w 62
 h 24
 fgColor index 25
 fgAlarm
@@ -324,11 +297,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 159
+x 134
 y 36
-w 196
+w 244
 h 24
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS2_TCTL.DESC"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_TPOL.DESC"
 format "string"
 font "courier-bold-r-12.0"
 fontAlign "center"
@@ -350,9 +323,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 355
-y 37
-w 60
+x 381
+y 36
+w 73
 h 24
 fgColor index 25
 bgColor index 5
@@ -369,9 +342,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 160
-y 8
-w 60
+x 195
+y 7
+w 74
 h 24
 fgColor index 25
 bgColor index 5
@@ -388,9 +361,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 80
+x 274
+y 7
+w 91
 h 24
 
 beginGroup
@@ -401,9 +374,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 80
+x 274
+y 7
+w 91
 h 24
 
 beginGroup
@@ -414,9 +387,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 80
+x 274
+y 7
+w 91
 h 24
 fgColor index 25
 bgColor index 5
@@ -445,9 +418,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 163
+x 270
+y 7
+w 184
 h 24
 
 beginGroup
@@ -458,9 +431,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 307
-y 8
-w 80
+x 364
+y 7
+w 90
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_TSMASK"
 format "hex"
@@ -483,9 +456,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 80
+x 270
+y 7
+w 90
 h 24
 fgColor index 25
 bgColor index 5
@@ -509,9 +482,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 224
-y 8
-w 167
+x 273
+y 7
+w 189
 h 24
 
 beginGroup
@@ -522,9 +495,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 311
-y 8
-w 80
+x 371
+y 7
+w 91
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_SEQBIT"
 format "hex"
@@ -547,9 +520,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 224
-y 8
-w 80
+x 273
+y 7
+w 91
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_SEQNUM"
 format "decimal"
@@ -579,9 +552,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 411
-y 8
-w 100
+x 456
+y 36
+w 87
 h 24
 fgColor index 25
 bgColor index 5
@@ -598,8 +571,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 520
-y 8
+x 547
+y 36
 w 80
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_DESTMASK"
@@ -613,6 +586,30 @@ limitsFromDb
 precision 0
 nullColor index 0
 updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 135
+y 7
+w 57
+h 24
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SOURCE"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 25
+fgAlarm
+bgColor index 5
+editable
+limitsFromDb
+nullColor index 18
+nullCondition "disabled"
 newPos
 objType "controls"
 endObjectProperties

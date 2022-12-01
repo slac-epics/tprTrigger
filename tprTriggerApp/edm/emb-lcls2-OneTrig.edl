@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 989
-y 1191
+x 1230
+y 1400
 w 882
 h 248
 font "helvetica-medium-r-18.0"
@@ -199,26 +199,6 @@ bgColor index 3
 value {
   "Triggers"
 }
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 564
-y 88
-w 98
-h 14
-font "helvetica-medium-i-12.0"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "* relative to TREF"
-}
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -518,9 +498,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 8
-y 108
-w 60
+x 4
+y 104
+w 56
 h 16
 font "helvetica-medium-i-10.0"
 fontAlign "center"
@@ -528,7 +508,7 @@ fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "Trigger#"
+  "Trigger #"
 }
 endObjectProperties
 
@@ -538,9 +518,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 184
-y 108
-w 212
+x 284
+y 88
+w 124
 h 16
 font "helvetica-medium-i-12.0"
 fontAlign "center"
@@ -548,7 +528,7 @@ fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "Rate / Rate & Timeslot / Seq Num & Bit"
+  "Rate Attributes"
 }
 endObjectProperties
 
@@ -558,8 +538,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 552
-y 108
+x 636
+y 88
 w 84
 h 16
 font "helvetica-medium-i-12.0"
@@ -578,8 +558,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 496
-y 108
+x 576
+y 88
 w 56
 h 16
 font "helvetica-medium-i-12.0"
@@ -598,9 +578,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 404
-y 108
-w 48
+x 488
+y 88
+w 56
 h 16
 font "helvetica-medium-i-12.0"
 fontAlign "center"
@@ -694,9 +674,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 120
-y 108
-w 64
+x 216
+y 88
+w 60
 h 16
 font "helvetica-medium-i-10.0"
 fontAlign "center"
@@ -791,7 +771,7 @@ x 696
 y 44
 w 119
 h 20
-controlPv "$(TPR_PV):TREF"
+controlPv "$(TPR_PV):MSGDLY"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -812,9 +792,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 452
-y 108
-w 48
+x 476
+y 104
+w 68
 h 16
 font "helvetica-medium-i-12.0"
 fontAlign "center"
@@ -822,7 +802,146 @@ fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "Dest"
+  "Destination"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 72
+y 88
+w 60
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Ch Enable"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 72
+y 104
+w 60
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Tr Enable"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 140
+y 104
+w 196
+h 16
+font "helvetica-medium-i-10.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Trigger Description (User editable)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 572
+y 104
+w 68
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Dest Mask"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 384
+y 104
+w 68
+h 16
+font "helvetica-medium-i-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Operation"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 92
+w 56
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Channel #"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 136
+y 88
+w 60
+h 16
+font "helvetica-medium-i-10.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Tr Source"
 }
 endObjectProperties
 
