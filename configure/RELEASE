@@ -25,7 +25,7 @@
 # ==========================================================
 
 ASYN_MODULE_VERSION=R4.39-1.0.1
-YAMLLOADER_MODULE_VERSION=R2.2.0
+YAMLLOADER_MODULE_VERSION=R2.2.0-crash_debugging
 
 
 # ==========================================================
