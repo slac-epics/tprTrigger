@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 954
-y 1686
+x 349
+y 1674
 w 880
 h 200
 font "helvetica-medium-r-18.0"
@@ -32,7 +32,7 @@ minor 1
 release 1
 x 4
 y 8
-w 84
+w 65
 h 24
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -124,9 +124,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 547
-y 36
-w 80
+x 630
+y 8
+w 81
 h 24
 controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TDES"
 format "exponential"
@@ -150,8 +150,8 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 463
-y 36
+x 547
+y 8
 w 80
 h 24
 controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TWID"
@@ -175,9 +175,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 411
-y 36
-w 48
+x 460
+y 8
+w 83
 h 24
 fgColor index 25
 fgAlarm
@@ -187,7 +187,6 @@ inconsistentColor index 40
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(TPR_PV):TRG$(TPR_TR)_TPOL"
-indicatorPv "$(TPR_PV):TRG$(TPR_TR)_TPOL"
 onLabel "Inverted"
 offLabel "Normal"
 labelType "literal"
@@ -202,9 +201,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 90
+x 71
 y 8
-w 64
+w 60
 h 24
 fgColor index 25
 fgAlarm
@@ -253,9 +252,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 160
-y 8
-w 48
+x 201
+y 9
+w 55
 h 24
 controlPv "$(TPR_PV):CH$(TPR_CH)_EVCODE"
 font "helvetica-medium-r-12.0"
@@ -272,32 +271,6 @@ newPos
 objType "controls"
 endObjectProperties
 
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 139
-y 133
-w 196
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SYS0_TCTL.DESC"
-format "string"
-font "courier-bold-r-12.0"
-fontAlign "center"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-nullColor index 18
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-noExecuteClipMask
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -306,7 +279,7 @@ minor 1
 release 1
 x 3
 y 36
-w 84
+w 65
 h 24
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -323,9 +296,9 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 344
+x 71
 y 36
-w 64
+w 60
 h 24
 fgColor index 25
 fgAlarm
@@ -349,11 +322,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 143
+x 136
 y 37
-w 196
+w 320
 h 24
-controlPv "$(TPR_PV):TRG$(TPR_TR)_SYS0_TCTL.DESC"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_TPOL.DESC"
 format "string"
 font "courier-bold-r-12.0"
 fontAlign "center"
@@ -375,66 +348,21 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 292
-y 8
-w 48
+x 135
+y 9
+w 57
 h 24
-controlPv "$(TPS_PV):EVSOFT$(TPR_SE)"
+controlPv "$(TPR_PV):TRG$(TPR_TR)_SOURCE"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
 fgColor index 25
 fgAlarm
 bgColor index 5
 editable
-motifWidget
 limitsFromDb
 nullColor index 18
 nullCondition "disabled"
 newPos
 objType "controls"
-endObjectProperties
-
-# (Button)
-object activeButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 345
-y 8
-w 64
-h 24
-fgColor index 25
-fgAlarm
-onColor index 6
-offColor index 3
-inconsistentColor index 40
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
-indicatorPv "$(TPS_PV):EVSOFT$(TPR_SE)_TCTL"
-onLabel "Enabled"
-offLabel "Disabled"
-3d
-font "helvetica-medium-r-12.0"
-objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 213
-y 8
-w 73
-h 25
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 7
-value {
-  "SoftEvent $(TPR_SE)"
-}
 endObjectProperties
 
