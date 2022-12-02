@@ -75,7 +75,7 @@ record(stringout, "$(DEV):TRG$(NN)_$(PAIR)")
 
 record(bo, "$(DEV):TRG$(NN)_TPOL")
 {
-    field(DESC, "Trigger $(NN) Polarity")
+    field(DESC, "User editable trigger description")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),0) trgPolarity_T$(NN)")
     field(DOL,  "1")
@@ -83,7 +83,7 @@ record(bo, "$(DEV):TRG$(NN)_TPOL")
     field(ZNAM, "Falling Edge")
     field(ONAM, "Rising Edge")
     field(PINI, "YES")
-    info(autosaveFields, "VAL")
+    info(autosaveFields, "DESC VAL")
 }
 
 record(mbbo, "$(DEV):TRG$(NN)_TCMPL")
