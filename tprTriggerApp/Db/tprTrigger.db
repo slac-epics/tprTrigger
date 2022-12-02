@@ -196,6 +196,8 @@ record(longout, "$(DEV):TPRTRIG$(NN)") {
    field(DESC, "Trigger Number Description")
    field(DTYP, "Soft Channel")
    field(DOL,  "$(V="")")
+   field(DRVL, "$(V="")")
+   field(DRVH, "$(V="")")
    field(OMSL, "closed_loop")
    field(ASG,  "NO_WRITE")
    field(PINI, "YES")
