@@ -1,3 +1,13 @@
+R2.5.3-5.0   Dec 1, 2022 Bruce Hill (bhill)
+            Change PV name for tpr trigger number to match naming scheme for other trigger pvs
+            Change ZRST of TCMPL from Disable to NOOP.
+            Update tprTrigger edm screens to switch between LCLS1 and LCLS2 widgets.
+            Add new emb-lcls1-tprTrig and emb-lcls2-tprTrig screens along w/ OneTrig and Full TPR top level screens
+            Added a FIDRATE calc record.
+            Modify channel count and rate to work w/ channelCount() reporting rate.
+            Adding devTprInfo.db records w/ TPR info PVs
+            Create 12 Channels, 12 Triggers, and 12 Soft Events.
+
 R2.5.3-4.3   Nov 7, 2022 Bruce Hill (bhill)
             Replace hard coded PV naming scheme w/ single DEV prefix.
 
