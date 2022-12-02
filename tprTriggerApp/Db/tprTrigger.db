@@ -192,8 +192,9 @@ record(longin, "$(DEV):TRG$(NN)_TDESTAPS")
 # Trigger number is hard-coded in FW per 
 # signal and cannot be changed
 # This PV is informational only 
-record(longout, "$(DEV):TPRTRIG$(NN)") {
-   field(DESC, "Trigger Number Description")
+record(longout, "$(DEV):TRG$(NN)_NUM")
+{
+   field(DESC, "Trigger Number")
    field(DTYP, "Soft Channel")
    field(DOL,  "$(V="")")
    field(DRVL, "$(V="")")
