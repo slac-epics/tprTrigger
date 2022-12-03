@@ -10,28 +10,28 @@
 #
 # Optional macros:
 #	TPR_PV			TPR master PV prefix, defaults to $(DEV):NoTpr
-#	TPS_PV			TPR slave  PV prefix, defaults to $(DEV):NoTpr
+#	TPE_PV			TPR events PV prefix, defaults to $(DEV):NoTpr
 #	TPR_TR			TPR trigger number, defaults to 0
 #	TPR_CH			TPR channel number, defaults to TPR_TR
 #
 # It adds 4 new PVs for each device
-#	$(DEV):TPR_PV		PV prefix for this device's master TPR
-#	$(DEV):TPS_PV		PV prefix for this device's slave  TPR
+#	$(DEV):TPR_PV		PV prefix for this device's master TPR PVs
+#	$(DEV):TPE_PV		PV prefix for this device's event  PVs
 #	$(DEV):TPR_CH		TPR Channel number for this device
 #	$(DEV):TPR_TR		TPR Trigger number for this device
 #
 # It also adds a new record, TprUsed with required macro
-#	$(TPS_PV):TprUsed	bo record: 0 = Unused, 1 = Used
+#	$(TPE_PV):TprUsed	bo record: 0 = Unused, 1 = Used
 #
 # The other record provides a minimal subset of records that
 # are compatible w/ their equivalent tprTrigger module records
 # to allow edm screens to work properly with or without an TPR
-#	$(TPS_PV):RXLNKSTATUS
+#	$(TPE_PV):RXLNKSTATUS
 #
 # Usage for devices with an TPR:
 #	Just add this line to your st.cmd file with appropriate definitions for DEV, TPR_PV, and TPR_CH
 #	You can load it before or after your evr db files, and can load one instance per device.
-# dbLoadRecords( "db/devTprInfo.db", "DEV=$(DEV),TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=$(TPR_CH),TPR_USED=1 )
+# dbLoadRecords( "db/devTprInfo.db", "DEV=$(DEV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_USED=1 )
 #
 # If your IOC supports some devices with TPRs and some without, follow the above usage
 # for devices with TPRs.   For devices without TPRs you can just load this. 
@@ -49,10 +49,10 @@ record( stringout, "$(DEV):TPR_PV" )
 	field( VAL, "$(TPR_PV=$(DEV):NoTpr)" )
 }
 
-record( stringout, "$(DEV):TPS_PV" )
+record( stringout, "$(DEV):TPE_PV" )
 {
 	field( PINI, "YES" )
-	field( VAL, "$(TPS_PV=$(DEV):NoTpr)" )
+	field( VAL, "$(TPE_PV=$(DEV):NoTpr)" )
 }
 
 record( longout, "$(DEV):TPR_CH" )
@@ -67,7 +67,7 @@ record( longout, "$(DEV):TPR_TR" )
 	field( VAL, "$(TPR_TR=0)" )
 }
 
-record( bo, "$(TPS_PV=$(DEV):NoTpr):TprUsed" )
+record( bo, "$(TPE_PV=$(DEV):NoTpr):TprUsed" )
 {
 	field( PINI, "YES" )
 	field( ZNAM, "Unused" )
@@ -75,8 +75,8 @@ record( bo, "$(TPS_PV=$(DEV):NoTpr):TprUsed" )
 	field( DOL,  "$(TPR_USED)" )
 }
 
-# Must match RXLNKSTATUS from tprTrigger module pcieSlave_tprTrig.db
-record(mbbi, "$(TPS_PV=$(DEV):NoTpr):RXLNKSTATUS" )
+# Must match RXLNKSTATUS from tprTrigger module tprDiag.db
+record(mbbi, "$(TPE_PV=$(DEV):NoTpr):RXLNKSTATUS" )
 {
   field(PINI, "YES")
   field(ZRVL, "0")
