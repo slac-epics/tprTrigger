@@ -1,3 +1,7 @@
+R2.5.3-5.1   Dec 2, 2022 Bruce Hill (bhill)
+            Change TPS_PV everywhere to TPE_PV as first step in removing master/slave naming.
+            Fixing some details in devTprInfo.db
+
 R2.5.3-5.0   Dec 1, 2022 Bruce Hill (bhill)
             Change PV name for tpr trigger number to match naming scheme for other trigger pvs
             Change ZRST of TCMPL from Disable to NOOP.
