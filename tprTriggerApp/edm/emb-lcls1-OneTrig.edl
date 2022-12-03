@@ -19,7 +19,7 @@ ctlBgColor1 index 25
 ctlBgColor2 index 7
 topShadowColor index 1
 botShadowColor index 14
-title "$(TPS_PV) CH$(TPR_CH) TRG$(TPR_TR)"
+title "$(TPE_PV) CH$(TPR_CH) TRG$(TPR_TR)"
 showGrid
 snapToGrid
 gridSize 4
@@ -379,7 +379,7 @@ font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 value {
-  "$(TPS_PV)"
+  "$(TPE_PV)"
 }
 endObjectProperties
 
@@ -657,7 +657,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE)"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE)"
 }
 replaceSymbols {
   0 1

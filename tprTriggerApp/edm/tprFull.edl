@@ -105,7 +105,7 @@ setPosition {
   0 "parentWindow"
 }
 symbols {
-  0 "DEVICE=TPS_PV"
+  0 "DEVICE=TPE_PV"
 }
 icon
 endObjectProperties
@@ -776,7 +776,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=00,TPR_TR=00,TPR_SE=00"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=00,TPR_TR=00,TPR_SE=00"
 }
 replaceSymbols {
   0 1
@@ -812,7 +812,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=01,TPR_TR=01,TPR_SE=01"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=01,TPR_TR=01,TPR_SE=01"
 }
 replaceSymbols {
   0 1
@@ -868,7 +868,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=02,TPR_TR=02,TPR_SE=02"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=02,TPR_TR=02,TPR_SE=02"
 }
 replaceSymbols {
   0 1
@@ -904,7 +904,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=03,TPR_TR=03,TPR_SE=03"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=03,TPR_TR=03,TPR_SE=03"
 }
 replaceSymbols {
   0 1
@@ -940,7 +940,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=04,TPR_TR=04,TPR_SE=04"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=04,TPR_TR=04,TPR_SE=04"
 }
 replaceSymbols {
   0 1
@@ -976,7 +976,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=05,TPR_TR=05,TPR_SE=05"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=05,TPR_TR=05,TPR_SE=05"
 }
 replaceSymbols {
   0 1
@@ -1012,7 +1012,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=06,TPR_TR=06,TPR_SE=06"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=06,TPR_TR=06,TPR_SE=06"
 }
 replaceSymbols {
   0 1
@@ -1048,7 +1048,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=07,TPR_TR=07,TPR_SE=07"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=07,TPR_TR=07,TPR_SE=07"
 }
 replaceSymbols {
   0 1
@@ -1084,7 +1084,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=08,TPR_TR=08,TPR_SE=08"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=08,TPR_TR=08,TPR_SE=08"
 }
 replaceSymbols {
   0 1
@@ -1120,7 +1120,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=09,TPR_TR=09,TPR_SE=09"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=09,TPR_TR=09,TPR_SE=09"
 }
 replaceSymbols {
   0 1
@@ -1156,7 +1156,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=10,TPR_TR=10,TPR_SE=10"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=10,TPR_TR=10,TPR_SE=10"
 }
 replaceSymbols {
   0 1
@@ -1192,7 +1192,7 @@ menuLabel {
   0 "Embedded Trigger"
 }
 symbols {
-  0 "TPR_PV=$(TPR_PV),TPS_PV=$(TPS_PV),TPR_CH=11,TPR_TR=11,TPR_SE=11"
+  0 "TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=11,TPR_TR=11,TPR_SE=11"
 }
 replaceSymbols {
   0 1
