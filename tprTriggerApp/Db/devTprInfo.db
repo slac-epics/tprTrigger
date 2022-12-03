@@ -11,10 +11,10 @@
 # Optional macros:
 #	TPR_PV			TPR master PV prefix, defaults to $(DEV):NoTpr
 #	TPS_PV			TPR slave  PV prefix, defaults to $(DEV):NoTpr
-#	TPR_CH			TPR channel number, defaults to 0
 #	TPR_TR			TPR trigger number, defaults to 0
+#	TPR_CH			TPR channel number, defaults to TPR_TR
 #
-# It adds 3 new PVs for each device
+# It adds 4 new PVs for each device
 #	$(DEV):TPR_PV		PV prefix for this device's master TPR
 #	$(DEV):TPS_PV		PV prefix for this device's slave  TPR
 #	$(DEV):TPR_CH		TPR Channel number for this device
@@ -58,7 +58,7 @@ record( stringout, "$(DEV):TPS_PV" )
 record( longout, "$(DEV):TPR_CH" )
 {
 	field( PINI, "YES" )
-	field( VAL, "$(TPR_CH=0)" )
+	field( VAL, "$(TPR_CH=$(TPR_TR=0))" )
 }
 
 record( longout, "$(DEV):TPR_TR" )
@@ -76,10 +76,10 @@ record( bo, "$(TPS_PV=$(DEV):NoTpr):TprUsed" )
 }
 
 # Must match RXLNKSTATUS from tprTrigger module pcieSlave_tprTrig.db
-record(mbbi, "$(TPS_PV):RXLNKSTATUS")
+record(mbbi, "$(TPS_PV=$(DEV):NoTpr):RXLNKSTATUS" )
 {
   field(PINI, "YES")
-  field(INP,  "$(TPR_PV):RXLNKSTATUS CP NMS")
+  field(INP,  "$(TPR_PV=$(DEV):NoTpr):RXLNKSTATUS CP NMS")
   field(ZRVL, "0")
   field(ZRST, "Link Down")
   field(ZRSV, "MAJOR")
