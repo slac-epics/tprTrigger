@@ -19,7 +19,7 @@ ctlBgColor1 index 25
 ctlBgColor2 index 7
 topShadowColor index 1
 botShadowColor index 14
-title "$(TPS_PV) CH$(TPR_CH) TRG$(TPR_TR)"
+title "$(TPE_PV) CH$(TPR_CH) TRG$(TPR_TR)"
 showGrid
 snapToGrid
 gridSize 4
@@ -57,7 +57,7 @@ bgColor index 3
 useDisplayBg
 value {
   "Shared TPR Receiver"
-  "$(TPS_PV) CH $(TPR_CH) TRG $(TPR_TR) SE $(TPR_SE)"
+  "$(TPE_PV) CH $(TPR_CH) TRG $(TPR_TR) SE $(TPR_SE)"
 }
 endObjectProperties
 
@@ -220,7 +220,7 @@ setPosition {
   0 "parentWindow"
 }
 symbols {
-  0 "DEVICE=TPS_PV"
+  0 "DEVICE=TPE_PV"
 }
 icon
 endObjectProperties
