@@ -1,3 +1,6 @@
+R2.5.3-5.2  Dec 8, 2022 Bruce Hill (bhill)
+            Update to yamlLoader/R2.3.3 to fix DEV build.
+
 R2.5.3-5.1   Dec 2, 2022 Bruce Hill (bhill)
             Change TPS_PV everywhere to TPE_PV as first step in removing master/slave naming.
             Fixing some details in devTprInfo.db
