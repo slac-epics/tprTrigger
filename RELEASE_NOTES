@@ -1,3 +1,6 @@
+R2.5.3-5.3  Dec 12, 2022 Bruce Hill (bhill)
+            Make tprFull.edl switch between LCLS1 and LCLS2 mode.
+
 R2.5.3-5.2  Dec 8, 2022 Bruce Hill (bhill)
             Update to yamlLoader/R2.3.3 to fix DEV build.
 
