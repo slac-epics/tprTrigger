@@ -1,0 +1,9 @@
+$(DEV):TRG$(NN)_SYS0_TCTL 60 monitor
+$(DEV):TRG$(NN)_SYS2_TCTL 60 monitor
+$(DEV):TRG$(NN)_SOURCE 60 monitor
+$(DEV):TRG$(NN)_TPOL 60 monitor
+$(DEV):TRG$(NN)_TCMPL 60 monitor
+$(DEV):TRG$(NN)_SYS0_TWID 60 monitor
+$(DEV):TRG$(NN)_SYS2_TWID 60 monitor
+$(DEV):TRG$(NN)_SYS0_TDES 60 monitor
+$(DEV):TRG$(NN)_SYS2_TDES 60 monitor

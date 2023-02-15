@@ -1,0 +1,18 @@
+# pcieSlave_tprTrig.substitutions
+
+file "tprChannelEvent.tpl-arch" {
+    pattern {        NN    }
+            {      "00"    }
+            {      "01"    }
+            {      "02"    }
+            {      "03"    }
+            {      "04"    }
+            {      "05"    }
+            {      "06"    }
+            {      "07"    }
+            {      "08"    }
+            {      "09"    }
+            {      "10"    }
+            {      "11"    }
+}
+

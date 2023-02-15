@@ -1,0 +1,9 @@
+$(DEV):UPTIME  60
+$(DEV):FIDCNT  60
+$(DEV):FIDRATE 60 monitor
+$(DEV):CRCERRCNT 60 monitor
+$(DEV):RXRSTCNT 60 monitor
+$(DEV):RXDECERRCNT 60 monitor
+$(DEV):RXDSPERRCNT 60 monitor
+$(DEV):RXLNKSTATUS 60 monitor
+$(DEV):MODE 60 monitor
