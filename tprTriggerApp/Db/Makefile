@@ -20,7 +20,7 @@ DB += tprTrig_ued.db
 DB += tprTrig_smrf.db
 DB += tprDeviceNamePV.db
 
-
+ARCHIVE += pcie_tprTrig.archive pcieSlave_tprTrig.archive
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
