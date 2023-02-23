@@ -1,3 +1,18 @@
+R2.5.3-5.9 2023-02-22 Bruce Hill 
+			Update to yamlLoader/R2.3.4
+
+R2.5.3-5.8 2023-02-15 Michael Browne 
+			Sigh.  And downgrade yamlLoader.
+
+R2.5.3-5.7 2023-02-15 Michael Browne 
+			Update asyn version.
+
+R2.5.3-5.6 2023-02-15 Michael Browne 
+			First pass archiving.
+
+R2.5.3-5.5 2023-02-07 Michael Browne
+			Add Thorlabs-WFS nonsense.
+
 R2.5.3-5.4 2023-01-30 Bruce Hill
             Build a release for asyn/R4.32-1.0.0
 
