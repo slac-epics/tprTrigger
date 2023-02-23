@@ -2,6 +2,7 @@
 O.*
 *.log
 *.swp
+archive/
 bin/
 build/
 children/build/
