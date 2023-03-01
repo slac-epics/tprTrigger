@@ -1,3 +1,6 @@
+R2.5.3-6.0 2023-02-28 Bruce Hill
+			Fix trigger polarity labels in emb-lcls1-tprTrig.edl and lcls2 as well.
+
 R2.5.3-5.9 2023-02-22 Bruce Hill 
 			Update to yamlLoader/R2.3.4
 
