@@ -1,3 +1,6 @@
+R2.5.3-6.1 2023-03-01 Bruce Hill
+			Build a version for asyn/R4.32-1.0.0
+
 R2.5.3-6.0 2023-02-28 Bruce Hill
 			Fix trigger polarity labels in emb-lcls1-tprTrig.edl and lcls2 as well.
 
