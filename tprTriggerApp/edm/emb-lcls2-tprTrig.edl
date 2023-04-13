@@ -321,8 +321,8 @@ inconsistentColor index 40
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(TPR_PV):TRG$(TPR_TR)_TPOL"
-onLabel "Inverted"
-offLabel "Normal"
+onLabel "Normal"
+offLabel "Inverted"
 labelType "literal"
 3d
 font "helvetica-medium-r-12.0"
