@@ -225,7 +225,7 @@ static void tprChannelFunc(void *param)
 
         prev_allrp = allrp;
 
-       volatile time_st_t *ts    = (volatile time_st_t *) dp;
+	volatile time_st_t *ts    = (volatile time_st_t *) dp;
 
 
 

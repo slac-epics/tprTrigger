@@ -6,6 +6,7 @@ $(DEV):CH$(NN)_ACRATE 60 monitor
 $(DEV):CH$(NN)_TSMASK 60 monitor
 $(DEV):CH$(NN)_SEQNUM 60 monitor
 $(DEV):CH$(NN)_SEQBIT 60 monitor
+$(DEV):CH$(NN)_PARTITION 60 monitor
 $(DEV):CH$(NN)_DESTMODE 60 monitor
 $(DEV):CH$(NN)_DESTMASK 60 monitor
 $(DEV):CH$(NN)_EVCODE 60 monitor

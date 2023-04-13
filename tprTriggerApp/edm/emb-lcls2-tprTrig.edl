@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1229
-y 1679
+x 2147
+y 793
 w 880
 h 200
 font "helvetica-medium-r-18.0"
@@ -23,6 +23,140 @@ title "TPR CH$(TPR_CH)"
 showGrid
 gridSize 4
 endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 6
+w 184
+h 24
+
+beginGroup
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 367
+y 6
+w 90
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_TSMASK"
+format "hex"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 6
+w 90
+h 24
+fgColor index 25
+bgColor index 5
+inconsistentColor index 14
+topShadowColor index 2
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(TPR_CH)_ACRATE"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 6
+w 189
+h 24
+
+beginGroup
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 371
+y 6
+w 91
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_SEQBIT"
+format "hex"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 273
+y 6
+w 91
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_SEQNUM"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "2"
+visMax "3"
+endObjectProperties
 
 # (Static Text)
 object activeXTextClass
@@ -361,7 +495,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 274
+x 273
 y 7
 w 91
 h 24
@@ -374,7 +508,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 274
+x 273
 y 7
 w 91
 h 24
@@ -387,7 +521,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 274
+x 273
 y 7
 w 91
 h 24
@@ -410,140 +544,6 @@ endGroup
 visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
 visMin "0"
 visMax "1"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 270
-y 7
-w 184
-h 24
-
-beginGroup
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 364
-y 7
-w 90
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_TSMASK"
-format "hex"
-font "helvetica-medium-r-12.0"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-limitsFromDb
-precision 0
-nullColor index 0
-updatePvOnDrop
-newPos
-objType "controls"
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 270
-y 7
-w 90
-h 24
-fgColor index 25
-bgColor index 5
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 13
-controlPv "$(TPR_PV):CH$(TPR_CH)_ACRATE"
-font "helvetica-medium-r-12.0"
-endObjectProperties
-
-endGroup
-
-visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
-visMin "1"
-visMax "2"
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 273
-y 7
-w 189
-h 24
-
-beginGroup
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 371
-y 7
-w 91
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SEQBIT"
-format "hex"
-font "helvetica-medium-r-12.0"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-limitsFromDb
-precision 0
-nullColor index 0
-updatePvOnDrop
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 273
-y 7
-w 91
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SEQNUM"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-limitsFromDb
-precision 0
-nullColor index 0
-updatePvOnDrop
-newPos
-objType "controls"
-endObjectProperties
-
-endGroup
-
-visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
-visMin "2"
-visMax "3"
 endObjectProperties
 
 # (Menu Button)
@@ -612,5 +612,50 @@ nullColor index 18
 nullCondition "disabled"
 newPos
 objType "controls"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 273
+y 5
+w 91
+h 24
+
+beginGroup
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 273
+y 5
+w 91
+h 24
+controlPv "$(TPR_PV):CH$(TPR_CH)_PARTITION"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):CH$(TPR_CH)_RATEMODE"
+visMin "3"
+visMax "4"
 endObjectProperties
 
