@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 665
-y 1752
+x 2147
+y 401
 w 800
 h 320
 font "helvetica-medium-r-18.0"
@@ -653,7 +653,7 @@ minor 1
 release 1
 x 9
 y 221
-w 125
+w 83
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
@@ -661,6 +661,52 @@ bgColor index 0
 useDisplayBg
 value {
   "Channel Event"
+}
+autoSize
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 180
+y 228
+w 80
+h 18
+controlPv "$(TPR_PV):CH$(NN)_PARTITION"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fgColor index 25
+bgColor index 5
+editable
+autoHeight
+motifWidget
+limitsFromDb
+precision 0
+nullColor index 0
+updatePvOnDrop
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 184
+y 212
+w 45
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Partition"
 }
 autoSize
 endObjectProperties
