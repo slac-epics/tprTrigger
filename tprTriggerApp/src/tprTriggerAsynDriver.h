@@ -41,9 +41,10 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetClock1(epicsFloat64 clock_mhz);
         void SetClock2(epicsFloat64 clock_mhz);
         
-        void SetMode(epicsInt32 mode);
+        void SetMode(epicsInt32 mode, epicsInt32 xpm_mode);
         void SetMsgDelay(epicsFloat64 msg_delay);
         void SetMasterDelay(epicsFloat64 master_delay);
+        void SetXPMDelay(epicsFloat64 xpm_delay);
 
         void SetLCLS1ChannelEnable(int channel, epicsInt32 enable);
         void SetLCLS2ChannelEnable(int channel, epicsInt32 enable);
@@ -110,8 +111,11 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_frame_version;       /* asynInt32, ro */
         
         int p_mode;               /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_mode;           /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_status;         /* asynInt32, ro, 0: LCLS1, 1: LCLS2 */
         int p_msg_delay;          /* asynFloat64, rw */  // LCLS2 100 pulses delay and fine adjust 
         int p_master_delay;       /* asynFloat64, rw */  // LCLS1 master delay adjust
+        int p_xpm_delay;          /* asynFloat64, rw */  // LCLS1 XPM delay adjust
 
         int p_msg_delay_ticks;    /* asynInt32, ro */ // readback value in ticks for the message delay
         
@@ -206,10 +210,13 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define frameVersionString         "frameVersion"
 
 #define modeString                 "mode"
+#define xpmModeString              "XPMmode"
+#define xpmStatusString            "XPMstatus"
 
 #define msgDelayString             "msgDelay"
 #define msgDelayRBString           "msgDelayRB"
 #define masterDelayString          "masterDelay"
+#define xpmDelayString             "XPMDelay"
 #define appClock1String            "applicationClock1"
 #define appClock2String            "applicationClock2"
 
