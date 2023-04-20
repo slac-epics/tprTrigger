@@ -500,7 +500,7 @@ int timingEntryRead(unsigned int eventCode, void *dtpr, EventTimingData *pTiming
     volatile time_st_t *ts    = (volatile time_st_t *) dp;
     pTimingDataDest->fifo_time.secPastEpoch = dp[5];
     pTimingDataDest->fifo_time.nsec         = dp[4];
-    pTimingDataDest->fifo_fid               = ts->mode? ts->pid64 &0x1ffff: ts->pid64;
+    pTimingDataDest->fifo_fid               = ts->mode ? ts->pid64 & 0x1ffff: ts->pid64;
     pTimingDataDest->fifo_tsc               = p->fifo_tsc;
 
     memcpy(dtpr, (void *) p, sizeof(Tpr::TprEntry));
