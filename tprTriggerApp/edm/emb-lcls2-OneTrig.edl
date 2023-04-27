@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 918
-y 1459
+x 2179
+y 519
 w 882
 h 248
 font "helvetica-medium-r-18.0"
@@ -256,31 +256,6 @@ y 44
 w 108
 h 20
 controlPv "$(TPR_PV):FIDRATE"
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor index 16
-fgAlarm
-bgColor index 12
-limitsFromDb
-nullColor index 40
-smartRefresh
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 540
-y 44
-w 132
-h 20
-controlPv "$(TPR_PV):SYS2_CLK"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
 fgColor index 16
@@ -943,5 +918,95 @@ useDisplayBg
 value {
   "Tr Source"
 }
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 540
+y 44
+w 132
+h 20
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 540
+y 44
+w 132
+h 20
+controlPv "$(TPR_PV):SYS2_CLK"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):MODE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 540
+y 44
+w 132
+h 20
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 540
+y 44
+w 132
+h 20
+controlPv "$(TPR_PV):SYS0_CLK"
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):MODE"
+visMin "0"
+visMax "1"
 endObjectProperties
 
