@@ -265,7 +265,7 @@ bgColor index 0
 topShadowColor index 1
 botShadowColor index 14
 displaySource "menu"
-filePv "CALC\\\{(A=1&&B=1\}($(TPR_PV):MODE,$(TPR_PV):XPM_MODE)"
+filePv "CALC\\\{(A=1&&B=1)?1:0\}($(TPR_PV):MODE.RVAL,$(TPR_PV):XPM_MODE.RVAL)"
 numDsps 2
 displayFileName {
   0 "tprTriggerScreens/emb-lcls1-OneTrig.edl"

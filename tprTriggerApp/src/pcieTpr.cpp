@@ -119,6 +119,7 @@ typedef struct {
 static evCallback_t  *evCallback = NULL;
 
 static std::map <int, ts_tbl_t> ts_tbl;
+typedef std::map <int, ts_tbl_t>::iterator ts_tbl_iter;
 static soft_ev_list_t soft_ev_list[MAX_SOFT_EV];
 static bool have_master = false;
 
@@ -466,12 +467,14 @@ extern "C" {
 TimingPulseId timingGetLastFiducial(void)
 {
     uint64_t pid64;
-    ts_tbl_t *p = &(ts_tbl[0]);
-    if ( p == NULL )
+    ts_tbl_iter it = ts_tbl.find(0);
+    ts_tbl_t *p;
+    if ( it == ts_tbl.end() )
     {
-        printf( "timingGetLastFiducial: Invalid timestamp table! p = %p\n", p );
+        printf( "timingGetLastFiducial: Invalid timestamp table!\n" );
         return 0LL;
     }
+    p = &it->second;
     if ( p->plock == NULL )
     {
         printf( "timingGetLastFiducial: Invalid timestamp table lock! p->plock = %p\n", p->plock );
