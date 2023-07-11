@@ -1,3 +1,9 @@
+R2.5.3-6.4 2023-07-11 Michael Browne
+                        Partition --> Group, SeqNum/SeqBit --> SeqCode
+
+R2.5.3-6.3 2023-04-27 Michael Browne
+                        Fixup to deal with XPM LCLS1-over-LCLS2 mode.
+
 R2.5.3-6.2 2023-04-13 Michael Browne
                         Update to hpsTpr/R2.5.0 for partition trigger code.
 
