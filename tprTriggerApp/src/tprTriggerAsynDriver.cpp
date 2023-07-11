@@ -201,9 +201,8 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, chnFixedRateString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_fixed_rate));
         sprintf(param_name, chnACRateString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ac_rate));
         sprintf(param_name, chnTSMaskString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ts_mask));
-        sprintf(param_name, chnSeqNumString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_num));
-        sprintf(param_name, chnSeqBitString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_bit));
-        sprintf(param_name, chnPartitionString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_partition));
+        sprintf(param_name, chnSeqCodeString, _num2Str(i));   createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_code));
+        sprintf(param_name, chnGroupString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_group));
         sprintf(param_name, chnDestModeString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mode));
         sprintf(param_name, chnDestMaskString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mask));
         sprintf(param_name, chnEventCodeString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_event_code));
@@ -356,17 +355,11 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
             SetTSMask(i, value);
             break;
         } else
-        if(function == (p_channel_st +i)->p_seq_num) {
-            epicsInt32 seq_bit; getIntegerParam((p_channel_st + i)->p_seq_bit, &seq_bit);
-            SetSeqBit(i, (uint32_t) (((value & 0x1f)<<4)|(seq_bit & 0xf)));
+        if(function == (p_channel_st +i)->p_seq_code) {
+            SetSeqBit(i, value);
         } else
-        if(function == (p_channel_st +i)->p_seq_bit) {
-            epicsInt32 seq_num; getIntegerParam((p_channel_st + i)->p_seq_num, &seq_num);
-            SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4)|(value & 0xf)));
-            break;
-        } else
-        if(function == (p_channel_st +i)->p_partition) {
-            SetPartition(i, (uint32_t) (value & 0xf));
+        if(function == (p_channel_st +i)->p_group) {
+            SetGroup(i, (uint32_t) (value & 0xf));
             break;
         } else
         if(function == (p_channel_st +i)->p_dest_mode) {
@@ -638,14 +631,13 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode, epicsInt32 xpm_mode)
         for(int i = 0; i < NUM_CHANNELS; i++) {
 	    if (xpm_mode) { /* Real LCLS2 mode! */
 		epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask;
-		epicsInt32 seq_num, seq_bit, partition, dest_mode, dest_mask;
+		epicsInt32 seq_code, group, dest_mode, dest_mask;
 		getIntegerParam((p_channel_st+i)->p_rate_mode, &rate_mode);
 		getIntegerParam((p_channel_st+i)->p_fixed_rate, &fixed_rate);
 		getIntegerParam((p_channel_st+i)->p_ac_rate, &ac_rate);
 		getIntegerParam((p_channel_st+i)->p_ts_mask, &ts_mask);
-		getIntegerParam((p_channel_st+i)->p_seq_num, &seq_num);
-		getIntegerParam((p_channel_st+i)->p_seq_bit, &seq_bit);
-		getIntegerParam((p_channel_st+i)->p_partition, &partition);
+		getIntegerParam((p_channel_st+i)->p_seq_code, &seq_code);
+		getIntegerParam((p_channel_st+i)->p_group, &group);
 		getIntegerParam((p_channel_st+i)->p_dest_mode, &dest_mode);
 		getIntegerParam((p_channel_st+i)->p_dest_mask, &dest_mask);
             
@@ -657,9 +649,10 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode, epicsInt32 xpm_mode)
 			pApiDrv->SetACRate(i, (uint32_t)ts_mask, (uint32_t)ac_rate);
 			break;
                     case 2: /* Seq */
-			pApiDrv->SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4) | (seq_bit &0xf)));
-                    case 3: /* Partition */
-			pApiDrv->SetPartition(i, (uint32_t) partition);
+			pApiDrv->SetSeqBit(i, (uint32_t) seq_code);
+			break;
+                    case 3: /* Group */
+			pApiDrv->SetPartition(i, (uint32_t) group);
 			break;
 		}
 		switch(dest_mode) {
@@ -819,13 +812,12 @@ void tprTriggerAsynDriver::SetRateMode(int channel, epicsInt32 rate_mode)
             pApiDrv->SetACRate(channel, (uint32_t) ts_mask, (uint32_t) ac_rate);
             break;
         case 2: /* Seq mode */
-            epicsInt32 seq_num; getIntegerParam((p_channel_st + channel)->p_seq_num, &seq_num);
-            epicsInt32 seq_bit; getIntegerParam((p_channel_st + channel)->p_seq_bit, &seq_bit);
-            pApiDrv->SetSeqBit(channel, (uint32_t) (((seq_num & 0x1f)<<4)|(seq_bit & 0xf)));
+            epicsInt32 seq_code; getIntegerParam((p_channel_st + channel)->p_seq_code, &seq_code);
+            pApiDrv->SetSeqBit(channel, (uint32_t) seq_code);
             break;
         case 3: /* Partition mode */
-            epicsInt32 partition; getIntegerParam((p_channel_st + channel)->p_partition, &partition);
-            pApiDrv->SetPartition(channel, (uint32_t) partition);
+            epicsInt32 group; getIntegerParam((p_channel_st + channel)->p_group, &group);
+            pApiDrv->SetPartition(channel, (uint32_t) group);
 	    break;
     }
 }
@@ -887,16 +879,16 @@ void tprTriggerAsynDriver::SetSeqBit(int channel, epicsInt32 seq_bit)
 }
 
 
-void tprTriggerAsynDriver::SetPartition(int channel, epicsInt32 partition)
+void tprTriggerAsynDriver::SetGroup(int channel, epicsInt32 group)
 {
     int mode; getIntegerParam(p_mode, &mode);
     int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
     if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 rate_mode; getIntegerParam((p_channel_st + channel)->p_rate_mode, &rate_mode);
-    if(rate_mode != 3) return; // nothing todo without Partition mode, just latch set values into parameter space
+    if(rate_mode != 3) return; // nothing todo without Group mode, just latch set values into parameter space
     
-    pApiDrv->SetPartition(channel, (uint32_t) partition);
+    pApiDrv->SetPartition(channel, (uint32_t) group);
 }
 
 void tprTriggerAsynDriver::SetDestMode(int channel, epicsInt32 dest_mode)
