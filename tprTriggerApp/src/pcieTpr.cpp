@@ -22,6 +22,7 @@
 #include <epicsTimer.h>
 #include <epicsMutex.h>
 #include <epicsEvent.h>
+#include <epicsExport.h>
 #include <epicsGeneralTime.h>
 #include <generalTimeSup.h>
 
@@ -31,7 +32,10 @@
 #include "tprTriggerAsynDriver.h"
 
 
+extern "C" {
 int DEBUG_PCIE_TPR  = 1;
+epicsExportAddress(int, DEBUG_PCIE_TPR);
+};
 
 static const char *name_s[] = { "tprA", 
                                 "tprB",
