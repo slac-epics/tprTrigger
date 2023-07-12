@@ -262,6 +262,7 @@ void tprTriggerAsynDriver::Monitor(void)
                           // it is PCIe slave mode
                           // it doesn't need to anything
 
+    epicsInt32 mode; getIntegerParam(p_mode, &mode); mode = !mode?0:1;
     uint32_t val;
     
     val = pApiDrv->fpgaVersion();   setIntegerParam(p_fpga_version, val);
@@ -278,7 +279,10 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->rxLinkStatus();  setIntegerParam(p_rx_link_status, val);
     val = pApiDrv->versionErr();    setIntegerParam(p_version_error, val);
     val = pApiDrv->frameVersion();  setIntegerParam(p_frame_version, val);
-    val = ((timingGetLastFiducial() >> 63) & 1) ? 0 : 1; setIntegerParam(p_xpm_status, val);
+    if(mode == 1) {
+	// In LCLS2 mode, check what mode we are actually receiving!
+	val = timingGetLastXpmMode();   setIntegerParam(p_xpm_status, val);
+    }
     
     for(int i=0; i< NUM_CHANNELS; i++) {
         uint32_t _newRate = pApiDrv->channelCount(i);

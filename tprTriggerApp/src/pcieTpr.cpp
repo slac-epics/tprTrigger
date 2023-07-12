@@ -70,9 +70,11 @@ typedef struct {
     unsigned      dm0 :   2;  // [21..20]    bit gap
     unsigned      mode:   1;  // [22]        1: LCLS1, 0:LCLS2
     unsigned      dm1 :   9;  // [31..23]    bit gap
-    unsigned      size:  32;  //  
-    uint64_t      pid64:  64;
+    unsigned      size:  32;
+    uint64_t      pid64: 64;
     uint64_t      ts64:  64; 
+    uint32_t      rates: 32;
+    uint32_t      tslot: 32;
 } time_st_t;
 
 
@@ -89,6 +91,7 @@ typedef struct {
     epicsMutex           *plock;
     epicsTimeStamp       time;
     uint64_t             pid64;
+    uint64_t             rawpid;
 
     //////
     volatile Tpr::TprQueues *pQ;
@@ -227,13 +230,13 @@ static void tprChannelFunc(void *param)
         prev_allrp = allrp;
 
 	volatile time_st_t *ts    = (volatile time_st_t *) dp;
-
-
+	int lcls1_mode = ts->mode||((ts->pid64>>63)&1);
 
         pT->plock->lock();
         pT->time.secPastEpoch = dp[5];
         pT->time.nsec = dp[4];
-        pT->pid64 = ts->mode? pT->time.nsec & 0x1ffff: ts->pid64;
+        pT->rawpid = ts->pid64;
+        pT->pid64 = lcls1_mode ? pT->time.nsec & 0x1ffff: ts->pid64;
         pT->plock->unlock();
 
         if(!ts->mode) {    // LCLS2 mode timestamp update, using the best timestamp
@@ -241,19 +244,22 @@ static void tprChannelFunc(void *param)
             if(isNewTs(ts)) {
                 ts_tbl_t *pT0 = &(ts_tbl[0]);
                 pT0->plock->lock();
-                pT0->time  = pT->time;
-                pT0->pid64 = pT->pid64;
+                pT0->time   = pT->time;
+                pT0->rawpid = pT->rawpid;
+                pT0->pid64  = pT->pid64;
                 pT0->plock->unlock();
             }
         }
 
-        if(master && ts->mode) {   // ch11 and LCLS1 mode, handle the LCLS1 timestamp and low number events
+	// ch11 and LCLS1 mode, handle the LCLS1 timestamp and low number events
+        if(master && lcls1_mode) {   
             int timeslot = (dp[6] >> 16 & 0x7);
             if(timeslot == 1 || timeslot == 4) {    // update active timeslot timestamp for TSE=-1
                 ts_tbl_t *pT0 = &(ts_tbl[0]);
                 pT0->plock->lock();
-                pT0->time  = pT->time;
-                pT0->pid64 = pT->time.nsec & 0x1ffff;
+                pT0->time   = pT->time;
+                pT0->rawpid = pT->rawpid;
+                pT0->pid64  = pT->pid64;
                 pT0->plock->unlock();
             }
 
@@ -274,8 +280,9 @@ static void tprChannelFunc(void *param)
                     if(check_ev_mask(soft_ev_list[i].ev_num, ev_mask)) {
                         ts_tbl_t *pTN = &(ts_tbl[soft_ev_list[i].ev_num]);
                         pTN->plock->lock();
-                        pTN->time  = pT->time;
-                        pTN->pid64 = pT->time.nsec & 0x1ffff;
+                        pTN->time   = pT->time;
+                        pTN->rawpid = pT->rawpid;
+                        pTN->pid64  = pT->pid64;
                         pTN->plock->unlock();
                         if(pTN->ev_enable) postEvent(pTN->pevent);
                     }
@@ -487,12 +494,34 @@ TimingPulseId timingGetLastFiducial(void)
     return (TimingPulseId) pid64;
 }
 
+int timingGetLastXpmMode(void)
+{
+    uint64_t pid64;
+    ts_tbl_iter it = ts_tbl.find(0);
+    ts_tbl_t *p;
+    if ( it == ts_tbl.end() )
+    {
+        printf( "timingGetLastFiducial: Invalid timestamp table!\n" );
+        return 0LL;
+    }
+    p = &it->second;
+    if ( p->plock == NULL )
+    {
+        printf( "timingGetLastFiducial: Invalid timestamp table lock! p->plock = %p\n", p->plock );
+        return 0LL;
+    }
+    p->plock->lock();
+    pid64 = p->rawpid;
+    p->plock->unlock();
+    return ((pid64>>63)&1)? 0 : 1;
+}
+
 int timingGetEventTimeStamp(epicsTimeStamp *ptime, int eventCode)
 {
     return pcieTprTimeGet_gtWrapper(ptime, eventCode);
 }
 
-int timingGetCurrrTimeStamp(epicsTimeStamp *ptime)
+int timingGetCurrTimeStamp(epicsTimeStamp *ptime)
 {
     return pcieTprTimeGet_gtWrapper(ptime, 0);
 }
