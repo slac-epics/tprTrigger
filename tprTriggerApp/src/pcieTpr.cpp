@@ -31,6 +31,9 @@
 #include "pcieTpr.h"
 #include "tprTriggerAsynDriver.h"
 
+extern "C" {
+    int lcls1_timing = 0;
+};
 
 extern "C" {
 int DEBUG_PCIE_TPR  = 1;
@@ -226,13 +229,13 @@ static void tprChannelFunc(void *param)
         prev_allrp = allrp;
 
 	volatile time_st_t *ts    = (volatile time_st_t *) dp;
-	int lcls1_mode = ts->mode||((ts->pid64>>63)&1);
+	lcls1_timing = ts->mode || ((ts->pid64>>63)&1);
 
         pT->plock->lock();
         pT->time.secPastEpoch = dp[5];
         pT->time.nsec = dp[4];
         pT->rawpid = ts->pid64;
-        pT->pid64 = lcls1_mode ? pT->time.nsec & 0x1ffff: ts->pid64;
+        pT->pid64 = lcls1_timing ? pT->time.nsec & 0x1ffff: ts->pid64;
         pT->plock->unlock();
 
         if(!ts->mode) {    // LCLS2 mode timestamp update, using the best timestamp
@@ -248,7 +251,7 @@ static void tprChannelFunc(void *param)
         }
 
 	// ch11 and LCLS1 mode, handle the LCLS1 timestamp and low number events
-        if(master && lcls1_mode) {   
+        if(master && lcls1_timing) {
             int timeslot = (dp[6] >> 16 & 0x7);
             if(timeslot == 1 || timeslot == 4) {    // update active timeslot timestamp for TSE=-1
                 ts_tbl_t *pT0 = &(ts_tbl[0]);
