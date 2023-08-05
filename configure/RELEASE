@@ -25,7 +25,7 @@
 # ==========================================================
 
 ASYN_MODULE_VERSION=R4.39-1.0.1
-YAMLLOADER_MODULE_VERSION=R2.3.2
+YAMLLOADER_MODULE_VERSION=R2.3.5
 
 
 # ==========================================================
@@ -36,7 +36,6 @@ YAMLLOADER_MODULE_VERSION=R2.3.2
 # ==========================================================
 ASYN=$(EPICS_MODULES)/asyn/$(ASYN_MODULE_VERSION)
 YAMLLOADER=$(EPICS_MODULES)/yamlLoader/$(YAMLLOADER_MODULE_VERSION)
-
 
 
 # =====================================================================
