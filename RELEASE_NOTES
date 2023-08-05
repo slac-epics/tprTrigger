@@ -1,3 +1,6 @@
+R2.6.3    Aug 4, 2023   M. Donadio (marcio)
+          * Built with yamlLoader/R2.3.5.
+
 R2.6.2    2022-10-14 Bruce Hill
 		Build w/ yamlLoader/R2.3.2
 		Build for both LCLS and PCDS with LCLS PACKAGE_SITE_TOP
