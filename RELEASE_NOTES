@@ -1,3 +1,7 @@
+R2.5.3-4.0-br   Oct 17, 2023   Kukhee Kim (khkim)
+                * branch out from R2.5.3-4.0
+
+
 R2.5.3-4.0   Sep 14, 2022 Kukhee Kim (khkim)
              * build against timing/hpsTpr R2.3.0
              * make PCIe Tpr support 12 channels and 12 triggers
