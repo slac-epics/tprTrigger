@@ -1,3 +1,6 @@
+R2.5.3-4.0-2    Oct 17, 2023   Kukhee Kim (khkim)
+                * build against hpsTpr R2.5.0
+
 R2.5.3-4.0-1    Oct 17, 2023   Kukhee Kim (khkim)
                 * build against yamlLoad R2.3.5
 
