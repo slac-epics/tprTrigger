@@ -1,5 +1,6 @@
 R2.5.3-4.0-2    Oct 17, 2023   Kukhee Kim (khkim)
                 * build against hpsTpr R2.5.0
+                * add up COFNIG_SITE.rhel7-x86_64 and force tag
 
 R2.5.3-4.0-1    Oct 17, 2023   Kukhee Kim (khkim)
                 * build against yamlLoad R2.3.5
