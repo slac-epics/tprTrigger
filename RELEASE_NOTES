@@ -1,3 +1,6 @@
+R2.6.4     Nov 19, 2024 Marcio Donadio (marcio)
+           - Upgraded modules: asyn/R4.39-1.0.2 yamlLoader/R2.3.7 hpsTpr/R2.5.1
+
 R2.6.3    Aug 4, 2023   M. Donadio (marcio)
           * Built with yamlLoader/R2.3.5.
 
