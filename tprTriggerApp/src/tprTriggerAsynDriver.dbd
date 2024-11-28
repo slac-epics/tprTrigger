@@ -1,2 +1,3 @@
 registrar(tprTriggerAsynDriverRegister)
 driver(tprTriggerAsynDriver)
+variable(tprValidChannels, int)

@@ -22,6 +22,10 @@ class tprTriggerAsynDriver:asynPortDriver {
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
         
     private:
+
+        int valid_chns = NUM_CHANNELS;
+        int valid_trgs = NUM_TRIGGERS;
+
         enum { _atca, _pcie } busType;
 
         Tpr::TprTriggerYaml *pApiDrv;
