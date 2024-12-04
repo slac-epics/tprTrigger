@@ -1,0 +1,26 @@
+# $(DEV)
+
+file "tprDiag.db" {
+    pattern {    SPACE_HOLDER        }
+            {   "SPACE_HOLDER"       } 
+}
+
+file "tprChannel.db" {
+    pattern {        NN     }
+            {      "00"     }
+            {      "01"     }
+            {      "02"     }
+            {      "03"     }
+            {      "04"     }
+            {      "05"     }
+}
+
+file "tprTrigger.db" {
+    pattern {        NN,   V,  PAIR  }
+            {      "00",  "0",  "TRG01"    }
+            {      "01",  "1",  "TRG00"    }
+            {      "02",  "2",  "TRG03"    }
+            {      "03",  "3",  "TRG02"    }
+            {      "04",  "4",  "TRG05"    }
+            {      "05",  "5",  "TRG04"    }
+}
