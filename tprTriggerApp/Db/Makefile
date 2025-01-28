@@ -12,6 +12,7 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 DB += devTprInfo.db
 DB += pcie_tprTrig.db
+DB += pcie_tprTrig_ued.db
 DB += pcieSlave_tprTrig.db
 DB += tprTrig.db
 DB += tprTrig6.db
