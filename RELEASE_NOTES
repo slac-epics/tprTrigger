@@ -1,3 +1,6 @@
+R2.5.3-4.0-3    Jan 28, 2025   Kukhee Kim (khkim)
+                * add PCIe database template for UED
+
 R2.5.3-4.0-2    Oct 17, 2023   Kukhee Kim (khkim)
                 * build against hpsTpr R2.5.0
                 * add up COFNIG_SITE.rhel7-x86_64 and force tag
