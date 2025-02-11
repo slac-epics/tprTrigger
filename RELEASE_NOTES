@@ -1,3 +1,7 @@
+R2.5.3-6.11 2025-02-11 Jeremy Lorelli
+           Upgrade to hpsTpr/R2.5.2, cpsw/R4.5.2, yamlLoader/R2.3.8
+           Remove hardcoded paths
+
 R2.5.3-6.6 2023-08-02 Michael Browne
                         Change to timingApi 0.10.
 
