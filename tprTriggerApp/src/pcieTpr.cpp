@@ -485,7 +485,12 @@ TimingPulseId timingGetLastFiducial(void)
     ts_tbl_t *p;
     if ( it == ts_tbl.end() )
     {
-        printf( "timingGetLastFiducial: Invalid timestamp table!\n" );
+		static	bool fInvalidTableMsgShow = false;
+		if ( !fInvalidTableMsgShow  )
+		{
+			printf( "timingGetLastFiducial: Invalid timestamp table!\n" );
+			fInvalidTableMsgShow = true;
+		}
         return 0LL;
     }
     p = &it->second;
