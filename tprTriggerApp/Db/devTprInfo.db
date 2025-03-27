@@ -79,7 +79,6 @@ record( bo, "$(TPS_PV=$(DEV):NoTpr):TprUsed" )
 record(mbbi, "$(TPS_PV=$(DEV):NoTpr):RXLNKSTATUS" )
 {
   field(PINI, "YES")
-  field(INP,  "$(TPR_PV=$(DEV):NoTpr):RXLNKSTATUS CP NMS")
   field(ZRVL, "0")
   field(ZRST, "Link Down")
   field(ZRSV, "MAJOR")
