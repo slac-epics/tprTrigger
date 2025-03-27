@@ -75,11 +75,11 @@ record( bo, "$(TPE_PV=$(DEV):NoTpr):TprUsed" )
 	field( DOL,  "$(TPR_USED)" )
 }
 
-# Must match RXLNKSTATUS from tprTrigger module pcieSlave_tprTrig.db
+# Must match RXLNKSTATUS from tprTrigger module tprDiag.db
 record(mbbi, "$(TPE_PV=$(DEV):NoTpr):RXLNKSTATUS" )
 {
   field(PINI, "YES")
-  field(INP,  "$(TPR_PV=$(DEV):NoTpr):RXLNKSTATUS CP NMS")
+# field(INP,  "$(TPR_PV=$(DEV):NoTpr):RXLNKSTATUS CP NMS")
   field(ZRVL, "0")
   field(ZRST, "Link Down")
   field(ZRSV, "MAJOR")
