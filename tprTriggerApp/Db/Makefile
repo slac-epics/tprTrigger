@@ -19,6 +19,7 @@ DB += tprTrig6.db
 DB += tprTrig8.db
 DB += tprTrig_ued.db
 DB += tprTrig_smrf.db
+DB += tprTrig_atcaLLRF.db
 DB += tprDeviceNamePV.db
 
 ARCHIVE += pcie_tprTrig.archive pcieSlave_tprTrig.archive
