@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+// This file is part of 'tprTrigger'.
+// It is subject to the license terms in the LICENSE.txt file found in the 
+// top-level directory of this distribution and at: 
+//    https://confluence.slac.stanford.edu/display/ppareg/LICENSE.html. 
+// No part of 'tprTrigger', including this file, 
+// may be copied, modified, propagated, or distributed except according to 
+// the terms contained in the LICENSE.txt file.
+//////////////////////////////////////////////////////////////////////////////
 #ifndef TPR_TRIGGER_ASYN_DRIVER_H
 #define TPR_TRIGGER_ASYN_DRIVER_H
 
@@ -22,6 +31,10 @@ class tprTriggerAsynDriver:asynPortDriver {
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
         
     private:
+
+        int valid_chns = NUM_CHANNELS;
+        int valid_trgs = NUM_TRIGGERS;
+
         enum { _atca, _pcie } busType;
 
         Tpr::TprTriggerYaml *pApiDrv;

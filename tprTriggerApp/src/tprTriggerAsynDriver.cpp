@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+// This file is part of 'tprTrigger'.
+// It is subject to the license terms in the LICENSE.txt file found in the 
+// top-level directory of this distribution and at: 
+//    https://confluence.slac.stanford.edu/display/ppareg/LICENSE.html. 
+// No part of 'tprTrigger', including this file, 
+// may be copied, modified, propagated, or distributed except according to 
+// the terms contained in the LICENSE.txt file.
+//////////////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -23,6 +32,7 @@
 
 #include <drvSup.h>
 #include <epicsExport.h>
+#include <envDefs.h>
 
 #include <asynPortDriver.h>
 #include <asynOctetSyncIO.h>
@@ -32,10 +42,17 @@
 #include <tprTriggerYaml.hh>
 #include <tprTriggerAsynDriver.h>
 
+#define EPICS_ENV_VALID_TPR_CHANNELS      "tprValidChannels"
+
 static const char * drverName = "tprTriggerAsynDriver";
 
 static int init_flag = 0;
 static ELLLIST *pList = NULL;
+
+extern "C" {
+static int tprValidChannels  = -1;
+epicsExportAddress(int, tprValidChannels);
+}
 
    
 
@@ -134,6 +151,12 @@ tprTriggerAsynDriver::tprTriggerAsynDriver(const char *portName, const char *cor
     application_clock_2 = (1300./7.);   // 186MHz as a default for LCLS2
     
     _update_flag =0;
+
+
+    if(tprValidChannels > 0 && tprValidChannels < 16) {
+        valid_chns = tprValidChannels;
+        valid_trgs = tprValidChannels;
+    }
     
     CreateParameters();
 }
@@ -167,7 +190,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(uedSpecialString,      asynParamInt32,  &p_ued_special);
     
     
-    for(int i = 0; i < NUM_CHANNELS; i++) {
+    for(int i = 0; i < valid_chns; i++) {
         char param_name[128];
         
         for(int j =0; j < 2; j++) {
@@ -187,7 +210,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
     }
     
     
-    for(int i = 0; i < NUM_TRIGGERS; i++) {
+    for(int i = 0; i < valid_trgs; i++) {
         char param_name[128];
         for(int j = 0; j < 2; j++) {
             sprintf(param_name, trgEnableString, _num2Str(i), j+1);    createParam(param_name, asynParamInt32, &((p_trigger_st+i)->p_enable[j]));
@@ -241,7 +264,7 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->versionErr();    setIntegerParam(p_version_error, val);
     val = pApiDrv->frameVersion();  setIntegerParam(p_frame_version, val);
     
-    for(int i=0; i< NUM_CHANNELS; i++) {
+    for(int i=0; i< valid_chns; i++) {
         val = pApiDrv->channelCount(i); setIntegerParam((p_channel_st+i)->p_counter, val);
         if(_update_flag) {
             if(val >= _prev_chn_counter[i]) { 
@@ -275,7 +298,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
     if(function == p_mode) SetMode(value);
     
         
-    for(int i = 0; i < NUM_CHANNELS; i++) {
+    for(int i = 0; i < valid_chns; i++) {
         for(int j =0; j <2; j++) {
             if(function == (p_channel_st +i)->p_enable[j]) {
                 (!j)?SetLCLS1ChannelEnable(i, value):SetLCLS2ChannelEnable(i, value);
@@ -321,7 +344,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         }   
     }
     
-    for(int i =0; i < NUM_TRIGGERS; i++) {
+    for(int i =0; i < valid_trgs; i++) {
         for(int j = 0; j<2; j++) {
             if(function == (p_trigger_st +i)->p_enable[j]) {
                 (!j)?SetLCLS1TriggerEnable(i, value): SetLCLS2TriggerEnable(i, value);
@@ -381,7 +404,7 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
         SetClock2(value);
     }
     
-    for(int i = 0; i< NUM_TRIGGERS; i++) {
+    for(int i = 0; i< valid_trgs; i++) {
         for(int j = 0; j <2 ; j++) {
             if(function == (p_trigger_st +i)->p_width[j]) {
                 (!j)?SetLCLS1Width(i, value):SetLCLS2Width(i, value);
@@ -419,9 +442,9 @@ void tprTriggerAsynDriver::SetClock1(epicsFloat64 clock_mhz)
     if(mode !=0) return;  // in LCLS2 mode, nothing todo
     
     uint32_t disable(0); 
-    for(int i = 0; i < NUM_TRIGGERS; i++) pApiDrv->TriggerEnable(i, disable);
+    for(int i = 0; i < valid_trgs; i++) pApiDrv->TriggerEnable(i, disable);
     
-    for(int i =0; i<NUM_TRIGGERS; i++) {
+    for(int i =0; i<valid_trgs; i++) {
         epicsFloat64 width; getDoubleParam((p_trigger_st +i)->p_width[0], &width);
         // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
         uint32_t ticks, taps;
@@ -441,7 +464,7 @@ void tprTriggerAsynDriver::SetClock1(epicsFloat64 clock_mhz)
         pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st+i)->p_delayTicks, ticks);
     }
     
-    for(int i = 0; i <NUM_TRIGGERS; i++) {
+    for(int i = 0; i <valid_trgs; i++) {
         epicsInt32 _enable; getIntegerParam((p_trigger_st +i)->p_enable[mode], &_enable);
         pApiDrv->TriggerEnable(i, (uint32_t) _enable);
     }
@@ -457,9 +480,9 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
     if(mode != 1) return;  // in LCLS1 mode, nothing todo
     
     uint32_t disable(0);
-    for(int i = 0; i < NUM_TRIGGERS; i++) pApiDrv->TriggerEnable(i, disable);
+    for(int i = 0; i < valid_trgs; i++) pApiDrv->TriggerEnable(i, disable);
 
-    for(int i =0; i<NUM_TRIGGERS; i++) {
+    for(int i =0; i<valid_trgs; i++) {
         epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
         // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
         uint32_t ticks, taps;
@@ -479,7 +502,7 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
     }
     
     
-    for(int i = 0; i <NUM_TRIGGERS; i++) {
+    for(int i = 0; i <valid_trgs; i++) {
         epicsInt32 _enable; getIntegerParam((p_trigger_st +i)->p_enable[mode], &_enable);
         pApiDrv->TriggerEnable(i, (uint32_t) _enable);
     }
@@ -491,19 +514,19 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
     mode = !mode?0:1;
     
     // disable all of channels and all of triggers
-    for(int i =0; i <NUM_CHANNELS; i++) pApiDrv->ChannelEnable(i, disable);
-    for(int i =0; i <NUM_TRIGGERS; i++) pApiDrv->TriggerEnable(i, disable);
+    for(int i =0; i <valid_chns; i++) pApiDrv->ChannelEnable(i, disable);
+    for(int i =0; i <valid_trgs; i++) pApiDrv->TriggerEnable(i, disable);
     
     if(mode == 0) { /* LCLS1 mode */
     
         // channel, filtering section
-        for(int i = 0; i < NUM_CHANNELS; i++) {
+        for(int i = 0; i < valid_chns; i++) {
             epicsInt32 event_code; getIntegerParam((p_channel_st +i)->p_event_code, &event_code);
             pApiDrv->SetEventCode(i, (uint32_t) event_code);
         }
         
         // trigger section
-        for(int i =0; i<NUM_TRIGGERS; i++) {
+        for(int i =0; i<valid_trgs; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st +i)->p_width[0], &width);
             // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
             uint32_t ticks, taps;
@@ -536,7 +559,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
     } else { /* LCLS 2 mode */
     
         // channel, filtering section
-        for(int i = 0; i < NUM_CHANNELS; i++) {
+        for(int i = 0; i < valid_chns; i++) {
             epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask, seq_num, seq_bit, dest_mode, dest_mask;
             getIntegerParam((p_channel_st+i)->p_rate_mode, &rate_mode);
             getIntegerParam((p_channel_st+i)->p_fixed_rate, &fixed_rate);
@@ -574,7 +597,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         }
         
         // trigger section
-        for(int i =0; i<NUM_TRIGGERS; i++) {
+        for(int i =0; i<valid_trgs; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
             // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
             uint32_t ticks, taps;
@@ -615,12 +638,12 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
     
     
     // re-enable channels and trigger with latched vlaues
-    for(int i =0; i <NUM_CHANNELS; i++) {
+    for(int i =0; i <valid_chns; i++) {
         epicsInt32 _enable; getIntegerParam((p_channel_st + i)->p_enable[mode], &_enable);
         pApiDrv->ChannelEnable(i, (uint32_t) _enable);
     }
     
-    for(int i = 0; i <NUM_TRIGGERS; i++) {
+    for(int i = 0; i <valid_trgs; i++) {
         epicsInt32 _enable; getIntegerParam((p_trigger_st +i)->p_enable[mode], &_enable);
         pApiDrv->TriggerEnable(i, (uint32_t) _enable);
     }
@@ -644,7 +667,7 @@ void tprTriggerAsynDriver::SetMasterDelay(epicsFloat64 master_delay)
     int mode; getIntegerParam(p_mode, &mode);
     if(mode ==1) return;   // nothing todo in LCLS2 mode, just latch set values into parameter space
     
-    for(int i=0; i<NUM_TRIGGERS; i++) {
+    for(int i=0; i<valid_trgs; i++) {
         epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
         // uint32_t ticks = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
         uint32_t ticks, taps;

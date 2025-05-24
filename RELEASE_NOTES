@@ -1,3 +1,14 @@
+R2.7.1     Jan 24, 2025 Jeremy Lorelli (lorelli)
+           - Updated modules: yamlLoader/R2.3.8, hpsTpr/R2.5.2, cpsw/R4.5.2
+           - Fixed hardcoded PACKAGE_SITE_TOP
+
+R2.7.0     Dec 4, 2024  Kukhee Kim (khkim)
+           - Apply SLAC license
+           - introduce shell variable 'tprValidChannels' to configure valid number of channels
+             if we do not define the tprValidChannels variable in epics ioc shell,
+             the driver behaves backward-comptible (default 16 channels)
+           - add new templates: for 6 channes, and 8 channels
+
 R2.6.5    Jan 24, 2025 Jeremy Lorelli (lorelli)
           - Upgraded to yamlLoader/R2.3.8
           - Upgraded to hpsTpr/R2.5.2, cpsw/R4.5.2
