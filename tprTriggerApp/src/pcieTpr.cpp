@@ -54,13 +54,13 @@ static char dev_c[] = { '0', '1', '2', '3', '4', '5', '6', '7',
                         '8', '9', 'a', 'b', 'c', 'd',
                         '\0' };
 
-typedef struct {
-    unsigned      mask:  16;  // [15..0]     channel mask
-    unsigned      tag :   4;  // [19..16]    0: event, 1: bsa ctrl, 2: bsa event
-    unsigned      dm0 :   2;  // [21..20]    bit gap
-    unsigned      mode:   1;  // [22]        1: LCLS1, 0:LCLS2
-    unsigned      dm1 :   9;  // [31..23]    bit gap
-    unsigned      size:  32;  //  
+typedef struct __attribute__((packed)) {
+    uint32_t      mask:  16;  // [15..0]     channel mask
+    uint32_t      tag :   4;  // [19..16]    0: event, 1: bsa ctrl, 2: bsa event
+    uint32_t      dm0 :   2;  // [21..20]    bit gap
+    uint32_t      mode:   1;  // [22]        1: LCLS1, 0:LCLS2
+    uint32_t      dm1 :   9;  // [31..23]    bit gap
+    uint32_t      size:  32;  //  
     uint64_t      pid64:  64;
     uint64_t      ts64:  64; 
 } time_st_t;
