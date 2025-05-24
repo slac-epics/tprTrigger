@@ -31,12 +31,6 @@
 
 
 
-static uint64_t __rdtsc(void){
-    uint32_t lo, hi;
-    __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
-    return ((uint64_t)hi << 32) | lo;
-}
-
 static const char *name_s[] = { "tprA", 
                                 "tprB",
                                 "tprC",
