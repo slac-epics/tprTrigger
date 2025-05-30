@@ -1,3 +1,7 @@
+R?         Next release
+			- Note new DEV TPR prefix in db files.
+			LCLS naming scheme requires DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)
+
 R2.7.1     Jan 24, 2025 Jeremy Lorelli (lorelli)
            - Updated modules: yamlLoader/R2.3.8, hpsTpr/R2.5.2, cpsw/R4.5.2
            - Fixed hardcoded PACKAGE_SITE_TOP
