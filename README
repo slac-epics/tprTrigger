@@ -71,32 +71,32 @@ How to run the ioc with tprTrigger
 
 1. how to load database template for tprTrigger.
 
-Macros for tprTrig.db
-
-PORT      - port name for asyn port driver, tprTrigger moudle has port name "trig".
+LCLS required macros
 LOCA      - location (ex, LI24, IN20) 
 IOC_UNIT  - IOC name (ex, RF01, RF02)
 INST      - instance number for mutiple TPR in an ioc
 
+Macros for tprTrig.db
+
+PORT      - port name for asyn port driver, tprTrigger moudle has port name "trig".
+DEV       - TPR prefix.  LCLS naming scheme requires TPR:$(LOCA):$(IOC_UNIT):$(INST)
 example)
-dbLoadRecords("db/tprTrig.db", "PORT=trig,LOCA=LI24,IOC_UNIT=RF02,INST=0")
+dbLoadRecords("db/tprTrig.db", "PORT=trig,DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)")
 
 It will make TPR PVs (low level PVs) which have prefix "TPR:LI24:RF02:0:".
 --------------
 
-Macro for tprDeviceNamePVs.db
-The tprDeviceNamePVs.db provides device name PVs (high level PVs)
+Macro for tprDeviceNamePV.db
+The tprDeviceNamePV.db provides device name PVs (high level PVs)
 
-LOCA       -  same with tprTrig.db
-IOC_UNIT   -  smae with tprTrig.db 
-INST       -  same with tprTrig.db
-SYS        -  for LCLS1 shoud be SYS0, for LCLS2 should be SYS2
+DEV        -  TPR prefix.  LCLS naming scheme requires TPR:$(LOCA):$(IOC_UNIT):$(INST)
+PORT       -  Asyn port (ex, trig)
 NN         -  two digit number for trigger channel number (ex, 00, 01, 02 ... 10, 11)
-DEV_PREFIX  - prefix for PV name (ex, KLYS:LI28:21")
+DEV_PREFIX  - prefix for high level device name (ex, KLYS:LI28:21")
 
 example)
-dbLoadRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=00,DEV_PREFIX=KLYS:LI28:21:")
-dbLodsRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=01,DEV_PREFIX=KLYS:LI28:22:")
+dbLoadRecords("db/tprDeviceNamePV.db", "PORT=trig,DEV=TPR:LI24:RF02:0,NN=00,DEV_PREFIX=KLYS:LI28:21:")
+dbLoadRecords("db/tprDeviceNamePV.db", "PORT=trig,DEV=TPR:LI24:RF02:0,NN=01,DEV_PREFIX=KLYS:LI28:21:")
 
 Remark)
 The DEV_PREFIX should have ":" at very last charactor.
