@@ -31,11 +31,9 @@ record(mbbo, "$(DEV):CH$(NN)_RATEMODE")
     field(ZRVL, "0")
     field(ONVL, "1")
     field(TWVL, "2")
-    field(THVL, "3")
     field(ZRST, "Fixed")
     field(ONST, "AC")
     field(TWST, "Seq")
-    field(THST, "Group")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
     
@@ -99,27 +97,15 @@ record(longout, "$(DEV):CH$(NN)_TSMASK")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "$(DEV):CH$(NN)_SEQCODE")
+record(longout, "$(DEV):CH$(NN)_SEQBIT")
 {
-    field(DESC, "Channel $(NN) Sequence Code")
+    field(DESC, "Channel $(NN) Sequence Bit")
     field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),0) chnSeqCode_C$(NN)")
+    field(OUT,  "@asyn($(PORT),0) chnSeqBit_C$(NN)")
     field(OMSL, "supervisory")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
-
-record(longout, "$(DEV):CH$(NN)_GROUP")
-{
-    field(DESC, "Channel $(NN) RO Group Bit")
-    field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),0) chnGroup_C$(NN)")
-    field(OMSL, "supervisory")
-    field(PINI, "YES")
-    info(autosaveFields, "VAL")
-}
-
-alias("$(DEV):CH$(NN)_GROUP", "$(DEV):CH$(NN)_PARTITION")
 
 record(mbbo, "$(DEV):CH$(NN)_DESTMODE")
 {
