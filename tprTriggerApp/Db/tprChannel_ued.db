@@ -97,16 +97,6 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TSMASK")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM")
-{
-    field(DESC, "Channel $(NN) Sequence Num")
-    field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),0) chnSeqNum_C$(NN)")
-    field(OMSL, "supervisory")
-    field(PINI, "YES")
-    info(autosaveFields, "VAL")
-}
-
 
 record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQBIT")
 {
