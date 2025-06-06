@@ -3,15 +3,15 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 905
-y 612
+x 665
+y 1752
 w 800
-h 280
+h 320
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-medium-r-18.0"
 btnFont "helvetica-medium-r-18.0"
 fgColor index 14
-bgColor index 0
+bgColor index 3
 textColor index 14
 ctlFgColor1 index 14
 ctlFgColor2 index 0
@@ -19,6 +19,9 @@ ctlBgColor1 index 0
 ctlBgColor2 index 14
 topShadowColor index 0
 botShadowColor index 14
+showGrid
+snapToGrid
+gridSize 4
 endScreenProperties
 
 # (Button)
@@ -31,14 +34,14 @@ x 61
 y 38
 w 50
 h 20
-fgColor index 14
-onColor index 41
-offColor index 4
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS0_TCTL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS0_TCTL"
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(NN)_SYS0_TCTL"
+indicatorPv "$(TPR_PV):CH$(NN)_SYS0_TCTL"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
@@ -59,8 +62,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATEMODE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATEMODE"
+controlPv "$(TPR_PV):CH$(NN)_RATEMODE"
+indicatorPv "$(TPR_PV):CH$(NN)_RATEMODE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -79,8 +82,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_FIXEDRATE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_FIXEDRATE"
+controlPv "$(TPR_PV):CH$(NN)_FIXEDRATE"
+indicatorPv "$(TPR_PV):CH$(NN)_FIXEDRATE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -139,8 +142,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_ACRATE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_ACRATE"
+controlPv "$(TPR_PV):CH$(NN)_ACRATE"
+indicatorPv "$(TPR_PV):CH$(NN)_ACRATE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -174,11 +177,11 @@ x 268
 y 130
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TSMASK"
+controlPv "$(TPR_PV):CH$(NN)_TSMASK"
 format "hex"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -220,11 +223,11 @@ x 268
 y 184
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQBIT"
+controlPv "$(TPR_PV):CH$(NN)_SEQBIT"
 format "hex"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -291,8 +294,8 @@ bgColor index 4
 inconsistentColor index 14
 topShadowColor index 2
 botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMODE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMODE"
+controlPv "$(TPR_PV):CH$(NN)_DESTMODE"
+indicatorPv "$(TPR_PV):CH$(NN)_DESTMODE"
 font "helvetica-medium-r-12.0"
 endObjectProperties
 
@@ -346,11 +349,11 @@ x 494
 y 103
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMASK"
+controlPv "$(TPR_PV):CH$(NN)_DESTMASK"
 format "hex"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -371,15 +374,16 @@ release 0
 x 658
 y 194
 w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CNT"
+h 20
+controlPv "$(TPR_PV):CH$(NN)_CNT"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+fgColor index 15
+fgAlarm
+bgColor index 12
 nullColor index 0
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -390,18 +394,19 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 658
-y 212
+x 660
+y 220
 w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATE"
+h 20
+controlPv "$(TPR_PV):CH$(NN)_RATE"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+fgColor index 15
+fgAlarm
+bgColor index 12
 nullColor index 0
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -412,18 +417,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 565
-y 210
+x 564
+y 220
 w 88
-h 14
+h 20
 font "helvetica-medium-r-12.0"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+fgAlarm
+bgColor index 3
 value {
   "Event Rate (Hz)"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -435,15 +439,13 @@ release 1
 x 569
 y 194
 w 80
-h 14
+h 20
 font "helvetica-medium-r-12.0"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Event Counter"
 }
-autoSize
 endObjectProperties
 
 # (Text Control)
@@ -456,11 +458,11 @@ x 136
 y 42
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVCODE"
+controlPv "$(TPR_PV):CH$(NN)_EVCODE"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -501,14 +503,14 @@ x 61
 y 61
 w 50
 h 20
-fgColor index 14
-onColor index 41
-offColor index 4
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS2_TCTL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS2_TCTL"
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(NN)_SYS2_TCTL"
+indicatorPv "$(TPR_PV):CH$(NN)_SYS2_TCTL"
 3d
 font "helvetica-medium-r-12.0"
 objType "controls"
@@ -584,11 +586,11 @@ x 180
 y 183
 w 80
 h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM"
+controlPv "$(TPR_PV):CH$(NN)_SEQNUM"
 format "decimal"
 font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+fgColor index 25
+bgColor index 5
 editable
 autoHeight
 motifWidget
@@ -616,6 +618,49 @@ bgColor index 0
 useDisplayBg
 value {
   "Seq Number"
+}
+autoSize
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 15
+y 236
+w 50
+h 20
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):CH$(NN)_EVIDX_TCTL"
+indicatorPv "$(TPR_PV):CH$(NN)_EVIDX_TCTL"
+3d
+font "helvetica-medium-r-12.0"
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 9
+y 221
+w 125
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "Channel Event"
 }
 autoSize
 endObjectProperties
