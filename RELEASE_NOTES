@@ -1,4 +1,4 @@
-R?         Next release
+pre-release:  <date> <author>
 			- Note new DEV TPR prefix in db files.
 			LCLS naming scheme requires DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)
 
