@@ -105,7 +105,34 @@ But, some of cases, we don't need to put the ":"
 ex) BPMS:LI26:201:CALB
 
 
+How to load devTprInfo.db and/or devEvrInfo.db:
+These files provide PVs that allow edm screens and python programs to support IOCs w/ either EVR or TPR support.
+If you load both, your python or edm can test both $(DEV):TprUsed and $(DEV):EvrUsed to see which one, if any, is used.
+Macros for devTprInfo.db:
+DEV		- This DEV is not the TPR device prefix, but instead the higher level device such as a camera.
+TPR_USED- 0 = Unused, 1 = Used
+TPR_PV	- This is the TPR device prefix
+TPS_PV	- This is the TPR event prefix
+TPR_TR	- TPR trigger number, defaults to 0
+TPR_CH	- TPR channel number, defaults to TPR_TR
 
+example st.cmd lines for TPR, but no EVR)
+# Load both devEvrInfo.db and devTprInfo.db so python programs can test for both sets of PVs
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR_USED=0" )
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE),TPR_USED=1" )
+
+example using syntax for templated IOC build support)
+# Load both devEvrInfo.db and devTprInfo.db so python programs can test for both sets of PVs
+$$IF(EVR_PV)
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR=$(EVR_PV),TRIG_CH=$$IF(EVR_TRIG,$$EVR_TRIG,0),EVR_USED=1" )
+$$ELSE(EVR_PV)
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR_USED=0" )
+$$ENDIF(EVR_PV)
+$$IF(TPR_PV)
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE),TPR_USED=1" )
+$$ELSE(TPR_PV)
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_USED=0" )
+$$ENDIF(TPR_PV)
 
 2. how to initialize the driver
 
