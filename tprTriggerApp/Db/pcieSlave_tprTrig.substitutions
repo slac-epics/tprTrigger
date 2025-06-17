@@ -1,5 +1,4 @@
-# $(DEV)
-
+# pcieSlave_tprTrig.substitutions
 
 file "tprChannelEvent.db" {
     pattern {        NN    }
@@ -14,21 +13,6 @@ file "tprChannelEvent.db" {
             {      "08"    }
             {      "09"    }
             {      "10"    }
-#            {      "11"    }
-#            {      "12"    }
-#            {      "13"    }
-#            {      "14"    }
-#            {      "15"    }
+            {      "11"    }
 }
 
-file "tprSoftEvent.db" {
-    pattern {        NN    }
-            {      "00"    }
-            {      "01"    }
-            {      "02"    }
-            {      "03"    }
-            {      "04"    }
-            {      "05"    }
-            {      "06"    }
-            {      "07"    }
-}
