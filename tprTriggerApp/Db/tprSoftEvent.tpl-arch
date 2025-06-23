@@ -1,0 +1,2 @@
+$(DEV):EVSOFT$(NN)_TCTL 60 monitor
+$(DEV):EVSOFT$(NN) 60 monitor
