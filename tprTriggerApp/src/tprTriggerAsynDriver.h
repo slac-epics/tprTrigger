@@ -53,9 +53,10 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetClock1(epicsFloat64 clock_mhz);
         void SetClock2(epicsFloat64 clock_mhz);
         
-        void SetMode(epicsInt32 mode);
+        void SetMode(epicsInt32 mode, epicsInt32 xpm_mode);
         void SetMsgDelay(epicsFloat64 msg_delay);
         void SetMasterDelay(epicsFloat64 master_delay);
+        void SetXPMDelay(epicsFloat64 xpm_delay);
 
         void SetLCLS1ChannelEnable(int channel, epicsInt32 enable);
         void SetLCLS2ChannelEnable(int channel, epicsInt32 enable);
@@ -64,6 +65,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetACRate(int channel, epicsInt32 ac_rate);
         void SetTSMask(int channel, epicsInt32 ts_mask);
         void SetSeqBit(int channel, epicsInt32 seq_bit);
+        void SetPartition(int channel, epicsInt32 partition);
         void SetDestMode(int channel, epicsInt32 dest_mode);
         void SetDestMask(int channel, epicsInt32 dest_mask);
         void SetEventCode(int channel, epicsInt32 event_code);
@@ -121,8 +123,11 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_frame_version;       /* asynInt32, ro */
         
         int p_mode;               /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_mode;           /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_status;         /* asynInt32, ro, 0: LCLS1, 1: LCLS2 */
         int p_msg_delay;          /* asynFloat64, rw */  // LCLS2 100 pulses delay and fine adjust 
         int p_master_delay;       /* asynFloat64, rw */  // LCLS1 master delay adjust
+        int p_xpm_delay;          /* asynFloat64, rw */  // LCLS1 XPM delay adjust
 
         int p_msg_delay_ticks;    /* asynInt32, ro */ // readback value in ticks for the message delay
         
@@ -138,6 +143,7 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_ts_mask;        /* asynInt32, rw, 6bits mask */
             int p_seq_num;        /* asynInt32, rw, sequencer number */
             int p_seq_bit;        /* asynInt32, rw */
+            int p_partition;      /* asynInt32, rw, 0: to 8: */
             int p_dest_mode;      /* asynInt32, rw, 0: Inclusive, 1: Exclusive, 2: Don't care, 3: Reserved */
             int p_dest_mask;      /* asynInt32, rw */
             
@@ -216,10 +222,13 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define frameVersionString         "frameVersion"
 
 #define modeString                 "mode"
+#define xpmModeString              "XPMmode"
+#define xpmStatusString            "XPMstatus"
 
 #define msgDelayString             "msgDelay"
 #define msgDelayRBString           "msgDelayRB"
 #define masterDelayString          "masterDelay"
+#define xpmDelayString             "XPMDelay"
 #define appClock1String            "applicationClock1"
 #define appClock2String            "applicationClock2"
 
@@ -230,6 +239,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define chnTSMaskString            "chnTSMask_C%s"
 #define chnSeqNumString            "chnSeqNum_C%s"
 #define chnSeqBitString            "chnSeqBit_C%s"
+#define chnPartitionString         "chnPartition_C%s"
 #define chnDestModeString          "chnDestMode_C%s"
 #define chnDestMaskString          "chnDestMask_C%s"
 #define chnEventCodeString         "chnEventCode_C%s"

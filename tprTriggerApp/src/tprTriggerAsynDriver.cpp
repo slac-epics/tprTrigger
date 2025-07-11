@@ -197,10 +197,13 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(frameVersionString,    asynParamInt32, &p_frame_version);
     
     createParam(modeString,            asynParamInt32, &p_mode);
+    createParam(xpmModeString,         asynParamInt32, &p_xpm_mode);
+    createParam(xpmStatusString,       asynParamInt32, &p_xpm_status);
     
     createParam(msgDelayString,        asynParamFloat64, &p_msg_delay);
     createParam(msgDelayRBString,      asynParamInt32,   &p_msg_delay_ticks);
     createParam(masterDelayString,     asynParamFloat64, &p_master_delay);
+    createParam(xpmDelayString,        asynParamFloat64, &p_xpm_delay);
     
     createParam(appClock1String,       asynParamFloat64, &p_app_clock_1);
     createParam(appClock2String,       asynParamFloat64, &p_app_clock_2);
@@ -220,6 +223,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
         sprintf(param_name, chnTSMaskString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_ts_mask));
         sprintf(param_name, chnSeqNumString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_num));
         sprintf(param_name, chnSeqBitString, _num2Str(i));    createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_seq_bit));
+        sprintf(param_name, chnPartitionString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_partition));
         sprintf(param_name, chnDestModeString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mode));
         sprintf(param_name, chnDestMaskString, _num2Str(i));  createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_dest_mask));
         sprintf(param_name, chnEventCodeString, _num2Str(i)); createParam(param_name, asynParamInt32, &((p_channel_st+i)->p_event_code));
@@ -295,6 +299,7 @@ void tprTriggerAsynDriver::Monitor(void)
     val = pApiDrv->rxLinkStatus();  setIntegerParam(p_rx_link_status, val);
     val = pApiDrv->versionErr();    setIntegerParam(p_version_error, val);
     val = pApiDrv->frameVersion();  setIntegerParam(p_frame_version, val);
+    val = ((timingGetLastFiducial() >> 63) & 1) ? 0 : 1; setIntegerParam(p_xpm_status, val);
     
     for(int i=0; i< valid_chns; i++) {
         uint32_t _newRate = pApiDrv->channelCount(i);
@@ -336,7 +341,14 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
     /* set the parameter in the parameter library */
     status = (asynStatus) setIntegerParam(function, value);
     
-    if(function == p_mode) SetMode(value);
+    if(function == p_mode) {
+	epicsInt32 xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+	SetMode(value, xpm_mode);
+    }
+    if(function == p_xpm_mode) {
+	epicsInt32 mode; getIntegerParam(p_mode, &mode);
+	SetMode(mode, value);
+    } 
     
         
     for(int i = 0; i < valid_chns; i++) {
@@ -369,6 +381,10 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
         if(function == (p_channel_st +i)->p_seq_bit) {
             epicsInt32 seq_num; getIntegerParam((p_channel_st + i)->p_seq_num, &seq_num);
             SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4)|(value & 0xf)));
+            break;
+        } else
+        if(function == (p_channel_st +i)->p_partition) {
+            SetPartition(i, (uint32_t) (value & 0xf));
             break;
         } else
         if(function == (p_channel_st +i)->p_dest_mode) {
@@ -456,6 +472,9 @@ asynStatus tprTriggerAsynDriver::writeFloat64(asynUser *pasynUser, epicsFloat64 
     } else
     if(function == p_master_delay) {
         SetMasterDelay(value);
+    } else
+    if(function == p_xpm_delay) {
+        SetXPMDelay(value);
     } else
     if(function == p_app_clock_1) {
         SetClock1(value);
@@ -583,7 +602,7 @@ void tprTriggerAsynDriver::SetClock2(epicsFloat64 clock_mhz)
     }
 }
 
-void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
+void tprTriggerAsynDriver::SetMode(epicsInt32 mode, epicsInt32 xpm_mode)
 {
     uint32_t disable(0);
     mode = !mode?0:1;
@@ -627,7 +646,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
 
         }
         
-        pApiDrv->SetClkSel(0);  /* set clcok for LCLS1 */
+        pApiDrv->SetClkSel(0);  /* set clock for LCLS1 */
         pApiDrv->SetModeSel(0); /* set protocol mode for LCLS1 */ 
     
     
@@ -635,56 +654,64 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
     
         // channel, filtering section
         for(int i = 0; i < valid_chns; i++) {
-            epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask, seq_num, seq_bit, dest_mode, dest_mask;
-            getIntegerParam((p_channel_st+i)->p_rate_mode, &rate_mode);
-            getIntegerParam((p_channel_st+i)->p_fixed_rate, &fixed_rate);
-            getIntegerParam((p_channel_st+i)->p_ac_rate, &ac_rate);
-            getIntegerParam((p_channel_st+i)->p_ts_mask, &ts_mask);
-            getIntegerParam((p_channel_st+i)->p_seq_num, &seq_num);
-            getIntegerParam((p_channel_st+i)->p_seq_bit, &seq_bit);
-            getIntegerParam((p_channel_st+i)->p_dest_mode, &dest_mode);
-            getIntegerParam((p_channel_st+i)->p_dest_mask, &dest_mask);
-            
-            switch(rate_mode) {
-                case 0: /* Fixed Rate */
-                    pApiDrv->SetFixedRate(i, (uint32_t)fixed_rate);
-                    break;
-                case 1: /* AC Rate */
-                    pApiDrv->SetACRate(i, (uint32_t)ts_mask, (uint32_t)ac_rate);
-                    break;
-                case 2: /* Seq */
-                    pApiDrv->SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4) | (seq_bit &0xf)));
-                    break;
+            if (xpm_mode) { /* Real LCLS2 mode! */
+                epicsInt32 rate_mode, fixed_rate, ac_rate, ts_mask;
+                epicsInt32 seq_num, seq_bit, partition, dest_mode, dest_mask;
+                getIntegerParam((p_channel_st+i)->p_rate_mode, &rate_mode);
+                getIntegerParam((p_channel_st+i)->p_fixed_rate, &fixed_rate);
+                getIntegerParam((p_channel_st+i)->p_ac_rate, &ac_rate);
+                getIntegerParam((p_channel_st+i)->p_ts_mask, &ts_mask);
+                getIntegerParam((p_channel_st+i)->p_seq_num, &seq_num);
+                getIntegerParam((p_channel_st+i)->p_seq_bit, &seq_bit);
+                getIntegerParam((p_channel_st+i)->p_partition, &partition);
+                getIntegerParam((p_channel_st+i)->p_dest_mode, &dest_mode);
+                getIntegerParam((p_channel_st+i)->p_dest_mask, &dest_mask);
+
+                switch(rate_mode) {
+                    case 0: /* Fixed Rate */
+                        pApiDrv->SetFixedRate(i, (uint32_t)fixed_rate);
+                        break;
+                    case 1: /* AC Rate */
+                        pApiDrv->SetACRate(i, (uint32_t)ts_mask, (uint32_t)ac_rate);
+                        break;
+                    case 2: /* Seq */
+                        pApiDrv->SetSeqBit(i, (uint32_t) (((seq_num & 0x1f)<<4) | (seq_bit &0xf)));
+                        break;
+                    case 3: /* Partition */
+                        pApiDrv->SetPartition(i, (uint32_t) partition);
+                        break;
+                }
+                switch(dest_mode) {
+                    case 0: /* Inclusive */
+                        pApiDrv->SetInclusionMask(i, (uint32_t)dest_mask);
+                        break;
+                    case 1: /* Exclusive */
+                        pApiDrv->SetExclusionMask(i, (uint32_t)dest_mask);
+                        break;
+                    case 2: /* don't care */
+                        pApiDrv->SetDontCareMask(i);
+                        break;
+                }
+            } else { /* XPM mode! */
+                epicsInt32 event_code; getIntegerParam((p_channel_st +i)->p_event_code, &event_code);
+                pApiDrv->SetEventCode(i, (uint32_t) event_code);
             }
-            switch(dest_mode) {
-                case 0: /* Inclusive */
-                    pApiDrv->SetInclusionMask(i, (uint32_t)dest_mask);
-                    break;
-                case 1: /* Exclusive */
-                    pApiDrv->SetExclusionMask(i, (uint32_t)dest_mask);
-                    break;
-                case 2: /* don't care */
-                    pApiDrv->SetDontCareMask(i);
-                    break;
-            }
-            
-            
         }
-        
+
         // trigger section
         for(int i =0; i<valid_trgs; i++) {
             epicsFloat64 width; getDoubleParam((p_trigger_st+i)->p_width[1], &width);
-            // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
             uint32_t ticks, taps;
             tick(width, application_clock_2, &ticks);
             if(!ticks) ticks = 1;
             pApiDrv->SetWidth(i, ticks); setIntegerParam((p_trigger_st+i)->p_widthTicks, ticks);
             PropagateTWID(i, width);
             
+            epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
+            epicsFloat64 xpm_delay; getDoubleParam(p_master_delay, &xpm_delay);
             epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[1], &delay);
-            // ticks = (delay*1.E-3 * application_clock_2) + 0.5;
             if(busType == _pcie) {
-                tick(delay, application_clock_2, &ticks, &taps);
+                tick(delay + (xpm_mode ? 0 : (master_delay+xpm_delay)), application_clock_2, &ticks, &taps);
                 pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
             } else {
                 tick(delay, application_clock_2, &ticks);
@@ -699,7 +726,7 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         epicsInt32 _ued_support;
         getIntegerParam(p_ued_special, &_ued_support);
         if(!_ued_support) {       
-            /* back ward compatible mode */
+            /* backward compatible mode */
             pApiDrv->SetClkSel(1); /* set clock for LCLS2 */
             pApiDrv->SetModeSel(1); /* set protocol mode for LCLS2 */
         }  else {
@@ -707,12 +734,9 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
             pApiDrv->SetClkSel(0);  /* use LCLS1 clock rate */
             pApiDrv->SetModeSel(1); /* use LCLS1 protocol */
         }
-        
     }
     
-    
-    
-    // re-enable channels and trigger with latched vlaues
+    // re-enable channels and trigger with latched values
     for(int i =0; i <valid_chns; i++) {
         epicsInt32 _enable; getIntegerParam((p_channel_st + i)->p_enable[mode], &_enable);
         pApiDrv->ChannelEnable(i, (uint32_t) _enable);
@@ -722,35 +746,55 @@ void tprTriggerAsynDriver::SetMode(epicsInt32 mode)
         epicsInt32 _enable; getIntegerParam((p_trigger_st +i)->p_enable[mode], &_enable);
         pApiDrv->TriggerEnable(i, (uint32_t) _enable);
     }
- 
 }
 
 void tprTriggerAsynDriver::SetMsgDelay(epicsFloat64 msg_delay)
-{
-    // uint32_t ticks = (msg_delay * 1.E-3 * lcls2_clock) + 0.5;
+{ 
     uint32_t ticks;
 
     tick(msg_delay, lcls2_clock, &ticks);
     pApiDrv->SetMsgDelay(ticks);
 
     setIntegerParam(p_msg_delay_ticks, (epicsInt32) ticks);
-    
 }
 
 void tprTriggerAsynDriver::SetMasterDelay(epicsFloat64 master_delay)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode ==1) return;   // nothing todo in LCLS2 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 1 && xpm_mode == 1) return;   // nothing todo in LCLS2 mode, just latch set values into parameter space
     
+    epicsFloat64 application_clock = (mode == 1) ? application_clock_2 : application_clock_1;
+    epicsFloat64 xpm_delay = 0.0; 
+    if (mode == 1) getDoubleParam(p_xpm_delay, &xpm_delay);
     for(int i=0; i<valid_trgs; i++) {
         epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
-        // uint32_t ticks = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
         uint32_t ticks, taps;
         if(busType == _pcie) {
-            tick(master_delay + delay, application_clock_1, &ticks); taps = 0;
+            tick(master_delay + xpm_delay + delay, application_clock, &ticks); taps = 0;
             pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
         } else {
-            tick(master_delay + delay, application_clock_1, &ticks);
+            tick(master_delay + xpm_delay + delay, application_clock, &ticks);
+        }
+        pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st +i)->p_delayTicks, ticks);
+    }
+}
+
+void tprTriggerAsynDriver::SetXPMDelay(epicsFloat64 xpm_delay)
+{
+    int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 1) return;   // nothing todo if not XPM mode, just latch set values into parameter space
+    
+    epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
+    for(int i=0; i<NUM_TRIGGERS; i++) {
+        epicsFloat64 delay; getDoubleParam((p_trigger_st+i)->p_delay[0], &delay);
+        uint32_t ticks, taps;
+        if(busType == _pcie) {
+            tick(master_delay + xpm_delay + delay, application_clock_2, &ticks); taps = 0;
+            pApiDrv->SetDelayTap(i, taps); setIntegerParam((p_trigger_st+i)->p_delayTaps, taps);
+        } else {
+            tick(master_delay + xpm_delay + delay, application_clock_2, &ticks);
         }
         pApiDrv->SetDelay(i, ticks); setIntegerParam((p_trigger_st +i)->p_delayTicks, ticks);
     }
@@ -759,15 +803,19 @@ void tprTriggerAsynDriver::SetMasterDelay(epicsFloat64 master_delay)
 void tprTriggerAsynDriver::SetLCLS1ChannelEnable(int channel, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode ==0)  /* apply channel status in LCLS1 mode */
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0)  /* apply channel status in LCLS1 mode */
         pApiDrv->ChannelEnable(channel, enable);
-    else return;  /* nothing todo in LCLS1 mode */
+    else
+	return;  /* nothing todo in LCLS2 mode */
 }
 
 void tprTriggerAsynDriver::SetLCLS2ChannelEnable(int channel, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0)  return;     /* nothing todo in LCLS1 mode */
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0)  
+	return;     /* nothing todo in LCLS1 mode */
     else
         pApiDrv->ChannelEnable(channel, enable);    /* apply channel status in LCLS2 mode */
 }
@@ -776,7 +824,8 @@ void tprTriggerAsynDriver::SetLCLS2ChannelEnable(int channel, epicsInt32 enable)
 void tprTriggerAsynDriver::SetRateMode(int channel, epicsInt32 rate_mode)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return; // nothing todo in LCLS1 mode, just latch rate mode into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch rate mode into parameter space
     
     switch(rate_mode) {
         case 0: /* fixed mode */
@@ -793,6 +842,10 @@ void tprTriggerAsynDriver::SetRateMode(int channel, epicsInt32 rate_mode)
             epicsInt32 seq_bit; getIntegerParam((p_channel_st + channel)->p_seq_bit, &seq_bit);
             pApiDrv->SetSeqBit(channel, (uint32_t) (((seq_num & 0x1f)<<4)|(seq_bit & 0xf)));
             break;
+        case 3: /* Partition mode */
+            epicsInt32 partition; getIntegerParam((p_channel_st + channel)->p_partition, &partition);
+            pApiDrv->SetPartition(channel, (uint32_t) partition);
+	    break;
     }
 }
 
@@ -800,7 +853,8 @@ void tprTriggerAsynDriver::SetRateMode(int channel, epicsInt32 rate_mode)
 void tprTriggerAsynDriver::SetFixedRate(int channel, epicsInt32 fixed_rate)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return; // nothing todo in CLLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 rate_mode; getIntegerParam((p_channel_st + channel)->p_rate_mode, &rate_mode);
     if(rate_mode != 0) return; // nothing todo without Fixed Rate mode, just latch set values into parameter space
@@ -812,7 +866,8 @@ void tprTriggerAsynDriver::SetFixedRate(int channel, epicsInt32 fixed_rate)
 void tprTriggerAsynDriver::SetACRate(int channel, epicsInt32 ac_rate)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode ==0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 rate_mode; getIntegerParam((p_channel_st + channel)->p_rate_mode, &rate_mode);
     if(rate_mode != 1) return; // nothing todo without AC Rate mode, just latch set values into parameter space 
@@ -826,7 +881,8 @@ void tprTriggerAsynDriver::SetACRate(int channel, epicsInt32 ac_rate)
 void tprTriggerAsynDriver::SetTSMask(int channel, epicsInt32 ts_mask)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return;  // nothing todo in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 rate_mode; getIntegerParam((p_channel_st + channel)->p_rate_mode, &rate_mode);
     if(rate_mode != 1) return;  // nothing todo without AC Rate mode, just latch set values into parameter space
@@ -839,7 +895,8 @@ void tprTriggerAsynDriver::SetTSMask(int channel, epicsInt32 ts_mask)
 void tprTriggerAsynDriver::SetSeqBit(int channel, epicsInt32 seq_bit)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return;   // nothing todo in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 rate_mode; getIntegerParam((p_channel_st+ channel)->p_rate_mode, &rate_mode);
     if(rate_mode != 2) return;    // nothing todo without Seq mode, just latch set value into parameter space 
@@ -849,10 +906,23 @@ void tprTriggerAsynDriver::SetSeqBit(int channel, epicsInt32 seq_bit)
 }
 
 
+void tprTriggerAsynDriver::SetPartition(int channel, epicsInt32 partition)
+{
+    int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
+    
+    epicsInt32 rate_mode; getIntegerParam((p_channel_st + channel)->p_rate_mode, &rate_mode);
+    if(rate_mode != 3) return; // nothing todo without Partition mode, just latch set values into parameter space
+    
+    pApiDrv->SetPartition(channel, (uint32_t) partition);
+}
+
 void tprTriggerAsynDriver::SetDestMode(int channel, epicsInt32 dest_mode)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0 ) return;   // nothing todo in LCLS1 mode, just latch set values into parameter space 
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 dest_mask; getIntegerParam((p_channel_st + channel)->p_dest_mask, &dest_mask);
     
@@ -875,7 +945,8 @@ void tprTriggerAsynDriver::SetDestMode(int channel, epicsInt32 dest_mode)
 void tprTriggerAsynDriver::SetDestMask(int channel, epicsInt32 dest_mask)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return;    // nothing doto in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch set values into parameter space
     
     epicsInt32 dest_mode; getIntegerParam((p_channel_st + channel)->p_dest_mode, &dest_mode);
     
@@ -896,44 +967,34 @@ void tprTriggerAsynDriver::SetDestMask(int channel, epicsInt32 dest_mask)
 
 void tprTriggerAsynDriver::SetEventCode(int channel, epicsInt32 event_code)
 {
-    int mode;
-    getIntegerParam(p_mode, &mode);
+    int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 1 && xpm_mode == 1) return; // nothing todo in LCLS2 mode, just latch the event code
     
-    if(mode==0) { /* LCLS1 */
-        pApiDrv->SetEventCode(channel, event_code);
-    }
-    else { /*LCLS2 */
-        // nothing todo in LCLS2 mode, just latch the event code into parameter space
-        return;
-    }
+    pApiDrv->SetEventCode(channel, event_code);
 }
         
         
 void tprTriggerAsynDriver::SetLCLS1TriggerEnable(int trigger, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    mode = !mode?0:1;
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 1 && xpm_mode == 1) return; // nothing todo in LCLS2 mode, just latch
     
-    if(mode == 0) {    /* set trigger status in LCLS1 mode */ 
-        pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
-        PropagateTCTL(trigger, enable);
-    } else             /* nothing todo in LCLS2 mode */
-        return;
+    pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
+    PropagateTCTL(trigger, enable);
 }
 
 void tprTriggerAsynDriver::SetLCLS2TriggerEnable(int trigger, epicsInt32 enable)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    mode = !mode?0:1;
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch
     
-    if(mode == 0)    /* nothing doto in LCLS1 mode */
-        return;
-    else {            /* set trigger status in LCLs2 mode */
-        pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
-        PropagateTCTL(trigger, enable);
-    }
-        
+    pApiDrv->TriggerEnable(trigger, (uint32_t) enable);
+    PropagateTCTL(trigger, enable);
 }
+
 void tprTriggerAsynDriver::SetSource(int trigger, epicsInt32 source)
 {
     pApiDrv->SetSourceMask(trigger, (uint32_t) source);
@@ -954,16 +1015,19 @@ void tprTriggerAsynDriver::SetCmpl(int trigger, epicsInt32 cmpl)
 void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 1) return;   // nothing todo in LCLS2 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 1 && xpm_mode == 1) return; // nothing todo in LCLS2 mode, just latch
     
+    epicsFloat64 application_clock = (mode == 1) ? application_clock_2 : application_clock_1;
     epicsFloat64 master_delay; getDoubleParam(p_master_delay, &master_delay);
-    // uint32_t ticks  = ((master_delay + delay) * 1.E-3 * application_clock_1) + 0.5;
+    epicsFloat64 xpm_delay = 0.0; 
+    if (mode == 1) getDoubleParam(p_xpm_delay, &xpm_delay);
     uint32_t ticks, taps;
     if(busType == _pcie) {
-        tick(master_delay + delay, application_clock_1, &ticks); taps = 0;
+        tick(master_delay + xpm_delay + delay, application_clock, &ticks); taps = 0;
         pApiDrv->SetDelayTap(trigger, taps); setIntegerParam((p_trigger_st + trigger)->p_delayTaps, taps);
     } else {
-        tick(master_delay + delay, application_clock_1, &ticks);
+        tick(master_delay + xpm_delay + delay, application_clock, &ticks);
     }
     pApiDrv->SetDelay(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_delayTicks, ticks);
 
@@ -973,9 +1037,9 @@ void tprTriggerAsynDriver::SetLCLS1Delay(int trigger, epicsFloat64 delay)
 void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 0) return;   // nothing todo in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch
     
-    // uint32_t ticks = (delay*1.E-3 * application_clock_2) + 0.5;
     uint32_t ticks, taps;
     if(busType == _pcie) {
         tick(delay, application_clock_2, &ticks, &taps);
@@ -991,12 +1055,13 @@ void tprTriggerAsynDriver::SetLCLS2Delay(int trigger, epicsFloat64 delay)
 void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode == 1) return;  // nothing todo in LCLS2 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 1 && xpm_mode == 1) return; // nothing todo in LCLS2 mode, just latch
     
-    // uint32_t ticks = (width*1.E-3 * application_clock_1) + 0.5;
+    epicsFloat64 application_clock = (mode == 1) ? application_clock_2 : application_clock_1;
     uint32_t ticks;
-    tick(width, application_clock_1, &ticks);
-    if(!ticks) ticks =1;
+    tick(width, application_clock, &ticks);
+    if(!ticks) ticks = 1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 
     PropagateTWID(trigger, width);
@@ -1005,12 +1070,12 @@ void tprTriggerAsynDriver::SetLCLS1Width(int trigger, epicsFloat64 width)
 void tprTriggerAsynDriver::SetLCLS2Width(int trigger, epicsFloat64 width)
 {
     int mode; getIntegerParam(p_mode, &mode);
-    if(mode ==0) return;    // nothing todo in LCLS1 mode, just latch set values into parameter space
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if(mode == 0 || xpm_mode == 0) return; // nothing todo in LCLS1 mode, just latch
     
-    // uint32_t ticks = (width*1.E-3 * application_clock_2) + 0.5;
     uint32_t ticks;
     tick(width, application_clock_2, &ticks);
-    if(!ticks) ticks =1;
+    if(!ticks) ticks = 1;
     pApiDrv->SetWidth(trigger, ticks); setIntegerParam((p_trigger_st + trigger)->p_widthTicks, ticks);
 
     PropagateTWID(trigger, width);
@@ -1078,6 +1143,9 @@ void tprTriggerAsynDriver::PropagateTCTL(int trigger, epicsInt32 enable)
 void tprTriggerAsynDriver::PropagateDelay(int trigger, epicsFloat64 tdes)
 {
     int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if (mode == 1 && xpm_mode == 0)
+	mode = 0;
     epicsFloat64 delay; getDoubleParam((p_trigger_st + trigger)->p_delay[mode], &delay);
 
     if(delay != tdes) setDoubleParam((p_trigger_st + trigger)->p_prop_delay[mode], tdes);
@@ -1086,6 +1154,9 @@ void tprTriggerAsynDriver::PropagateDelay(int trigger, epicsFloat64 tdes)
 void tprTriggerAsynDriver::PropagateWidth(int trigger, epicsFloat64 twid)
 {
     int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if (mode == 1 && xpm_mode == 0)
+	mode = 0;
     epicsFloat64 width; getDoubleParam((p_trigger_st + trigger)->p_width[mode], &width);
 
     if(width != twid) setDoubleParam((p_trigger_st + trigger)->p_prop_width[mode], twid);
@@ -1102,6 +1173,9 @@ void tprTriggerAsynDriver::PropagatePolarity(int trigger, epicsInt32 tpol)
 void tprTriggerAsynDriver::PropagateEnable(int trigger, epicsInt32 tctl)
 {
     int mode; getIntegerParam(p_mode, &mode);
+    int xpm_mode; getIntegerParam(p_xpm_mode, &xpm_mode);
+    if (mode == 1 && xpm_mode == 0)
+	mode = 0;
     epicsInt32 enable; getIntegerParam((p_trigger_st + trigger)->p_enable[mode], &enable);
 
     if(enable != tctl) setIntegerParam((p_trigger_st + trigger)->p_prop_enable[mode], tctl);

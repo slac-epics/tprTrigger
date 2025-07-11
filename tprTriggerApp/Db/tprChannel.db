@@ -31,9 +31,11 @@ record(mbbo, "$(DEV):CH$(NN)_RATEMODE")
     field(ZRVL, "0")
     field(ONVL, "1")
     field(TWVL, "2")
+    field(THVL, "3")
     field(ZRST, "Fixed")
     field(ONST, "AC")
     field(TWST, "Seq")
+    field(THST, "Part")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
     
@@ -106,12 +108,21 @@ record(longout, "$(DEV):CH$(NN)_SEQNUM")
     info(autosaveFields, "VAL")
 }
 
-
 record(longout, "$(DEV):CH$(NN)_SEQBIT")
 {
     field(DESC, "Channel $(NN) Sequence Bit")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),0) chnSeqBit_C$(NN)")
+    field(OMSL, "supervisory")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(longout, "$(DEV):CH$(NN)_PARTITION")
+{
+    field(DESC, "Channel $(NN) Partition Bit")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) chnPartition_C$(NN)")
     field(OMSL, "supervisory")
     field(PINI, "YES")
     info(autosaveFields, "VAL")

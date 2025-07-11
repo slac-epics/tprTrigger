@@ -156,6 +156,29 @@ record(mbbo, "$(DEV):MODE")
     info(autosaveFields, "VAL ZRSV ONSV TWSV")
 }
 
+record(bo, "$(DEV):XPM_MODE")
+{
+    field(DESC, "XPM Mode selection LCLS1/LCLS2")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) XPMmode")
+    field(OMSL, "supervisory")
+    field(ZNAM, "LCLS1")
+    field(ONAM, "LCLS2")
+    field(PINI, "YES")
+    field(VAL,  1)  # Default to LCLS2, in case we don't even have an XPM!
+    info(autosaveFields, "VAL ZSV OSV")
+}
+
+record(bi, "$(DEV):XPM_STATUS")
+{
+    field(DESC, "XPM status LCLS1/LCLS2")
+    field(DTYP, "asynInt32")
+    field(INP,  "@asyn($(PORT),0) XPMstatus")
+    field(ZNAM, "LCLS1")
+    field(ONAM, "LCLS2")
+    field(SCAN, "I/O Intr")
+}
+
 record(ao, "$(DEV):MSGDLY")
 {
     field(DESC, "Message Delay for LCLS2 Timing Frame")
@@ -184,6 +207,18 @@ record(ao, "$(DEV):TREF")
     field(DESC, "Master Delay for LCLS1 mode")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),0) masterDelay")
+    field(OMSL, "supervisory")
+    field(EGU,  "nsec")
+    field(PREC, "0")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+record(ao, "$(DEV):XPMREF")
+{
+    field(DESC, "Additional XPM Delay for LCLS1 mode")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),0) XPMDelay")
     field(OMSL, "supervisory")
     field(EGU,  "nsec")
     field(PREC, "0")
