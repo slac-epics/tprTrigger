@@ -96,35 +96,10 @@ minor 0
 release 0
 x 273
 y 6
-w 189
+w 91
 h 24
 
 beginGroup
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 371
-y 6
-w 91
-h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SEQBIT"
-format "hex"
-font "helvetica-medium-r-12.0"
-fgColor index 25
-bgColor index 5
-editable
-motifWidget
-limitsFromDb
-precision 0
-nullColor index 0
-updatePvOnDrop
-newPos
-objType "controls"
-endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
@@ -136,7 +111,7 @@ x 273
 y 6
 w 91
 h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_SEQNUM"
+controlPv "$(TPR_PV):CH$(TPR_CH)_SEQCODE"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 25
@@ -637,7 +612,7 @@ x 273
 y 5
 w 91
 h 24
-controlPv "$(TPR_PV):CH$(TPR_CH)_PARTITION"
+controlPv "$(TPR_PV):CH$(TPR_CH)_GROUP"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fgColor index 25

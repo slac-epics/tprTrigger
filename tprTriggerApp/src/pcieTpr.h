@@ -22,6 +22,7 @@ void * pcieTprReport(int level);
 void * pcieTprGPWrapper(void);
 
 TimingPulseId timingGetLastFiducial();
+int timingGetLastXpmMode(void);
 
 int timingGetCurrTimeStamp(epicsTimeStamp *ptine);
 int timingGetEventTimeStamp(epicsTimeStamp *ptime, int eventCode);
