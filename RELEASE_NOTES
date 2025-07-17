@@ -1,3 +1,11 @@
+R2.5.3-4.0-6    Jul 17, 2025   Kukhee Kim (khkim)
+                * algin with recent API:
+                     cpsw/framework        R4.5.2
+                     timing/hpsTpr         R2.5.2
+                * align with recent modules:
+                     asyn                  R4.39-1.0.2
+                     yamlLoader            R2.3.8
+
 R2.5.3-4.0-5    Jun 2, 2025    Kukhee Kim (khkim)
                 * merge seq engine and seq bit PVs to seq bit
                   higher nibble in hex is seq engine
