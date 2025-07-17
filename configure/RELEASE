@@ -24,8 +24,8 @@
 # could match a directory name.
 # ==========================================================
 
-ASYN_MODULE_VERSION=R4.39-1.0.1
-YAMLLOADER_MODULE_VERSION=R2.3.5
+ASYN_MODULE_VERSION=R4.39-1.0.2
+YAMLLOADER_MODULE_VERSION=R2.3.8
 TIMINGAPI_MODULE_VERSION=R0.9
 
 
