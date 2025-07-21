@@ -606,6 +606,61 @@ int timingFifoRead(unsigned int    eventCode,
     return 0;
 }
 
+int timingFifoReadFull(unsigned int       eventCode,
+                       int                incr,
+                       uint64_t           *index,
+                       EventTimingMessage *pTimingDataDest)
+{
+    if(ts_tbl.find(eventCode) == ts_tbl.end() ||
+       !index || !pTimingDataDest) return -2;   // invalid index or inputs
+
+    ts_tbl_t *pT = &(ts_tbl[eventCode]);
+
+    if(incr == TS_INDEX_INIT) {
+        if(pT->pQ) *index = pT->index = pT->pQ->allwp[pT->ch_idx] -1;
+        else       return -1;                 // NULL to return
+
+        volatile uint32_t *dp = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        volatile Tpr::TprEntry *p = (Tpr::TprEntry *) dp;
+        volatile time_st_t *ts    = (volatile time_st_t *) dp;
+        pTimingDataDest->fifo_evt_timing.fifo_time.secPastEpoch = dp[5];
+        pTimingDataDest->fifo_evt_timing.fifo_time.nsec         = dp[4];
+        pTimingDataDest->fifo_evt_timing.fifo_fid               = ts->mode? ts->pid64 &0x1ffff: ts->pid64;
+        pTimingDataDest->fifo_evt_timing.fifo_tsc               = p->fifo_tsc;
+        pTimingDataDest->fifo_rates                             = static_cast<uint16_t>(dp[6] >> 16);
+        pTimingDataDest->fifo_timeslots                         = static_cast<uint16_t>(dp[6] & 0xFFFF);
+        pTimingDataDest->fifo_beam_req                          = dp[7];
+        uint32_t* dp_nv = const_cast<uint32_t*>(dp);
+        memcpy(pTimingDataDest->fifo_seq_info, dp_nv+14, 36);
+    } else {
+        volatile uint32_t *dp_prev = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        pT->index += incr;  *index = pT->index;
+        volatile uint32_t *dp = (&pT->pQ->allq[pT->pQ->allrp[pT->ch_idx].idx[pT->index &(MAX_TPR_ALLQ-1)] &(MAX_TPR_ALLQ-1) ].word[0]);
+        uint64_t t_prev = *(uint64_t *)(&dp_prev[4]);
+        uint64_t t_new  = *(uint64_t *)(&dp[4]);
+
+        if(incr > 0 && t_prev > t_new) return -4;      // FIFO underrun
+        if(incr < 0 && t_prev < t_new) return -3;      // FIFO overrun
+
+        volatile Tpr::TprEntry *p = (Tpr::TprEntry *) dp;
+        volatile time_st_t *ts    = (volatile time_st_t *) dp;
+        pTimingDataDest->fifo_evt_timing.fifo_time.secPastEpoch = dp[5];
+        pTimingDataDest->fifo_evt_timing.fifo_time.nsec         = dp[4];
+        pTimingDataDest->fifo_evt_timing.fifo_fid               = ts->mode ? ts->pid64 & 0x1ffff : ts->pid64;
+        pTimingDataDest->fifo_evt_timing.fifo_tsc               = p->fifo_tsc;
+        // dp[6] has rates and timeslots
+        pTimingDataDest->fifo_rates                             = static_cast<uint16_t>(dp[6] >> 16);
+        pTimingDataDest->fifo_timeslots                         = static_cast<uint16_t>(dp[6] & 0xFFFF);
+        pTimingDataDest->fifo_beam_req                          = dp[7];
+        uint32_t* dp_nv = const_cast<uint32_t*>(dp);
+        memcpy(pTimingDataDest->fifo_seq_info, dp_nv+14, 36);
+    }
+
+
+
+    return 0;
+}
+
 int RegisterTimingEventCallback(TimingEventCallback callback, void *pUserPvt)
 {
     pcieTprEvCallbackInit();
