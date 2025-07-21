@@ -57,10 +57,32 @@ R2.5.4    Nov 02, 2021  J. Chen (justinc)
 
 R2.5.3-7.0 2025-07-21 Gabriel Dorlhiac
            Update implementation for compatibility with timingApi R0.11.
+           Adds support for timingFifoReadFull API which provides access to the full
+           Event timing message (Beam destination, fixed/AC rate bits, etc.)
 
 R2.5.3-6.11 2025-02-11 Jeremy Lorelli
            Upgrade to hpsTpr/R2.5.2, cpsw/R4.5.2, yamlLoader/R2.3.8
            Remove hardcoded paths
+
+R2.5.3-6.11 2025-02-11 Jeremy Lorelli
+           Upgrade to hpsTpr/R2.5.2, cpsw/R4.5.2, yamlLoader/R2.3.8
+           Remove hardcoded paths
+
+R2.5.3-6.6 2023-08-02 Michael Browne
+                        Change to timingApi 0.10.
+
+R2.5.3-6.5 2023-07-12 Michael Browne
+                        Fix up XPM LCLS1 mode.
+
+R2.5.3-6.4 2023-07-11 Michael Browne
+                        Partition --> Group, SeqNum/SeqBit --> SeqCode
+
+R2.5.3-6.3 2023-04-27 Michael Browne
+                        Fixup to deal with XPM LCLS1-over-LCLS2 mode.
+
+R2.5.3-6.2 2023-04-13 Michael Browne
+                        Update to hpsTpr/R2.5.0 for partition trigger code.
+
 R2.5.3-1.0   Nov 22, 2021 Kukhee Kim (khkim)
              * upgrade to asyn R4.39-1.0.1
 
