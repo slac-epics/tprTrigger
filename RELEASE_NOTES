@@ -64,10 +64,6 @@ R2.5.3-6.11 2025-02-11 Jeremy Lorelli
            Upgrade to hpsTpr/R2.5.2, cpsw/R4.5.2, yamlLoader/R2.3.8
            Remove hardcoded paths
 
-R2.5.3-6.11 2025-02-11 Jeremy Lorelli
-           Upgrade to hpsTpr/R2.5.2, cpsw/R4.5.2, yamlLoader/R2.3.8
-           Remove hardcoded paths
-
 R2.5.3-6.6 2023-08-02 Michael Browne
                         Change to timingApi 0.10.
 
@@ -82,6 +78,92 @@ R2.5.3-6.3 2023-04-27 Michael Browne
 
 R2.5.3-6.2 2023-04-13 Michael Browne
                         Update to hpsTpr/R2.5.0 for partition trigger code.
+
+R2.5.3-6.1 2023-03-01 Bruce Hill
+			Build a version for asyn/R4.32-1.0.0
+
+R2.5.3-6.0 2023-02-28 Bruce Hill
+			Fix trigger polarity labels in emb-lcls1-tprTrig.edl and lcls2 as well.
+
+R2.5.3-5.9 2023-02-22 Bruce Hill 
+			Update to yamlLoader/R2.3.4
+
+R2.5.3-5.8 2023-02-15 Michael Browne 
+			Sigh.  And downgrade yamlLoader.
+
+R2.5.3-5.7 2023-02-15 Michael Browne 
+			Update asyn version.
+
+R2.5.3-5.6 2023-02-15 Michael Browne 
+			First pass archiving.
+
+R2.5.3-5.5 2023-02-07 Michael Browne
+			Add Thorlabs-WFS nonsense.
+
+R2.5.3-5.4 2023-01-30 Bruce Hill
+            Build a release for asyn/R4.32-1.0.0
+
+R2.5.3-5.3  Dec 12, 2022 Bruce Hill (bhill)
+            Make tprFull.edl switch between LCLS1 and LCLS2 mode.
+
+R2.5.3-5.2  Dec 8, 2022 Bruce Hill (bhill)
+            Update to yamlLoader/R2.3.3 to fix DEV build.
+
+R2.5.3-5.1   Dec 2, 2022 Bruce Hill (bhill)
+            Change TPS_PV everywhere to TPE_PV as first step in removing master/slave naming.
+            Fixing some details in devTprInfo.db
+
+R2.5.3-5.0   Dec 1, 2022 Bruce Hill (bhill)
+            Change PV name for tpr trigger number to match naming scheme for other trigger pvs
+            Change ZRST of TCMPL from Disable to NOOP.
+            Update tprTrigger edm screens to switch between LCLS1 and LCLS2 widgets.
+            Add new emb-lcls1-tprTrig and emb-lcls2-tprTrig screens along w/ OneTrig and Full TPR top level screens
+            Added a FIDRATE calc record.
+            Modify channel count and rate to work w/ channelCount() reporting rate.
+            Adding devTprInfo.db records w/ TPR info PVs
+            Create 12 Channels, 12 Triggers, and 12 Soft Events.
+
+R2.5.3-4.3   Nov 7, 2022 Bruce Hill (bhill)
+            Replace hard coded PV naming scheme w/ single DEV prefix.
+
+R2.5.3-4.2   Oct 20, 2022 Bruce Hill (bhill)
+            Fix build warnings
+            Build w/ yamlLoader/R2.3.2
+            Build for both LCLS and PCDS with LCLS PACKAGE_SITE_TOP
+            Add macro checks for required *_LIB and *_INCLUDE directories
+
+R2.5.3-4.1   Sep 30, 2022 Marcio Donadio (marcio)
+             * Added support for RHEL7 
+
+R2.5.3-4.0   Sep 14, 2022 Kukhee Kim (khkim)
+             * build against timing/hpsTpr R2.3.0
+             * make PCIe Tpr support 12 channels and 12 triggers
+             * hide internal channel (ch 12 and ch13) for internal use only
+               . ch13 is for 360Hz processing in LCLS1 mode
+             * PV name change for the channel event control and soft event control
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVIDX_TCTL          ;  enable/disable channel event
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):EVSOFT$(NN)_TCTL            ;  enable/disable soft event
+               . TPR:$(LOCA):$(IOC_UNIT):$(INST):EVSOFT$(NN)                 ;  set event number for the soft event [1..255]
+
+
+R2.5.3-3.0   Sep 10, 2022 Kukhee Kim (khkim)
+             * implement timingApi (timing queue functions)
+             * support generaltime, soft event and channel event for PCIe TPR
+             * support PCIeSave:/ directive 
+             * build against timing/hpsTpr R2.2.0
+
+             remarks)  ch12 and ch13 has been designed for tprTrigger internal usage (no hardware trigger)
+                       butt we have an issue to use the ch12 and ch13 for the internal usage
+                       until resolving the issue, we borrow ch 11 and ch 12 for the internal usage.
+
+             - ch11 and ch12 have been reserved for 360Hz processing and other TBD usage, for temporally
+               thus, database template could not access ch11 and ch12 and trg11 and ch12
+             - after resolving the issue, we will move to ch12 and ch13 for the internal usage,
+               and will expose ch11 and ch12 to the database template
+             
+
+R2.5.3-2.0   Aug 15, 2022 Kukhee Kim (khkim)
+             * add operation limit for MSGDLY PV
 
 R2.5.3-1.0   Nov 22, 2021 Kukhee Kim (khkim)
              * upgrade to asyn R4.39-1.0.1
