@@ -2,6 +2,11 @@ pre-release:  <date> <author>
 			- Note new DEV TPR prefix in db files.
 			LCLS naming scheme requires DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)
 
+R2.5.3-7.0 2025-07-21 Gabriel Dorlhiac
+           Update implementation for compatibility with timingApi R0.11.
+           Adds support for timingFifoReadFull API which provides access to the full
+           Event timing message (Beam destination, fixed/AC rate bits, etc.)
+
 R2.7.1     Jan 24, 2025 Jeremy Lorelli (lorelli)
            - Updated modules: yamlLoader/R2.3.8, hpsTpr/R2.5.2, cpsw/R4.5.2
            - Fixed hardcoded PACKAGE_SITE_TOP
