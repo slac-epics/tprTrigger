@@ -30,6 +30,10 @@ int timingFifoRead(unsigned int    eventCode,
                    int             incr,
                    uint64_t        *index,
                    EventTimingData *pTimingDataDest);
+int timingFifoReadFull(unsigned int       eventCode,
+                       int                incr,
+                       uint64_t           *index,
+                       EventTimingMessage *pTimingDataDest);
 int timingEntryRead(unsigned int eventCode, void *dtpr, EventTimingData *pTimingDataDest);
 int RegisterTimingEventCallback(TimingEventCallback callback, void *pUserPvt);
 
