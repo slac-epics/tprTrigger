@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1786
-y 1439
+x 2171
+y 1435
 w 382
 h 261
 font "helvetica-medium-r-12.0"
@@ -1099,5 +1099,47 @@ useDisplayBg
 value {
   "Sync Policy/Status"
 }
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 145
+y 126
+w 60
+h 20
+
+beginGroup
+
+# (Shell Command)
+object shellCmdClass
+beginObjectProperties
+major 4
+minor 3
+release 0
+x 145
+y 126
+w 60
+h 20
+fgColor index 25
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 13
+font "helvetica-medium-r-14.0"
+buttonLabel "Sync"
+numCmds 1
+command {
+  0 "$\{SYNCTS\}"
+}
+endObjectProperties
+
+endGroup
+
+visPv "CALC\\\{A=0&&B=3\}($(P)$(R)TSS:TsFreeRun.RVAL,$(P)$(R)TSS:TsPolicy.RVAL)"
+visMin "1"
+visMax "2"
 endObjectProperties
 
