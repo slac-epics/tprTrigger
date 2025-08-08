@@ -1129,7 +1129,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 13
 font "helvetica-medium-r-14.0"
-buttonLabel "Sync"
+buttonLabel "SyncTS"
 numCmds 1
 command {
   0 "$\{SYNCTS\}"
