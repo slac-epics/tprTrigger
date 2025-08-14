@@ -23,11 +23,6 @@
 # It also adds a new record, TprUsed with required macro
 #	$(TPE_PV):TprUsed	bo record: 0 = Unused, 1 = Used
 #
-# The other record provides a minimal subset of records that
-# are compatible w/ their equivalent tprTrigger module records
-# to allow edm screens to work properly with or without an TPR
-#	$(TPE_PV):RXLNKSTATUS
-#
 # Usage for devices with an TPR:
 #	Just add this line to your st.cmd file with appropriate definitions for DEV, TPR_PV, and TPR_CH
 #	You can load it before or after your evr db files, and can load one instance per device.
@@ -38,8 +33,8 @@
 # dbLoadRecords( "db/devTprInfo.db", "DEV=$(DEV),TPR_USED=0 )
 #
 # This allows your edm screens to use group visibility to hide or show our traditional
-# green diamond RXLINKSTATUS widget without getting white unconnected widget outlines
-# for the hidden RXLINKSTATUS widget for device screens w/ no TPR
+# green diamond RXLNKSTATUS widget without getting white unconnected widget outlines
+# for the hidden RXLNKSTATUS widget for device screens w/ no TPR
 # Your edm screen should define the TPR macro as $(DEV):NoTpr or you can use your desired TPR_PV value.
 #
 
@@ -73,16 +68,5 @@ record( bo, "$(TPE_PV=$(DEV):NoTpr):TprUsed" )
 	field( ZNAM, "Unused" )
 	field( ONAM, "Used" )
 	field( DOL,  "$(TPR_USED)" )
-}
-
-# Must match RXLNKSTATUS from tprTrigger module tprDiag.db
-record(mbbi, "$(TPE_PV=$(DEV):NoTpr):RXLNKSTATUS" )
-{
-  field(PINI, "YES")
-  field(ZRVL, "0")
-  field(ZRST, "Link Down")
-  field(ZRSV, "MAJOR")
-  field(ONVL, "1")
-  field(ONST, "Link Up")
 }
 
