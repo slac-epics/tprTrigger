@@ -1,0 +1,24 @@
+record(bo, "$(DEV):EVSOFT$(NN)_TCTL")
+{
+    field(DESC, "Soft Event $(NN) Enable/Disable")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) softEvEnable_$(NN)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "Disabled")
+    field(ONAM, "Enabled")
+    field(PINI, "YES")
+    info(autosaveFields, "VAL")
+}
+
+
+record(longout, "$(DEV):EVSOFT$(NN)")
+{
+   field(DESC, "Soft Event $(NN)")
+   field(DTYP, "asynInt32")
+   field(DOL,  "45")
+   field(OUT,  "@asyn($(PORT),0) softEv_$(NN)")
+   field(OMSL, "supervisory")
+   field(PINI, "YES")
+   info(autosaveFields, "VAL")
+}
+

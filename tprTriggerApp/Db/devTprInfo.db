@@ -1,0 +1,72 @@
+#
+# This db file can be loaded into an IOC with or w/o an TPR
+# We recommend adding this to each IOC that supports TPRs so
+# scripts are able to derive the TPR and trigger info from
+# each device's PV prefix.
+#
+# Required macros:
+#	DEV				Device PV prefix
+#	TPR_USED		0 = Unused, 1 = Used
+#
+# Optional macros:
+#	TPR_PV			TPR master PV prefix, defaults to $(DEV):NoTpr
+#	TPE_PV			TPR events PV prefix, defaults to $(DEV):NoTpr
+#	TPR_TR			TPR trigger number, defaults to 0
+#	TPR_CH			TPR channel number, defaults to TPR_TR
+#
+# It adds 4 new PVs for each device
+#	$(DEV):TPR_PV		PV prefix for this device's master TPR PVs
+#	$(DEV):TPE_PV		PV prefix for this device's event  PVs
+#	$(DEV):TPR_CH		TPR Channel number for this device
+#	$(DEV):TPR_TR		TPR Trigger number for this device
+#
+# It also adds a new record, TprUsed with required macro
+#	$(TPE_PV):TprUsed	bo record: 0 = Unused, 1 = Used
+#
+# Usage for devices with an TPR:
+#	Just add this line to your st.cmd file with appropriate definitions for DEV, TPR_PV, and TPR_CH
+#	You can load it before or after your evr db files, and can load one instance per device.
+# dbLoadRecords( "db/devTprInfo.db", "DEV=$(DEV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_USED=1 )
+#
+# If your IOC supports some devices with TPRs and some without, follow the above usage
+# for devices with TPRs.   For devices without TPRs you can just load this. 
+# dbLoadRecords( "db/devTprInfo.db", "DEV=$(DEV),TPR_USED=0 )
+#
+# This allows your edm screens to use group visibility to hide or show our traditional
+# green diamond RXLNKSTATUS widget without getting white unconnected widget outlines
+# for the hidden RXLNKSTATUS widget for device screens w/ no TPR
+# Your edm screen should define the TPR macro as $(DEV):NoTpr or you can use your desired TPR_PV value.
+#
+
+record( stringout, "$(DEV):TPR_PV" )
+{
+	field( PINI, "YES" )
+	field( VAL, "$(TPR_PV=$(DEV):NoTpr)" )
+}
+
+record( stringout, "$(DEV):TPE_PV" )
+{
+	field( PINI, "YES" )
+	field( VAL, "$(TPE_PV=$(DEV):NoTpr)" )
+}
+
+record( longout, "$(DEV):TPR_CH" )
+{
+	field( PINI, "YES" )
+	field( VAL, "$(TPR_CH=$(TPR_TR=0))" )
+}
+
+record( longout, "$(DEV):TPR_TR" )
+{
+	field( PINI, "YES" )
+	field( VAL, "$(TPR_TR=0)" )
+}
+
+record( bo, "$(TPE_PV=$(DEV):NoTpr):TprUsed" )
+{
+	field( PINI, "YES" )
+	field( ZNAM, "Unused" )
+	field( ONAM, "Used" )
+	field( DOL,  "$(TPR_USED)" )
+}
+

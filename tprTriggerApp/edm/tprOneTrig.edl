@@ -1,0 +1,345 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 1504
+y 161
+w 882
+h 248
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-medium-r-12.0"
+btnFont "helvetica-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+textColor index 14
+ctlFgColor1 index 1
+ctlFgColor2 index 14
+ctlBgColor1 index 25
+ctlBgColor2 index 7
+topShadowColor index 1
+botShadowColor index 14
+title "$(TPE_PV) CH$(TPR_CH) TRG$(TPR_TR)"
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 880
+h 40
+lineColor index 56
+fill
+fillColor index 56
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 8
+y 0
+w 272
+h 40
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Shared TPR Receiver"
+  "$(TPE_PV) CH $(TPR_CH) TRG $(TPR_TR) SE $(TPR_SE)"
+}
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 828
+y 8
+w 48
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+label "Exit"
+font "helvetica-medium-r-12.0"
+3d
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 660
+y 8
+w 96
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Seq Codes"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/seqEventCodes.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ECS=ECS:SYS0,EVG=EVNT:SYS0"
+}
+replaceSymbols {
+  0 1
+}
+icon
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 552
+y 8
+w 100
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "LCLS Codes"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/lclsEventCodes.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "EVG=EVNT:SYS0,TPR_PV=$(TPR_PV)"
+}
+replaceSymbols {
+  0 1
+}
+propagateMacros {
+  0 0
+}
+icon
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 304
+y 0
+w 84
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Timing Mode"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 480
+y 8
+w 64
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Full TPR"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/tprFull.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 4
+release 0
+x 764
+y 8
+w 56
+h 24
+fgColor index 14
+bgColor index 4
+topShadowColor index 1
+botShadowColor index 11
+font "helvetica-medium-r-12.0"
+buttonLabel "Diag"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "tprTriggerScreens/tprMain_final.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "DEVICE=TPE_PV"
+}
+icon
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 304
+y 16
+w 84
+h 20
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):MODE"
+onLabel "LCLS2"
+offLabel "LCLS1"
+labelType "literal"
+3d
+font "helvetica-bold-r-12.0"
+objType "controls"
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 4
+y 44
+w 872
+h 200
+fgColor index 14
+bgColor index 0
+topShadowColor index 1
+botShadowColor index 14
+displaySource "menu"
+filePv "CALC\\\{(A=1&&B=1)?1:0\}($(TPR_PV):MODE.RVAL,$(TPR_PV):XPM_MODE.RVAL)"
+numDsps 2
+displayFileName {
+  0 "tprTriggerScreens/emb-lcls1-OneTrig.edl"
+  1 "tprTriggerScreens/emb-lcls2-OneTrig.edl"
+}
+menuLabel {
+  0 "Embedded LCLS1"
+  1 "Embedded LCLS2"
+}
+noScroll
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 392
+y 0
+w 84
+h 36
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 392
+y 0
+w 84
+h 16
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "XPM Mode"
+}
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 392
+y 16
+w 84
+h 20
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):XPM_MODE"
+onLabel "LCLS2"
+offLabel "LCLS1"
+labelType "literal"
+3d
+font "helvetica-bold-r-12.0"
+objType "controls"
+endObjectProperties
+
+endGroup
+
+visPv "$(TPR_PV):MODE"
+visMin "1"
+visMax "2"
+endObjectProperties
+

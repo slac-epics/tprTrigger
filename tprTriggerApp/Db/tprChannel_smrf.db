@@ -1,4 +1,4 @@
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS0_TCTL")
+record(bo, "$(DEV):CH$(NN)_SYS0_TCTL")
 {
     field(DESC, "LCLS1 Channel $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -10,7 +10,7 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS0_TCTL")
     info(autosaveFields, "VAL")
 }
 
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS2_TCTL")
+record(bo, "$(DEV):CH$(NN)_SYS2_TCTL")
 {
     field(DESC, "LCLS2Channel $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -22,7 +22,7 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SYS2_TCTL")
     info(autosaveFields, "VAL")
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATEMODE")
+record(mbbo, "$(DEV):CH$(NN)_RATEMODE")
 {
     field(DESC, "Channel $(NN) Rate Mode Selector")
     field(DTYP, "asynInt32")
@@ -31,15 +31,17 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATEMODE")
     field(ZRVL, "0")
     field(ONVL, "1")
     field(TWVL, "2")
+    field(THVL, "3")
     field(ZRST, "Fixed")
     field(ONST, "AC")
     field(TWST, "Seq")
+    field(THST, "Group")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
     
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_FIXEDRATE")
+record(mbbo, "$(DEV):CH$(NN)_FIXEDRATE")
 {
     field(DESC, "Channel $(NN) Fixed Rate Selector")
     field(DTYP, "asynInt32")
@@ -69,7 +71,7 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_FIXEDRATE")
     info(autosaveFields, "VAL")
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_ACRATE")
+record(mbbo, "$(DEV):CH$(NN)_ACRATE")
 {
     field(DESC, "Channel $(NN) AC Rate Selector")
     field(DTYP, "asynInt32")
@@ -91,7 +93,7 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_ACRATE")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TSMASK")
+record(longout, "$(DEV):CH$(NN)_TSMASK")
 {
     field(DESC, "Channel $(NN) Timeslot Mask")
     field(DTYP, "asynInt32")
@@ -101,28 +103,29 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_TSMASK")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQNUM")
+record(longout, "$(DEV):CH$(NN)_SEQCODE")
 {
-    field(DESC, "Channel $(NN) Sequence Num")
+    field(DESC, "Channel $(NN) Sequence Code")
     field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),0) chnSeqNum_C$(NN)")
+    field(OUT,  "@asyn($(PORT),0) chnSeqCode_C$(NN)")
     field(OMSL, "supervisory")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_SEQBIT")
+record(longout, "$(DEV):CH$(NN)_GROUP")
 {
-    field(DESC, "Channel $(NN) Sequence Bit")
+    field(DESC, "Channel $(NN) RO Group Bit")
     field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),0) chnSeqBit_C$(NN)")
+    field(OUT,  "@asyn($(PORT),0) chnGroup_C$(NN)")
     field(OMSL, "supervisory")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMODE")
+alias("$(DEV):CH$(NN)_GROUP", "$(DEV):CH$(NN)_PARTITION")
+
+record(mbbo, "$(DEV):CH$(NN)_DESTMODE")
 {
     field(DESC, "Channel $(NN) Destination Mode Selector")
     field(DTYP, "asynInt32")
@@ -138,7 +141,7 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMODE")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMASK")
+record(longout, "$(DEV):CH$(NN)_DESTMASK")
 {
     field(DESC, "Channel $(NN) Destination Mask")
     field(DTYP, "asynInt32")
@@ -148,7 +151,7 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_DESTMASK")
     info(autosaveFields, "VAL")
 }
 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVCODE")
+record(longout, "$(DEV):CH$(NN)_EVCODE")
 {
     field(DESC, "Channel $(NN) LCLS1 Event Code")
     field(DTYP, "asynInt32")
@@ -158,7 +161,7 @@ record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_EVCODE")
     info(autosaveFields, "VAL")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CNT")
+record(longin, "$(DEV):CH$(NN)_CNT")
 {
     field(DESC, "Channel $(NN) Counter")
     field(DTYP, "asynInt32")
@@ -166,7 +169,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_CNT")
     field(SCAN, "I/O Intr")
 }
 
-record(ai, "TPR:$(LOCA):$(IOC_UNIT):$(INST):CH$(NN)_RATE")
+record(ai, "$(DEV):CH$(NN)_RATE")
 {
     field(DESC, "Channel $(NN) event rates")
     field(DTYP, "asynFloat64")

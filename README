@@ -71,32 +71,32 @@ How to run the ioc with tprTrigger
 
 1. how to load database template for tprTrigger.
 
-Macros for tprTrig.db
-
-PORT      - port name for asyn port driver, tprTrigger moudle has port name "trig".
+LCLS required macros
 LOCA      - location (ex, LI24, IN20) 
 IOC_UNIT  - IOC name (ex, RF01, RF02)
 INST      - instance number for mutiple TPR in an ioc
 
+Macros for tprTrig.db
+
+PORT      - port name for asyn port driver, tprTrigger moudle has port name "trig".
+DEV       - TPR prefix.  LCLS naming scheme requires TPR:$(LOCA):$(IOC_UNIT):$(INST)
 example)
-dbLoadRecords("db/tprTrig.db", "PORT=trig,LOCA=LI24,IOC_UNIT=RF02,INST=0")
+dbLoadRecords("db/tprTrig.db", "PORT=trig,DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)")
 
 It will make TPR PVs (low level PVs) which have prefix "TPR:LI24:RF02:0:".
 --------------
 
-Macro for tprDeviceNamePVs.db
-The tprDeviceNamePVs.db provides device name PVs (high level PVs)
+Macro for tprDeviceNamePV.db
+The tprDeviceNamePV.db provides device name PVs (high level PVs)
 
-LOCA       -  same with tprTrig.db
-IOC_UNIT   -  smae with tprTrig.db 
-INST       -  same with tprTrig.db
-SYS        -  for LCLS1 shoud be SYS0, for LCLS2 should be SYS2
+DEV        -  TPR prefix.  LCLS naming scheme requires TPR:$(LOCA):$(IOC_UNIT):$(INST)
+PORT       -  Asyn port (ex, trig)
 NN         -  two digit number for trigger channel number (ex, 00, 01, 02 ... 10, 11)
-DEV_PREFIX  - prefix for PV name (ex, KLYS:LI28:21")
+DEV_PREFIX  - prefix for high level device name (ex, KLYS:LI28:21")
 
 example)
-dbLoadRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=00,DEV_PREFIX=KLYS:LI28:21:")
-dbLodsRecords("db/tprDeviceNamePV.db", "LOCA=LI24,IOC_UNIT=RF02,INST=0,SYS=SYS2,NN=01,DEV_PREFIX=KLYS:LI28:22:")
+dbLoadRecords("db/tprDeviceNamePV.db", "PORT=trig,DEV=TPR:LI24:RF02:0,NN=00,DEV_PREFIX=KLYS:LI28:21:")
+dbLoadRecords("db/tprDeviceNamePV.db", "PORT=trig,DEV=TPR:LI24:RF02:0,NN=01,DEV_PREFIX=KLYS:LI28:21:")
 
 Remark)
 The DEV_PREFIX should have ":" at very last charactor.
@@ -105,7 +105,34 @@ But, some of cases, we don't need to put the ":"
 ex) BPMS:LI26:201:CALB
 
 
+How to load devTprInfo.db and/or devEvrInfo.db:
+These files provide PVs that allow edm screens and python programs to support IOCs w/ either EVR or TPR support.
+If you load both, your python or edm can test both $(DEV):TprUsed and $(DEV):EvrUsed to see which one, if any, is used.
+Macros for devTprInfo.db:
+DEV		- This DEV is not the TPR device prefix, but instead the higher level device such as a camera.
+TPR_USED- 0 = Unused, 1 = Used
+TPR_PV	- This is the TPR device prefix
+TPS_PV	- This is the TPR event prefix
+TPR_TR	- TPR trigger number, defaults to 0
+TPR_CH	- TPR channel number, defaults to TPR_TR
 
+example st.cmd lines for TPR, but no EVR)
+# Load both devEvrInfo.db and devTprInfo.db so python programs can test for both sets of PVs
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR_USED=0" )
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE),TPR_USED=1" )
+
+example using syntax for templated IOC build support)
+# Load both devEvrInfo.db and devTprInfo.db so python programs can test for both sets of PVs
+$$IF(EVR_PV)
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR=$(EVR_PV),TRIG_CH=$$IF(EVR_TRIG,$$EVR_TRIG,0),EVR_USED=1" )
+$$ELSE(EVR_PV)
+dbLoadRecords( "db/devEvrInfo.db",  "DEV=$(CAM_PV),EVR_USED=0" )
+$$ENDIF(EVR_PV)
+$$IF(TPR_PV)
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_PV=$(TPR_PV),TPE_PV=$(TPE_PV),TPR_CH=$(TPR_CH),TPR_TR=$(TPR_TR),TPR_SE=$(TPR_SE),TPR_USED=1" )
+$$ELSE(TPR_PV)
+dbLoadRecords( "db/devTprInfo.db",  "DEV=$(CAM_PV),TPR_USED=0" )
+$$ENDIF(TPR_PV)
 
 2. how to initialize the driver
 

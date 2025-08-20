@@ -22,6 +22,7 @@ LIBRARY_IOC = tprTrigger
 
 tprTrigger_DBD  += tprTriggerAsynDriver.dbd
 tprTrigger_SRCS += tprTriggerAsynDriver.cpp
+tprTrigger_SRCS += pcieTpr.cpp
 
 yaml-cpp_DIR += $(YAML_LIB)
 tprTrigger_LIBS += yaml-cpp

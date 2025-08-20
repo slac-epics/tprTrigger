@@ -18,24 +18,28 @@
 
 #include <ellLib.h>
 
+#include <tprTriggerYaml.hh>
+#define  MAX_SOFT_EV     12
 
 class tprTriggerAsynDriver:asynPortDriver {
     public:
         tprTriggerAsynDriver(const char *portName, const char *corePath, const char *named_root = NULL);
         Tpr::TprTriggerYaml* getApiDrv(void) { return pApiDrv; }
+        char * getDevPrefix(void) { return dev_prefix; };
         void CreateParameters(void);
         void Monitor(void);
         void SetDebug(int debug);
+        void SetupVirtualChannels(void);
         
         asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
         asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
         
     private:
-
         int valid_chns = NUM_CHANNELS;
         int valid_trgs = NUM_TRIGGERS;
 
-        enum { _atca, _pcie } busType;
+        enum { _atca, _pcie, _pcie_master, _pcie_slave } busType;
+        char *dev_prefix;
 
         Tpr::TprTriggerYaml *pApiDrv;
         
@@ -43,13 +47,16 @@ class tprTriggerAsynDriver:asynPortDriver {
         
         epicsFloat64 application_clock_1;
         epicsFloat64 application_clock_2;
+
+        void pcieConfig(void);
         
         void SetClock1(epicsFloat64 clock_mhz);
         void SetClock2(epicsFloat64 clock_mhz);
         
-        void SetMode(epicsInt32 mode);
+        void SetMode(epicsInt32 mode, epicsInt32 xpm_mode);
         void SetMsgDelay(epicsFloat64 msg_delay);
         void SetMasterDelay(epicsFloat64 master_delay);
+        void SetXPMDelay(epicsFloat64 xpm_delay);
 
         void SetLCLS1ChannelEnable(int channel, epicsInt32 enable);
         void SetLCLS2ChannelEnable(int channel, epicsInt32 enable);
@@ -58,6 +65,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         void SetACRate(int channel, epicsInt32 ac_rate);
         void SetTSMask(int channel, epicsInt32 ts_mask);
         void SetSeqBit(int channel, epicsInt32 seq_bit);
+        void SetGroup(int channel, epicsInt32 group);
         void SetDestMode(int channel, epicsInt32 dest_mode);
         void SetDestMask(int channel, epicsInt32 dest_mask);
         void SetEventCode(int channel, epicsInt32 event_code);
@@ -109,13 +117,17 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_rx_dec_err_counter;  /* asynInt32, ro */
         int p_rx_dsp_err_counter;  /* asynInt32, ro */
         int p_rx_clock_counter;    /* asynInt32, ro */
+        int p_tx_clock_counter;    /* asynInt32, ro */
         int p_rx_link_status;      /* asynInt32, ro */
         int p_version_error;       /* asynInt32, ro */
         int p_frame_version;       /* asynInt32, ro */
         
         int p_mode;               /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_mode;           /* asynInt32, rw, 0: LCLS1, 1: LCLS2 */
+        int p_xpm_status;         /* asynInt32, ro, 0: LCLS1, 1: LCLS2 */
         int p_msg_delay;          /* asynFloat64, rw */  // LCLS2 100 pulses delay and fine adjust 
         int p_master_delay;       /* asynFloat64, rw */  // LCLS1 master delay adjust
+        int p_xpm_delay;          /* asynFloat64, rw */  // LCLS1 XPM delay adjust
 
         int p_msg_delay_ticks;    /* asynInt32, ro */ // readback value in ticks for the message delay
         
@@ -129,8 +141,8 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_fixed_rate;     /* asynInt32, rw, 0: to 6: */
             int p_ac_rate;        /* asynInt32, rw, 0: to 5: */
             int p_ts_mask;        /* asynInt32, rw, 6bits mask */
-            int p_seq_num;        /* asynInt32, rw, sequencer number */
-            int p_seq_bit;        /* asynInt32, rw */
+            int p_seq_code;       /* asynInt32, rw, sequencer number */
+            int p_group;          /* asynInt32, rw, 0: to 8: */
             int p_dest_mode;      /* asynInt32, rw, 0: Inclusive, 1: Exclusive, 2: Don't care, 3: Reserved */
             int p_dest_mask;      /* asynInt32, rw */
             
@@ -138,6 +150,9 @@ class tprTriggerAsynDriver:asynPortDriver {
             
             int p_counter;        /* asynInt32, ro */
             int p_rate;           /* asynFloat64, rw */
+
+            int p_ev_enable;         /* asynInt32, rw */
+            int _ev;                /* not asyn parameter, string channel event number */
             
         } p_channel_st[NUM_CHANNELS];
         
@@ -168,10 +183,14 @@ class tprTriggerAsynDriver:asynPortDriver {
             int p_prop_tpol;        /* asynInt32, ro */
             int p_prop_enable[2];   /* asynInt32, ro */
             int p_prop_polarity;    /* asynInt32, ro */
-
-
             
         } p_trigger_st[NUM_TRIGGERS];
+
+
+        struct {
+           int p_ev_enable;
+           int p_ev;
+        } p_soft_event_st[MAX_SOFT_EV];
 
         int p_ued_special;        /* asynInt32 */
         
@@ -196,15 +215,19 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define rxDecErrCounterString      "rxDecErrCounter"
 #define rxDspErrCounterString      "rxDspErrCounter"
 #define rxClockCounterString       "rxClockCounter"
+#define txClockCounterString       "txClockCounter"
 #define rxLinkStatusString         "rxLinkStatus"
 #define versionErrorString         "versionError"
 #define frameVersionString         "frameVersion"
 
 #define modeString                 "mode"
+#define xpmModeString              "XPMmode"
+#define xpmStatusString            "XPMstatus"
 
 #define msgDelayString             "msgDelay"
 #define msgDelayRBString           "msgDelayRB"
 #define masterDelayString          "masterDelay"
+#define xpmDelayString             "XPMDelay"
 #define appClock1String            "applicationClock1"
 #define appClock2String            "applicationClock2"
 
@@ -213,8 +236,8 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define chnFixedRateString         "chnFixedRate_C%s"
 #define chnACRateString            "chnACRate_C%s"
 #define chnTSMaskString            "chnTSMask_C%s"
-#define chnSeqNumString            "chnSeqNum_C%s"
-#define chnSeqBitString            "chnSeqBit_C%s"
+#define chnSeqCodeString           "chnSeqCode_C%s"
+#define chnGroupString             "chnGroup_C%s"
 #define chnDestModeString          "chnDestMode_C%s"
 #define chnDestMaskString          "chnDestMask_C%s"
 #define chnEventCodeString         "chnEventCode_C%s"
@@ -252,6 +275,12 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define uedSpecialString           "ued_special"
 
 
+#define chEvEnableString            "chEvEnable_C%s"
+
+#define softEvEnableString          "softEvEnable_%s"
+#define softEvString                "softEv_%s"
+
+
 
 typedef struct {
     ELLNODE     node;
@@ -260,6 +289,7 @@ typedef struct {
     char        *named_root;
     Tpr::TprTriggerYaml  *pApiDrv;
     tprTriggerAsynDriver *pAsynDrv;
+    char        *dev_prefix;      /* device name prefix for PCIe TPR */
 } tprTriggerDrvList_t;
 
 

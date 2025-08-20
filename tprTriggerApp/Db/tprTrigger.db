@@ -1,4 +1,4 @@
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL")
+record(bo, "$(DEV):TRG$(NN)_SYS0_TCTL")
 {
     field(DESC, "LCLS1 Trigger $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -10,7 +10,7 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TCTL")
     info(autosaveFields, "VAL")
 }
 
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL")
+record(bo, "$(DEV):TRG$(NN)_SYS2_TCTL")
 {
     field(DESC, "LCLS2 Trigger $(NN) Enable/Disable")
     field(DTYP, "asynInt32")
@@ -23,7 +23,7 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TCTL")
 }
 
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE")
+record(mbbo, "$(DEV):TRG$(NN)_SOURCE")
 {
     field(DESC, "Trigger $(NN) Source")
     field(DTYP, "asynInt32")
@@ -45,37 +45,37 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SOURCE")
     field(TTVL, "13")
     field(FTVL, "14")
     field(FFVL, "15")
-    field(ZRST, "Channel 00")
-    field(ONST, "Channel 01")
-    field(TWST, "Channel 02")
-    field(THST, "Channel 03")
-    field(FRST, "Channel 04")
-    field(FVST, "Channel 05")
-    field(SXST, "Channel 06")
-    field(SVST, "Channel 07")
-    field(EIST, "Channel 08")
-    field(NIST, "Channel 09")
-    field(TEST, "Channel 10")
-    field(ELST, "Channel 11")
-    field(TVST, "Channel 12")
-    field(TTST, "Channel 13")
-    field(FTST, "Channel 14")
-    field(FFST, "Channel 15")
+    field(ZRST, "CH 00")
+    field(ONST, "CH 01")
+    field(TWST, "CH 02")
+    field(THST, "CH 03")
+    field(FRST, "CH 04")
+    field(FVST, "CH 05")
+    field(SXST, "CH 06")
+    field(SVST, "CH 07")
+    field(EIST, "CH 08")
+    field(NIST, "CH 09")
+    field(TEST, "CH 10")
+    field(ELST, "CH 11")
+    field(TVST, "CH 12")
+    field(TTST, "CH 13")
+    field(FTST, "CH 14")
+    field(FFST, "CH 15")
     field(VAL, "$(V)")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-record(stringout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_$(PAIR)")
+record(stringout, "$(DEV):TRG$(NN)_$(PAIR)")
 {
     field(DESC, "TRG$(NN) paired with $(PAIR)")
     field(DTYP, "Soft Channel")
     field(VAL, "$(PAIR)")
 }
 
-record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL")
+record(bo, "$(DEV):TRG$(NN)_TPOL")
 {
-    field(DESC, "Trigger $(NN) Polarity")
+    field(DESC, "User editable trigger description")
     field(DTYP, "asynInt32")
     field(OUT,  "@asyn($(PORT),0) trgPolarity_T$(NN)")
     field(DOL,  "1")
@@ -83,10 +83,10 @@ record(bo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TPOL")
     field(ZNAM, "Falling Edge")
     field(ONAM, "Rising Edge")
     field(PINI, "YES")
-    info(autosaveFields, "VAL")
+    info(autosaveFields, "DESC VAL")
 }
 
-record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TCMPL")
+record(mbbo, "$(DEV):TRG$(NN)_TCMPL")
 {
     field(DESC, "Trigger $(NN) Complementary")
     field(DTYP, "asynInt32")
@@ -95,14 +95,14 @@ record(mbbo, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TCMPL")
     field(ZRVL, "0")
     field(ONVL, "1")
     field(TWVL, "2")
-    field(ZRST, "Disable")
+    field(ZRST, "NOOP")
     field(ONST, "OR")
     field(TWST, "AND")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TWID")
+record(ao, "$(DEV):TRG$(NN)_SYS0_TWID")
 {
     field(DESC, "Trigger $(NN) Width for LCLS1")
     field(DTYP, "asynFloat64")
@@ -111,22 +111,29 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TWID")
     field(EGU,  "nsec")
     field(PREC, "0")
     field(PINI, "YES")
-    info(autosaveFields, "VAL")
+    field(DOL,  "2e-5")
+    field(LOLO, "0")
+    field(LOW,  "1e-5")
+    field(LLSV, "MAJOR")
+    field(LSV,  "MINOR")
+    info(autosaveFields, "LOW LOLO LLSV LSV VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS0_TDES")
+record(ao, "$(DEV):TRG$(NN)_SYS0_TDES")
 {
     field(DESC, "Trigger $(NN) Delay for LCLS1")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),0) trgDelay_T$(NN)LCLS1")
     field(OMSL, "supervisory")
+    field(DRVL, "0.0")
+    field(DRVH, "1445421686.0")
     field(EGU,  "nsec")
     field(PREC, "2")
     field(PINI, "YES")
     info(autosaveFields, "VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TWID")
+record(ao, "$(DEV):TRG$(NN)_SYS2_TWID")
 {
     field(DESC, "Trigger $(NN) Width for LCLS2")
     field(DTYP, "asynFloat64")
@@ -135,15 +142,22 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TWID")
     field(EGU,  "nsec")
     field(PREC, "0")
     field(PINI, "YES")
-    info(autosaveFields, "VAL")
+    field(DOL,  "2e-5")
+    field(LOLO, "0")
+    field(LOW,  "1e-5")
+    field(LLSV, "MAJOR")
+    field(LSV,  "MINOR")
+    info(autosaveFields, "LOW LOLO LLSV LSV VAL")
 }
 
-record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TDES")
+record(ao, "$(DEV):TRG$(NN)_SYS2_TDES")
 {
     field(DESC, "Trigger $(NN) Delay for LCLS2")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn($(PORT),0) trgDelay_T$(NN)LCLS2")
     field(OMSL, "supervisory")
+    field(DRVL, "0.0")
+    field(DRVH, "1445421686.0")
     field(EGU,  "nsec")
     field(PREC, "2")
     field(PINI, "YES")
@@ -151,7 +165,7 @@ record(ao, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_SYS2_TDES")
 }
 
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TWIDTICKS")
+record(longin, "$(DEV):TRG$(NN)_TWIDTICKS")
 {
     field(DESC, "Trigger Width in Clock Ticks")
     field(DTYP, "asynInt32")
@@ -160,7 +174,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TWIDTICKS")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTICKS")
+record(longin, "$(DEV):TRG$(NN)_TDESTICKS")
 {
     field(DESC, "Trigger Delay in Clock Ticks")
     field(DTYP, "asynInt32")
@@ -169,7 +183,7 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTICKS")
     field(SCAN, "I/O Intr")
 }
 
-record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTAPS")
+record(longin, "$(DEV):TRG$(NN)_TDESTAPS")
 {
     field(DESC, "Trigger Delay in Delay Taps")
     field(DTYP, "asynInt32")
@@ -182,10 +196,13 @@ record(longin, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TRG$(NN)_TDESTAPS")
 # Trigger number is hard-coded in FW per 
 # signal and cannot be changed
 # This PV is informational only 
-record(longout, "TPR:$(LOCA):$(IOC_UNIT):$(INST):TPRTRIG$(NN)") {
-   field(DESC, "Trigger Number Description")
+record(longout, "$(DEV):TRG$(NN)_NUM")
+{
+   field(DESC, "Trigger Number")
    field(DTYP, "Soft Channel")
    field(DOL,  "$(V="")")
+   field(DRVL, "$(V="")")
+   field(DRVH, "$(V="")")
    field(OMSL, "closed_loop")
    field(ASG,  "NO_WRITE")
    field(PINI, "YES")

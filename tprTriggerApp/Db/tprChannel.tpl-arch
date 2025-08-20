@@ -1,0 +1,12 @@
+$(DEV):CH$(NN)_SYS0_TCTL 60 monitor
+$(DEV):CH$(NN)_SYS2_TCTL 60 monitor
+$(DEV):CH$(NN)_RATEMODE 60 monitor
+$(DEV):CH$(NN)_FIXEDRATE 60 monitor
+$(DEV):CH$(NN)_ACRATE 60 monitor
+$(DEV):CH$(NN)_TSMASK 60 monitor
+$(DEV):CH$(NN)_SEQCODE 60 monitor
+$(DEV):CH$(NN)_GROUP 60 monitor
+$(DEV):CH$(NN)_DESTMODE 60 monitor
+$(DEV):CH$(NN)_DESTMASK 60 monitor
+$(DEV):CH$(NN)_EVCODE 60 monitor
+$(DEV):CH$(NN)_RATE 60 monitor

@@ -3,15 +3,15 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1049
-y 256
-w 528
-h 512
+x 1397
+y 471
+w 500
+h 601
 font "helvetica-medium-r-18.0"
 ctlFont "helvetica-medium-r-18.0"
 btnFont "helvetica-medium-r-18.0"
 fgColor index 14
-bgColor index 0
+bgColor index 3
 textColor index 14
 ctlFgColor1 index 14
 ctlFgColor2 index 0
@@ -19,6 +19,10 @@ ctlBgColor1 index 0
 ctlBgColor2 index 14
 topShadowColor index 0
 botShadowColor index 14
+title "tprTriggerScreens/tprMain_final.edl"
+showGrid
+snapToGrid
+gridSize 4
 endScreenProperties
 
 # (Static Text)
@@ -27,18 +31,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 169
-y 27
-w 81
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 32
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "FPGA Version"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -47,18 +50,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 213
-y 43
-w 37
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 58
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Uptime"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -67,18 +69,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 138
-y 61
-w 112
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 84
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Start Frame Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -87,18 +88,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 141
-y 81
-w 109
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 110
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "End Frame Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -107,18 +107,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 157
-y 101
-w 93
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 135
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Fiducial Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -127,18 +126,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 145
-y 119
-w 105
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 161
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "CRC Error Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -147,18 +145,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 149
-y 136
-w 101
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 187
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "RX Clock Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -167,18 +164,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 168
-y 209
-w 82
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 289
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "RX Link Status"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -187,18 +183,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 176
-y 227
-w 74
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 315
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Version Error"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -207,18 +202,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 168
-y 247
-w 82
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 340
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Frame Version"
 }
-autoSize
 endObjectProperties
 
 # (Text Monitor)
@@ -227,19 +221,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 27
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FPGAVER"
+x 260
+y 32
+w 128
+h 20
+controlPv "$(TPR_PV):FPGAVER"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -250,19 +245,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 45
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):UPTIME"
+x 260
+y 58
+w 128
+h 20
+controlPv "$(TPR_PV):UPTIME"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -273,19 +269,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 64
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SOFCNT"
+x 260
+y 84
+w 128
+h 20
+controlPv "$(TPR_PV):SOFCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -296,19 +293,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 82
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):EOFCNT"
+x 260
+y 110
+w 128
+h 20
+controlPv "$(TPR_PV):EOFCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -319,19 +317,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 101
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FIDCNT"
+x 260
+y 135
+w 128
+h 20
+controlPv "$(TPR_PV):FIDCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -342,19 +341,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 118
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):CRCERRCNT"
+x 260
+y 161
+w 128
+h 20
+controlPv "$(TPR_PV):CRCERRCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -365,19 +365,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 136
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXCLKCNT"
+x 260
+y 187
+w 128
+h 20
+controlPv "$(TPR_PV):RXCLKCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -388,19 +389,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 208
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXLNKSTATUS"
+x 260
+y 289
+w 128
+h 20
+controlPv "$(TPR_PV):RXLNKSTATUS"
 format "string"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
 newPos
 objType "monitors"
 endObjectProperties
@@ -411,19 +413,19 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 225
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):VERERR"
+x 260
+y 315
+w 128
+h 20
+controlPv "$(TPR_PV):VERERR"
 format "string"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
 newPos
 objType "monitors"
 endObjectProperties
@@ -434,19 +436,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 258
-y 244
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):FRAMEVER"
+x 260
+y 340
+w 128
+h 20
+controlPv "$(TPR_PV):FRAMEVER"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -457,18 +460,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 103
-y 284
-w 152
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 368
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "LCLS1 master delay (nsec)"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -477,18 +479,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 102
-y 305
-w 152
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 396
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "LCLS2 master delay (nsec)"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -497,18 +498,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 17
-y 326
-w 237
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 424
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
-  "Application Clock Speed (MHz) for LCLS1"
+  "LCLS1 App Clock Speed (MHz)"
 }
-autoSize
 endObjectProperties
 
 # (Text Control)
@@ -518,16 +518,15 @@ major 4
 minor 7
 release 0
 x 260
-y 281
-w 80
-h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):TREF"
+y 368
+w 128
+h 20
+controlPv "$(TPR_PV):TREF"
 format "decimal"
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 5
 editable
-autoHeight
 motifWidget
 limitsFromDb
 precision 0
@@ -544,16 +543,15 @@ major 4
 minor 7
 release 0
 x 260
-y 302
-w 80
-h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MSGDLY"
+y 396
+w 128
+h 20
+controlPv "$(TPR_PV):MSGDLY"
 format "decimal"
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 5
 editable
-autoHeight
 motifWidget
 limitsFromDb
 precision 0
@@ -570,16 +568,15 @@ major 4
 minor 7
 release 0
 x 260
-y 323
-w 80
-h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS0_CLK"
+y 424
+w 128
+h 20
+controlPv "$(TPR_PV):SYS0_CLK"
 format "decimal"
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 5
 editable
-autoHeight
 motifWidget
 limitsFromDb
 precision 0
@@ -595,41 +592,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 126
-y 382
-w 88
-h 28
-font "helvetica-medium-r-12.0"
+x 16
+y 484
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
-  "Mode Selection"
-  "(LCLS1/LCLS2)"
+  "LCLS1/LCLS2 Mode Selection"
 }
-autoSize
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 226
-y 384
-w 104
-h 24
-fgColor index 14
-bgColor index 4
-selectColor index 41
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):MODE"
-font "helvetica-medium-r-12.0"
-orientation "horizontal"
 endObjectProperties
 
 # (Related Display)
@@ -639,34 +612,34 @@ major 4
 minor 4
 release 0
 x 112
-y 481
+y 544
 w 120
 h 20
 fgColor index 14
 bgColor index 4
 topShadowColor index 2
 botShadowColor index 14
-font "helvetica-medium-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "Channel Screens"
 numPvs 4
 numDsps 16
 displayFileName {
-  0 "tprChannel"
-  1 "tprChannel"
-  2 "tprChannel"
-  3 "tprChannel"
-  4 "tprChannel"
-  5 "tprChannel"
-  6 "tprChannel"
-  7 "tprChannel"
-  8 "tprChannel"
-  9 "tprChannel"
-  10 "tprChannel"
-  11 "tprChannel"
-  12 "tprChannel"
-  13 "tprChannel"
-  14 "tprChannel"
-  15 "tprChannel"
+  0 "tprTriggerScreens/tprChannel.edl"
+  1 "tprTriggerScreens/tprChannel.edl"
+  2 "tprTriggerScreens/tprChannel.edl"
+  3 "tprTriggerScreens/tprChannel.edl"
+  4 "tprTriggerScreens/tprChannel.edl"
+  5 "tprTriggerScreens/tprChannel.edl"
+  6 "tprTriggerScreens/tprChannel.edl"
+  7 "tprTriggerScreens/tprChannel.edl"
+  8 "tprTriggerScreens/tprChannel.edl"
+  9 "tprTriggerScreens/tprChannel.edl"
+  10 "tprTriggerScreens/tprChannel.edl"
+  11 "tprTriggerScreens/tprChannel.edl"
+  12 "tprTriggerScreens/tprChannel.edl"
+  13 "tprTriggerScreens/tprChannel.edl"
+  14 "tprTriggerScreens/tprChannel.edl"
+  15 "tprTriggerScreens/tprChannel.edl"
 }
 menuLabel {
   0 "Channel 0"
@@ -715,35 +688,35 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 258
-y 480
-w 120
+x 260
+y 544
+w 128
 h 20
 fgColor index 14
 bgColor index 4
 topShadowColor index 2
 botShadowColor index 14
-font "helvetica-medium-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "Trigger Screens"
 numPvs 4
 numDsps 16
 displayFileName {
-  0 "tprTrigger"
-  1 "tprTrigger"
-  2 "tprTrigger"
-  3 "tprTrigger"
-  4 "tprTrigger"
-  5 "tprTrigger"
-  6 "tprTrigger"
-  7 "tprTrigger"
-  8 "tprTrigger"
-  9 "tprTrigger"
-  10 "tprTrigger"
-  11 "tprTrigger"
-  12 "tprTrigger"
-  13 "tprTrigger"
-  14 "tprTrigger"
-  15 "tprTrigger"
+  0 "tprTriggerScreens/tprTrigger.edl"
+  1 "tprTriggerScreens/tprTrigger.edl"
+  2 "tprTriggerScreens/tprTrigger.edl"
+  3 "tprTriggerScreens/tprTrigger.edl"
+  4 "tprTriggerScreens/tprTrigger.edl"
+  5 "tprTriggerScreens/tprTrigger.edl"
+  6 "tprTriggerScreens/tprTrigger.edl"
+  7 "tprTriggerScreens/tprTrigger.edl"
+  8 "tprTriggerScreens/tprTrigger.edl"
+  9 "tprTriggerScreens/tprTrigger.edl"
+  10 "tprTriggerScreens/tprTrigger.edl"
+  11 "tprTriggerScreens/tprTrigger.edl"
+  12 "tprTriggerScreens/tprTrigger.edl"
+  13 "tprTriggerScreens/tprTrigger.edl"
+  14 "tprTriggerScreens/tprTrigger.edl"
+  15 "tprTriggerScreens/tprTrigger.edl"
 }
 menuLabel {
   0 "Trigger 0"
@@ -792,18 +765,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 18
-y 347
-w 237
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 452
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
-  "Application Clock Speed (MHz) for LCLS2"
+  "LCLS2 App Clock Speed (MHz)"
 }
-autoSize
 endObjectProperties
 
 # (Text Control)
@@ -812,17 +784,16 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 261
-y 344
-w 80
-h 18
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):SYS2_CLK"
+x 260
+y 452
+w 128
+h 20
+controlPv "$(TPR_PV):SYS2_CLK"
 format "decimal"
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 5
 editable
-autoHeight
 motifWidget
 limitsFromDb
 precision 0
@@ -838,42 +809,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 84
-y 419
-w 133
-h 42
-font "helvetica-medium-r-12.0"
+x 16
+y 516
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "UED Special Mode"
-  "(Backward Compatible /"
-  "UED special)"
 }
-autoSize
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 226
-y 423
-w 104
-h 24
-fgColor index 14
-bgColor index 4
-selectColor index 41
-inconsistentColor index 14
-topShadowColor index 2
-botShadowColor index 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):UEDSPECIAL"
-indicatorPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):UEDSPECIAL"
-font "helvetica-medium-r-12.0"
-orientation "horizontal"
 endObjectProperties
 
 # (Static Text)
@@ -882,14 +828,13 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 6
-y 7
+x 4
+y 4
 w 91
 h 21
 font "helvetica-medium-r-18.0"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "$(DEVICE)"
 }
@@ -902,18 +847,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 110
-y 173
-w 141
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 238
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Rx Decode Error Counter"
 }
-autoSize
 endObjectProperties
 
 # (Static Text)
@@ -922,18 +866,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 106
-y 190
-w 146
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 264
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Rx Disparity Error Counter"
 }
-autoSize
 endObjectProperties
 
 # (Text Monitor)
@@ -942,19 +885,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 257
-y 172
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDECERRCNT"
+x 260
+y 238
+w 128
+h 20
+controlPv "$(TPR_PV):RXDECERRCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -965,19 +909,20 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 257
-y 190
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXDSPERRCNT"
+x 260
+y 264
+w 128
+h 20
+controlPv "$(TPR_PV):RXDSPERRCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -988,18 +933,17 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 124
-y 155
-w 124
-h 14
-font "helvetica-medium-r-12.0"
+x 16
+y 212
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
 fgColor index 14
-bgColor index 0
-useDisplayBg
+bgColor index 3
 value {
   "Rx Link Reset Counter"
 }
-autoSize
 endObjectProperties
 
 # (Text Monitor)
@@ -1008,20 +952,71 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 259
-y 154
-w 80
-h 14
-controlPv "TPR:$(LOCA):$(IOC_UNIT):$(INST):RXRSTCNT"
+x 260
+y 212
+w 128
+h 20
+controlPv "$(TPR_PV):RXRSTCNT"
 format "hex"
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 4
-autoHeight
+font "helvetica-bold-r-12.0"
+fgColor index 15
+fgAlarm
+bgColor index 12
 fieldLen "8"
 nullColor index 0
+smartRefresh
+showUnits
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 260
+y 480
+w 128
+h 24
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):MODE"
+onLabel "LCLS2"
+offLabel "LCLS1"
+labelType "literal"
+3d
+font "helvetica-bold-r-14.0"
+objType "controls"
+endObjectProperties
+
+# (Button)
+object activeButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 260
+y 512
+w 128
+h 24
+fgColor index 25
+onColor index 9
+offColor index 5
+inconsistentColor index 40
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):UEDSPECIAL"
+onLabel "UED Mode"
+offLabel "Normal"
+labelType "literal"
+3d
+font "helvetica-bold-r-14.0"
+objType "controls"
 endObjectProperties
 
