@@ -1,11 +1,12 @@
-pre-release:  <date> <author>
-			- Note new DEV TPR prefix in db files.
-			LCLS naming scheme requires DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)
-
-R2.5.3-7.0 2025-07-21 Gabriel Dorlhiac
-           Update implementation for compatibility with timingApi R0.11.
-           Adds support for timingFifoReadFull API which provides access to the full
-           Event timing message (Beam destination, fixed/AC rate bits, etc.)
+R3.0.0      Aug 20, 2025 Bruce Hill (bhill)
+            - Merged in all changes from the R2.5.3-br which PCDS had been using for its releases.
+            - Both AccelDev and PCDS should be able to use this branch.
+            - AD: Note the change from a fixed naming scheme
+              with LOCA, IOC_UNIT, and INST to just DEV in db files.
+              The AccelDev naming scheme requires
+              DEV=TPR:$(LOCA):$(IOC_UNIT):$(INST)
+              which you can do in your st.cmd when you load the records.
+            - For additional changes see the notes below for all the R2.5.3-* releases.
 
 R2.7.1     Jan 24, 2025 Jeremy Lorelli (lorelli)
            - Updated modules: yamlLoader/R2.3.8, hpsTpr/R2.5.2, cpsw/R4.5.2
