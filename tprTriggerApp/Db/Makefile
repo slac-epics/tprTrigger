@@ -11,6 +11,7 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install)
 # databases, templates, substitutions like this
 DB += devTprInfo.db
+DB += pcdsEventCodes.db
 DB += pcie_tprTrig.db
 DB += pcie_tprTrig_ued.db
 DB += pcieSlave_tprTrig.db
