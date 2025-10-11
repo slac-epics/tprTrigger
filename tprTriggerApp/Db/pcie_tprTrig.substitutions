@@ -69,3 +69,9 @@ file "tprSoftEvent.db" {
             {      "10"    }
             {      "11"    }
 }
+
+file "pcdsEventCodes.db" {
+    pattern {    SPACE_HOLDER  }
+            {   "SPACE_HOLDER" }
+}
+
