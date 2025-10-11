@@ -193,6 +193,7 @@ void tprTriggerAsynDriver::CreateParameters(void)
     createParam(rxClockCounterString,  asynParamInt32, &p_rx_clock_counter);
     createParam(txClockCounterString,  asynParamInt32, &p_tx_clock_counter);
     createParam(rxLinkStatusString,    asynParamInt32, &p_rx_link_status);
+    createParam(rxLinkResetString,     asynParamInt32, &p_rx_link_reset);
     createParam(versionErrorString,    asynParamInt32, &p_version_error);
     createParam(frameVersionString,    asynParamInt32, &p_frame_version);
     
@@ -447,6 +448,7 @@ asynStatus tprTriggerAsynDriver::writeInt32(asynUser *pasynUser, epicsInt32 valu
     }
 
     if(function == p_ued_special) SetUedSpecialMode(value);
+    if(function == p_rx_link_reset) SetRxLinkReset(value);
     
     callParamCallbacks();
     
@@ -1189,6 +1191,12 @@ void tprTriggerAsynDriver::SetUedSpecialMode(int mode)
     }
 }
 
+
+void tprTriggerAsynDriver::SetRxLinkReset(int reset)
+{
+  pApiDrv->SetRxReset(reset);
+  setIntegerParam(p_rx_link_reset, (epicsInt32) reset);
+}
 
 
 
