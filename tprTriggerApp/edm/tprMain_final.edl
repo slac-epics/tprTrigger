@@ -612,7 +612,7 @@ major 4
 minor 4
 release 0
 x 112
-y 544
+y 572
 w 120
 h 20
 fgColor index 14
@@ -689,7 +689,7 @@ major 4
 minor 4
 release 0
 x 260
-y 544
+y 572
 w 128
 h 20
 fgColor index 14
@@ -1020,3 +1020,44 @@ font "helvetica-bold-r-14.0"
 objType "controls"
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 16
+y 544
+w 232
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 3
+value {
+  "Reset RX Link"
+}
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 260
+y 542
+w 128
+h 24
+fgColor index 25
+onColor index 9
+offColor index 5
+topShadowColor index 1
+botShadowColor index 13
+controlPv "$(TPR_PV):C_RXRESET.PROC"
+pressValue "1"
+onLabel "Reset"
+offLabel "Reset"
+3d
+font "helvetica-bold-r-14.0"
+endObjectProperties

@@ -93,6 +93,8 @@ class tprTriggerAsynDriver:asynPortDriver {
         void PropagateEnable(int trigger, epicsInt32 tctl);    // propagate from high level to low level
 
         void SetUedSpecialMode(int mode);
+
+        void SetRxLinkReset(int reset);
              
         int _update_flag;
         uint32_t _prev_chn_counter[NUM_CHANNELS];
@@ -119,6 +121,7 @@ class tprTriggerAsynDriver:asynPortDriver {
         int p_rx_clock_counter;    /* asynInt32, ro */
         int p_tx_clock_counter;    /* asynInt32, ro */
         int p_rx_link_status;      /* asynInt32, ro */
+        int p_rx_link_reset;       /* asynInt32, rw */
         int p_version_error;       /* asynInt32, ro */
         int p_frame_version;       /* asynInt32, ro */
         
@@ -217,6 +220,7 @@ class tprTriggerAsynDriver:asynPortDriver {
 #define rxClockCounterString       "rxClockCounter"
 #define txClockCounterString       "txClockCounter"
 #define rxLinkStatusString         "rxLinkStatus"
+#define rxLinkResetString          "rxLinkReset"
 #define versionErrorString         "versionError"
 #define frameVersionString         "frameVersion"
 

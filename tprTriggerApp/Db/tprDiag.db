@@ -252,7 +252,6 @@ record(ao, "$(DEV):SYS2_CLK")
     info(autosaveFields, "VAL")
 }
 
-
 record(bo, "$(DEV):UEDSPECIAL")
 {
     field(DESC, "UED Special Mode")
@@ -265,6 +264,21 @@ record(bo, "$(DEV):UEDSPECIAL")
     info(autosaveFields, "VAL ZSV OSV")
 }
 
+record(bo, "$(DEV):RXRESET")
+{
+    field(DESC, "TimingCore Reset receive link")
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),0) rxLinkReset")
+    field(OMSL, "supervisory")
+}
 
-
-
+record(seq, "$(DEV):C_RXRESET")
+{
+    field(DESC, "Toggle RXRESET")
+    field(DLY0, "0" )
+    field(DOL0, "1" )
+    field(LNK0, "$(DEV):RXRESET PP NMS" )
+    field(DLY1, "1" )
+    field(DOL1, "0" )
+    field(LNK1, "$(DEV):RXRESET PP NMS" )
+}
