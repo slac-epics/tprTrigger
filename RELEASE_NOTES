@@ -1,4 +1,10 @@
 pre-release:  <date> <author>
+R3.1.0      Oct 14, 2025 Bruce Hill (bhill)
+			- Added support for building pcdsEventCodes.db to support LCLS Event Codes screen.
+			- Added link reset support
+			- Fixed names of embedded screens in seqEventCodes.edl
+			- Add ATCA LLRF database template (max 8 channels)
+			- Add PCIe database template for UED
 
 R3.0.0      Aug 20, 2025 Bruce Hill (bhill)
             - Merged in all changes from the R2.5.3-br which PCDS had been using for its releases.
