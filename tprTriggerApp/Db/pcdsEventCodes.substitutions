@@ -1,0 +1,114 @@
+#==============================================================================
+#
+# Abs:  LCLS1 EVG Event Codes: Names, Delays, Count, Rate
+#
+# This file creates the records needed to support each of the
+# following event codes.   Include one instance below for each
+# event code that your EVR will need to support.
+#
+# This list was derived from LCLS group's evrEventAll.db along
+# with event codes needed for the event code sequencer support.
+#
+# Name: pcdsEventCodes.substitutions
+#
+#==============================================================================
+#
+
+#
+# This substitution creates records to support each event code we
+# might want to use.  In addition to providing a count, rate and timestamp
+# for each event code, it also keeps the description for the event code,
+# which is used by the driver to update the event control records
+# when the user updates the event code number assigned to a control.
+# Thus, when the user changes the event code on the event control
+# we can show the user the description for the new event code.
+file tprEventCode.template
+{
+#	 EVR-Name Code  Delay,      Alarm Limits        Description
+	pattern
+	{ DEV,  	ID,  DELY, HIHI,  HIGH,  LOW, LOLO, DESC     		}
+	{ $(DEV),  140, 11900, 120.5, 120.5, -1,   -1,  "Full Rate"    }
+	{ $(DEV),  141, 11901, 60.5,  60.5,  -1,   -1,  "Beam & 60Hz"  }
+	{ $(DEV),  142, 11902, 30.5,  30.5,  -1,   -1,  "Beam & 30Hz"  }
+	{ $(DEV),  143, 11903, 10.5,  10.5,  -1,   -1,  "Beam & 10Hz"  }
+	{ $(DEV),  144, 11904, 5.5,   5.5,   -1,   -1,  "Beam & 5Hz"   }
+	{ $(DEV),  145, 11905, 1.5,   1.5,   -1,   -1,  "Beam & 1Hz"   }
+	{ $(DEV),  146, 11906, 1.0,   1.0,   -1,   -1,  "Beam & 0.5Hz" }
+	{ $(DEV),  147, 11907, 120.5, 120.5, -1,   -1,  "Full N-1"    }
+	{ $(DEV),  148, 11908, 120.5, 120.5, -1,   -1,  "Full N-2"    }
+# LCLS Specialized Event Codes
+	{ $(DEV),  149, 11909, 120.5,  0.5,  -1,   -1,  "TCAV0"        }
+	{ $(DEV),  150, 11910, 120.5, 120.5, -1,   -1,  "Burst"        }
+	{ $(DEV),  151, 11911, 120.5, 120.5, -1,   -1,  "Klys Accel"   }
+	{ $(DEV),  152, 11912, 120.5, 120.5, -1,   -1,  "Klys Standby" }
+	{ $(DEV),  153, 11913, 120.5, 120.5, -1,   -1,  "Klys StdBy No TCAV0" }
+	{ $(DEV),  154, 11914, 10.5, 10.5,   -1,   -1,  "Klys Accel at 10Hz" }
+	{ $(DEV),  155, 11915, 120.5, 120.5, -1,   -1,  "Straight Ahead"     }
+	{ $(DEV),  156, 11916, 120.5,  0.5,  -1,   -1,  "TCAV3"        }
+	{ $(DEV),  157, 11917, 120.5, 120.5, -1,   -1,  "Klys StdBy No TCAV3" }
+	{ $(DEV),  158, 11918, 120.5, 120.5,  -1,  0.5,  "Pockels Cell" }
+	{ $(DEV),  159, 11919, 10.5, 10.5,   -1,   -1,  "Profile Monitors"   }
+	{ $(DEV),  160, 11920, 10.5, 10.5,   -1,   -1,  "TCAV3 OTR"    }
+	{ $(DEV),  161, 11921, 120.5, 120.5,  -1,   -1,  "LI25 Kicker (BXKIK)" }
+	{ $(DEV),  162, 11890, 120.5, 120.5,  -1,   -1,  "LTU  Kicker (BYKIK)" }
+	{ $(DEV),  163, 11922, 120.5, 120.5,  -1,   -1,  "A-line  Kicker" }
+	{ $(DEV),  164, 11923, 120.5, 120.5,  -1,   -1,  "Test Burst" }
+	{ $(DEV),  165, 11924, 120.5, 120.5,  -1,   -1,  "Spare" }
+# Beam-Independent Time Slot Triggers
+#   Fiducial moved to evrFiducial.db
+#	{ $(DEV),    1,     0, 360.5, 360.5, 359.5, 359.5, "Fiducial"    }
+#   360Hz
+	{ $(DEV),    9, 12950, 360.5, 360.5, 359.5, 359.5, "360Hz"       }
+#   Modulo36 base event code
+	{ $(DEV),  201, 13000, 10.5, 10.5,  9.5,  9.5, "Modulo 36"    }
+#   120Hz
+	{ $(DEV),  10, 13001,  120.5, 120.5, 119.5, 119.5, "TS1 120Hz"    }
+	{ $(DEV),  20, 13002,  120.5, 120.5, 119.5, 119.5, "TS2 120Hz"    }
+	{ $(DEV),  30, 13003,  120.5, 120.5, 119.5, 119.5, "TS3 120Hz"    }
+	{ $(DEV),  40, 13004,  120.5, 120.5, 119.5, 119.5, "TS4 120Hz"    }
+	{ $(DEV),  50, 13005,  120.5, 120.5, 119.5, 119.5, "TS5 120Hz"    }
+	{ $(DEV),  60, 13006,  120.5, 120.5, 119.5, 119.5, "TS6 120Hz"    }
+#    60Hz
+	{ $(DEV),  11, 13011,  60.5, 60.5, 59.5, 59.5, "TS1 60Hz"     }
+	{ $(DEV),  21, 13012,  60.5, 60.5, 59.5, 59.5, "TS2 60Hz"     }
+	{ $(DEV),  31, 13013,  60.5, 60.5, 59.5, 59.5, "TS3 60Hz"     }
+	{ $(DEV),  41, 13014,  60.5, 60.5, 59.5, 59.5, "TS4 60Hz"     }
+	{ $(DEV),  51, 13015,  60.5, 60.5, 59.5, 59.5, "TS5 60Hz"     }
+	{ $(DEV),  61, 13016,  60.5, 60.5, 59.5, 59.5, "TS6 60Hz"     }
+#    30Hz
+	{ $(DEV),  12, 13021,  30.5, 30.5, 29.5, 29.5, "TS1 30Hz"     }
+	{ $(DEV),  22, 13022,  30.5, 30.5, 29.5, 29.5, "TS2 30Hz"     }
+	{ $(DEV),  32, 13023,  30.5, 30.5, 29.5, 29.5, "TS3 30Hz"     }
+	{ $(DEV),  42, 13024,  30.5, 30.5, 29.5, 29.5, "TS4 30Hz"     }
+	{ $(DEV),  52, 13025,  30.5, 30.5, 29.5, 29.5, "TS5 30Hz"     }
+	{ $(DEV),  62, 13026,  30.5, 30.5, 29.5, 29.5, "TS6 30Hz"     }
+#    10Hz
+	{ $(DEV),  13, 13031,  10.5, 10.5,  9.5,  9.5, "TS1 10Hz"     }
+	{ $(DEV),  23, 13032,  10.5, 10.5,  9.5,  9.5, "TS2 10Hz"     }
+	{ $(DEV),  33, 13033,  10.5, 10.5,  9.5,  9.5, "TS3 10Hz"     }
+	{ $(DEV),  43, 13034,  10.5, 10.5,  9.5,  9.5, "TS4 10Hz"     }
+	{ $(DEV),  53, 13035,  10.5, 10.5,  9.5,  9.5, "TS5 10Hz"     }
+	{ $(DEV),  63, 13036,  10.5, 10.5,  9.5,  9.5, "TS6 10Hz"     }
+#     5Hz
+	{ $(DEV),  14, 13041,  5.5,  5.5,  4.5,  4.5, "TS1 5Hz"      }
+	{ $(DEV),  24, 13042,  5.5,  5.5,  4.5,  4.5, "TS2 5Hz"      }
+	{ $(DEV),  34, 13043,  5.5,  5.5,  4.5,  4.5, "TS3 5Hz"      }
+	{ $(DEV),  44, 13044,  5.5,  5.5,  4.5,  4.5, "TS4 5Hz"      }
+	{ $(DEV),  54, 13045,  5.5,  5.5,  4.5,  4.5, "TS5 5Hz"      }
+	{ $(DEV),  64, 13046,  5.5,  5.5,  4.5,  4.5, "TS6 5Hz"      }
+#     1Hz
+	{ $(DEV),  15, 13051,  1.5,  1.5,  0.5,  0.5, "TS1 1Hz"      }
+	{ $(DEV),  25, 13052,  1.5,  1.5,  0.5,  0.5, "TS2 1Hz"      }
+	{ $(DEV),  35, 13053,  1.5,  1.5,  0.5,  0.5, "TS3 1Hz"      }
+	{ $(DEV),  45, 13054,  1.5,  1.5,  0.5,  0.5, "TS4 1Hz"      }
+	{ $(DEV),  55, 13055,  1.5,  1.5,  0.5,  0.5, "TS5 1Hz"      }
+	{ $(DEV),  65, 13056,  1.5,  1.5,  0.5,  0.5, "TS6 1Hz"      }
+#   0.5Hz
+	{ $(DEV),  16, 13061,  1.0,  1.0,  0.0,  0.0, "TS1 0.5Hz"    }
+	{ $(DEV),  26, 13062,  1.0,  1.0,  0.0,  0.0, "TS2 0.5Hz"    }
+	{ $(DEV),  36, 13063,  1.0,  1.0,  0.0,  0.0, "TS3 0.5Hz"    }
+	{ $(DEV),  46, 13064,  1.0,  1.0,  0.0,  0.0, "TS4 0.5Hz"    }
+	{ $(DEV),  56, 13065,  1.0,  1.0,  0.0,  0.0, "TS5 0.5Hz"    }
+	{ $(DEV),  66, 13066,  1.0,  1.0,  0.0,  0.0, "TS6 0.5Hz"    }
+}
+

@@ -1,0 +1,9 @@
+#
+# Each TPR will need one instance of this template for
+# each LCLS1 event code it will support.
+record( longout, "$(DEV):EventCode:$(ID)" )
+{
+	field( DESC,  "$(DESC)" )
+	field( PINI,  "YES" )
+}
+
